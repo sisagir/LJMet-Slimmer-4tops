@@ -13,8 +13,8 @@ Year = 2017 # or 2018
 finalStateYear = 'singleLep'+str(Year)
 inputDir='/eos/uscms/store/user/lpcljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # or 2018
 #inputDir='/isilon/hadoop/store/group/bruxljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # or 2018
-outputDir='/eos/uscms/store/user/ssagir/FWLJMET102X_1lep'+str(Year)+'_Oct2019_4t_041220_step1/nominal/' # or 2018
-condorDir='/uscms_data/d3/ssagir/FWLJMET102X_1lep'+str(Year)+'_Oct2019_4t_041220_step1/' # or 2018
+outputDir='/eos/uscms/store/user/fsimpson/FWLJMET102X_1lep'+str(Year)+'_X53_040820_step1/nominal/'#'/eos/uscms/store/user/ssagir/FWLJMET102X_1lep'+str(Year)+'_Oct2019_4t_041220_step1/nominal/' # or 2018
+condorDir='/uscms_data/d3/fsimpson/FWLJMET102X_1lep'+str(Year)+'_040820_step1/' #'/uscms_data/d3/ssagir/FWLJMET102X_1lep'+str(Year)+'_Oct2019_4t_041220_step1/' # or 2018
 shifts = ['JECup','JECdown','JERup','JERdown']
 inputLoc='lpc'
 if inputDir.startswith('/isilon/hadoop/'): inputLoc='brux'
@@ -30,6 +30,19 @@ print 'Starting submission'
 count=0
 
 dirList17 = [
+'X53X53_M-900_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1000_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1100_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1100_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1200_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1200_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1300_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1400_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1400_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1500_RH_TuneCP2_13TeV-madgraph-pythia8',
+'X53X53_M-1600_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1700_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1700_LH_TuneCP5_13TeV-madgraph-pythia8',
 'DYJetsToLL_M-50_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8',
 'DYJetsToLL_M-50_HT-200to400_TuneCP5_13TeV-madgraphMLM-pythia8',
 'DYJetsToLL_M-50_HT-2500toInf_TuneCP5_13TeV-madgraphMLM-pythia8',
@@ -99,6 +112,20 @@ dirList17 = [
 ]
 
 dirList18lpc = [
+'X53X53_M-900_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1000_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1100_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1100_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1200_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1200_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1300_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1400_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1400_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1500_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1500_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1600_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1700_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1700_LH_TuneCP5_13TeV-madgraph-pythia8',
 'DYJetsToLL_M-50_HT-1200to2500_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8',
 'DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8',
 'DYJetsToLL_M-50_HT-2500toInf_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8',
@@ -136,8 +163,8 @@ dirList18lpc = [
 'TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8',
 'TTZToLLNuNu_M-10_TuneCP5_13TeV-amcatnlo-pythia8',
 'TTZToLL_M-1to10_TuneCP5_13TeV-amcatnlo-pythia8',
-# 'TT_Mtt-1000toInf_TuneCP5_13TeV-powheg-pythia8',
-# 'TT_Mtt-700to1000_TuneCP5_PSweights_13TeV-powheg-pythia8',
+#'TT_Mtt-1000toInf_TuneCP5_13TeV-powheg-pythia8',
+#'TT_Mtt-700to1000_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8',
 'WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8',
 'WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8',

@@ -2008,11 +2008,12 @@ void step1::Loop(TString inTreeName, TString outTreeName )
           	else if(isTTV) sample_hot = "ttVjets";
           	else if(isTTHnonbb) sample_hot = "ttHToNonbb";
           	else if(isTTHbb) sample_hot = "ttHTobb";
+                else if(isXX) sample_hot = "x53x53";
 
-          	hardcodedConditions.GetHOTtaggingEff(topPt_HOTTaggerCalc->at(itop), &TopTagEff1p, Year, sample_hot, isGenMatched, "1pfake");
-          	hardcodedConditions.GetHOTtaggingEff(topPt_HOTTaggerCalc->at(itop), &TopTagEff2p, Year, sample_hot, isGenMatched, "2pfake");
-          	hardcodedConditions.GetHOTtaggingEff(topPt_HOTTaggerCalc->at(itop), &TopTagEff5p, Year, sample_hot, isGenMatched, "5pfake");
-          	hardcodedConditions.GetHOTtaggingEff(topPt_HOTTaggerCalc->at(itop), &TopTagEff10p,Year, sample_hot, isGenMatched, "10pfake");
+          	hardcodedConditions.GetHOTtaggingEff(topPt_HOTTaggerCalc->at(itop), &TopTagEff1p, Year, sample_hot, isGenMatched, "1pfake", SigMass);
+          	hardcodedConditions.GetHOTtaggingEff(topPt_HOTTaggerCalc->at(itop), &TopTagEff2p, Year, sample_hot, isGenMatched, "2pfake", SigMass);
+          	hardcodedConditions.GetHOTtaggingEff(topPt_HOTTaggerCalc->at(itop), &TopTagEff5p, Year, sample_hot, isGenMatched, "5pfake", SigMass);
+          	hardcodedConditions.GetHOTtaggingEff(topPt_HOTTaggerCalc->at(itop), &TopTagEff10p,Year, sample_hot, isGenMatched, "10pfake", SigMass);
           	bool isTtagged1p = topDiscriminator_HOTTaggerCalc->at(itop) > 0.95;
           	bool isTtagged2p = topDiscriminator_HOTTaggerCalc->at(itop) > 0.92;
           	bool isTtagged5p = topDiscriminator_HOTTaggerCalc->at(itop) > 0.85;
