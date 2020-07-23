@@ -1450,7 +1450,16 @@ void step1::Loop(TString inTreeName, TString outTreeName )
       // ----------------------------------------------------------------------------
       // Skip events that fail # of btag requirement
       // ----------------------------------------------------------------------------  
-      if(NJetsCSVwithSF_MultiLepCalc<nbjetsCut && NJetsCSVwithSF_MultiLepCalc_bSFup<nbjetsCut && NJetsCSVwithSF_MultiLepCalc_bSFdn<nbjetsCut && NJetsCSVwithSF_MultiLepCalc_lSFup<nbjetsCut && NJetsCSVwithSF_MultiLepCalc_lSFdn<nbjetsCut) continue;
+      if(NJetsCSVwithSF_MultiLepCalc<nbjetsCut && 
+      	 NJetsCSVwithSF_MultiLepCalc_bSFup<nbjetsCut && 
+      	 NJetsCSVwithSF_MultiLepCalc_bSFdn<nbjetsCut && 
+      	 NJetsCSVwithSF_MultiLepCalc_lSFup<nbjetsCut && 
+      	 NJetsCSVwithSF_MultiLepCalc_lSFdn<nbjetsCut && 
+      	 NJetsCSVwithSF_JetSubCalc<nbjetsCut && 
+      	 NJetsCSVwithSF_JetSubCalc_bSFup<nbjetsCut && 
+      	 NJetsCSVwithSF_JetSubCalc_bSFdn<nbjetsCut && 
+      	 NJetsCSVwithSF_JetSubCalc_lSFup<nbjetsCut && 
+      	 NJetsCSVwithSF_JetSubCalc_lSFdn<nbjetsCut) continue;
 
       // ----------------------------------------------------------------------------
       // 13TeV Top pT reweighting -- TTbarMassCalc top vectors are the wrong tops....

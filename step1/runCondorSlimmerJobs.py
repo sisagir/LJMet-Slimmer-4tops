@@ -9,13 +9,14 @@ start_time = time.time()
 
 #IO directories must be full paths
 
-Year = 2017 # or 2018
+Year = 2018 # or 2018
 finalStateYear = 'singleLep'+str(Year)
 inputDir='/eos/uscms/store/user/lpcljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # or 2018
 #inputDir='/isilon/hadoop/store/group/bruxljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # or 2018
 outputDir='/eos/uscms/store/user/fsimpson/FWLJMET102X_1lep'+str(Year)+'_X53_040820_step1/nominal/'#'/eos/uscms/store/user/ssagir/FWLJMET102X_1lep'+str(Year)+'_Oct2019_4t_041220_step1/nominal/' # or 2018
 condorDir='/uscms_data/d3/fsimpson/FWLJMET102X_1lep'+str(Year)+'_040820_step1/' #'/uscms_data/d3/ssagir/FWLJMET102X_1lep'+str(Year)+'_Oct2019_4t_041220_step1/' # or 2018
 shifts = ['JECup','JECdown','JERup','JERdown']
+nFilesPerJob=30
 inputLoc='lpc'
 if inputDir.startswith('/isilon/hadoop/'): inputLoc='brux'
 
@@ -257,7 +258,6 @@ for sample in dirList:
                 basefilename = '_'.join(basefilename)
                 print "Running path:",pathsuffix,"\tBase filenames:",basefilename
 
-                nFilesPerJob=30
                 for i in range(0,len(rootfiles),nFilesPerJob):
                     count+=1
                     tmpcount += 1
@@ -286,6 +286,11 @@ for sample in dirList:
                             idlist += (rootfiles[j].split('.')[0]).split('_')[-1]+' '
                         
                     idlist = idlist.strip()
+                    #remove the problematic 2018 fwljmet jobs
+                    if Year==2018 and sample=='ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8':
+                    	problematicIDs = ['1048','1177','1217','1412','1413','1414','1415','1416','1417','1418','1419','1429','1441','1664','1883']
+                    	for id_ in problematicIDs:
+                    		idlist = idlist.replace(id_,'').replace('  ',' ')
                     print "Running IDs",idlist
                 
                     dict={'RUNDIR':runDir, 'SAMPLE':sample, 'INPATHSUFFIX':pathsuffix, 'INPUTDIR':inDir, 'FILENAME':basefilename, 'OUTFILENAME':outsample, 'OUTPUTDIR':outDir, 'LIST':idlist, 'ID':tmpcount, 'YEAR':Year}
