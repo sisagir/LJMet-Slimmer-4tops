@@ -670,6 +670,8 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
    TLorentzVector tjet1_lv;
    TLorentzVector lepton_lv;
    TLorentzVector ak8_lv;
+   TLorentzVector jet_hem;
+   TLorentzVector correctedMET_p4_temp;
 
    // Muon tracking efficiencies, https://twiki.cern.ch/twiki/bin/viewauth/CMS/MuonWorkInProgressAndPagResults#Results_on_the_full_2016_data, Feb 16 release for full data
    float tracksf[15] = {0.991237,0.994853,0.996413,0.997157,0.997512,0.99756,0.996745,0.996996,0.99772,0.998604,0.998321,0.997682,0.995252,0.994919,0.987334};
@@ -945,8 +947,37 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
       btagCSVWeight_HFdn = 1.0;
       btagCSVWeight_LFup = 1.0;
       btagCSVWeight_LFdn = 1.0;
+      double correctedMET_px = corr_met_MultiLepCalc*cos(corr_met_phi_MultiLepCalc);
+      double correctedMET_py = corr_met_MultiLepCalc*sin(corr_met_phi_MultiLepCalc);
 
       for(unsigned int ijet=0; ijet < theJetPt_JetSubCalc->size(); ijet++){
+	// ----------------------------------------------------------------------------
+	// HEM15/16 correction: https://hypernews.cern.ch/HyperNews/CMS/get/JetMET/2000/1.html
+	// ----------------------------------------------------------------------------
+	jet_lv.SetPtEtaPhiE(theJetPt_JetSubCalc->at(ijet), theJetEta_JetSubCalc->at(ijet), theJetPhi_JetSubCalc->at(ijet), theJetEnergy_JetSubCalc->at(ijet));
+	jet_hem = jet_lv;
+	if(-2.5<theJetEta_JetSubCalc->at(ijet) && theJetEta_JetSubCalc->at(ijet)<-1.3 && -1.57<theJetPhi_JetSubCalc->at(ijet) && theJetPhi_JetSubCalc->at(ijet)<-.87)
+	  {
+	    jet_hem=jet_lv*0.8;
+	    correctedMET_px += (jet_lv-jet_hem).Px();
+	    correctedMET_py += (jet_lv-jet_hem).Py();
+	    theJetPt_JetSubCalc->at(ijet) = jet_hem.Pt();
+	    theJetEta_JetSubCalc->at(ijet) = jet_hem.Eta();
+	    theJetPhi_JetSubCalc->at(ijet) = jet_hem.Phi();
+	    theJetEnergy_JetSubCalc->at(ijet) = jet_hem.Energy();
+	  }
+
+	else if(-3<theJetEta_JetSubCalc->at(ijet) && theJetEta_JetSubCalc->at(ijet)<-2.5 && -1.57<theJetPhi_JetSubCalc->at(ijet) && theJetPhi_JetSubCalc->at(ijet)<-.87)
+	  {
+	    jet_hem=jet_lv*0.65;
+	    correctedMET_px += (jet_lv-jet_hem).Px();
+	    correctedMET_py += (jet_lv-jet_hem).Py();
+	    theJetPt_JetSubCalc->at(ijet) = jet_hem.Pt();
+	    theJetEta_JetSubCalc->at(ijet) = jet_hem.Eta();
+	    theJetPhi_JetSubCalc->at(ijet) = jet_hem.Phi();
+	    theJetEnergy_JetSubCalc->at(ijet) = jet_hem.Energy();
+	  }
+
 	// ----------------------------------------------------------------------------
 	// Basic cuts
 	// ----------------------------------------------------------------------------
@@ -1054,6 +1085,13 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
 	NJets_JetSubCalc+=1;
 	AK4HT+=theJetPt_JetSubCalc->at(ijet);
       }
+
+      // Correct MET for PEM15/16 issue
+      correctedMET_p4_temp.SetPxPyPzE(correctedMET_px, correctedMET_py, 0, sqrt(correctedMET_px*correctedMET_px+correctedMET_py*correctedMET_py));
+      corr_met_MultiLepCalc = correctedMET_p4_temp.Pt();
+      corr_met_phi_MultiLepCalc = correctedMET_p4_temp.Phi();
+
+      MT_lepMet = sqrt(2*leppt*corr_met_MultiLepCalc*(1 - cos(lepphi - corr_met_phi_MultiLepCalc)));
 
 	//cout << " csv wgt " << btagCSVWeight << endl; // debug -wz
 
