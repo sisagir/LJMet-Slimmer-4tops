@@ -933,8 +933,6 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
 	    lepton_lv.SetPtEtaPhiM(elPt_MultiLepCalc->at(0),elEta_MultiLepCalc->at(0),elPhi_MultiLepCalc->at(0),lepM);
       }      
 
-      MT_lepMet = sqrt(2*leppt*corr_met_MultiLepCalc*(1 - cos(lepphi - corr_met_phi_MultiLepCalc)));
-
       // ----------------------------------------------------------------------------
       // Loop over AK4 jets for calculations and pt ordering pair
       // ----------------------------------------------------------------------------
