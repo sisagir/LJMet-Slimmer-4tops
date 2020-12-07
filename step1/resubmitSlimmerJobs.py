@@ -2,7 +2,7 @@
 
 import os,sys,pickle
 
-inputDir = '/uscms_data/d3/ssagir/FWLJMET102X_1lep2018_Oct2019_4t_042520_step1/'
+inputDir = '/uscms_data/d3/ssagir/FWLJMET102X_1lep2018_Oct2019_4t_redJECs_120420_step1/'
 resubmit_err = False
 resubmit_out = False
 resubmit_fail = False
@@ -10,7 +10,7 @@ resubmit_running = False  # Make sure you know what you are doing with this opti
 resubmit = False
 
 samplesDone = []
-if os.path.exists(os.getcwd()+'/samplesDone.p'): pickle.load(open('samplesDone.p','rb'))
+if os.path.exists(os.getcwd()+'/samplesDone.p'): samplesDone = pickle.load(open('samplesDone.p','rb'))
 N_totjobs = 0
 N_running = 0
 N_err  = 0
