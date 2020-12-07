@@ -673,6 +673,24 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
    TLorentzVector tjet1_lv;
    TLorentzVector lepton_lv;
    TLorentzVector ak8_lv;
+   TLorentzVector jet_jec;
+   TLorentzVector correctedMET_p4_temp;
+
+   // Reduced JEC systematic uncertainties
+   bool isSystUp = false;
+   if ( isMC && !(Syst=="nominal" || Syst=="JECup" || Syst=="JECdown" || Syst=="JERup" || Syst=="JERdown") ) {
+   	std::string JEC_txtfile("RegroupedV2_Fall17_17Nov2017_V32_MC_UncertaintySources_AK4PFchs.txt");
+   	if (Year == 2018) JEC_txtfile = "RegroupedV2_Autumn18_V19_MC_UncertaintySources_AK4PFchs.txt";
+   	else if (Year == 2016) JEC_txtfile = "RegroupedV2_Summer16_07Aug2017_V11_MC_UncertaintySources_AK4PFchs.txt";
+   	std::cout << "Using JEC files JEC_txtfile    : " << JEC_txtfile << std::endl;
+   	std::string SystBlock;
+   	if (Syst.EndsWith("up")) {isSystUp = true;SystBlock = (std::string)Syst.ReplaceAll("JEC_","").ReplaceAll("up","");}
+   	else if (Syst.EndsWith("down")) {isSystUp = false;SystBlock = (std::string)Syst.ReplaceAll("JEC_","").ReplaceAll("down","");}
+   	std::cout << "          using systematic block    : [" << SystBlock << "] for ";
+   	if (isSystUp) std::cout << " up variation" << std::endl;
+   	else std::cout << " down variation" << std::endl;
+   	jecUnc = std::shared_ptr<JetCorrectionUncertainty>(new JetCorrectionUncertainty( *(new JetCorrectorParameters(JEC_txtfile, SystBlock)) ) );
+   	}
 
    // Muon tracking efficiencies, https://twiki.cern.ch/twiki/bin/viewauth/CMS/MuonWorkInProgressAndPagResults#Results_on_the_full_2016_data, Feb 16 release for full data
    float tracksf[15] = {0.991237,0.994853,0.996413,0.997157,0.997512,0.99756,0.996745,0.996996,0.99772,0.998604,0.998321,0.997682,0.995252,0.994919,0.987334};
@@ -934,8 +952,6 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
 	    lepton_lv.SetPtEtaPhiM(elPt_MultiLepCalc->at(0),elEta_MultiLepCalc->at(0),elPhi_MultiLepCalc->at(0),lepM);
       }      
 
-      MT_lepMet = sqrt(2*leppt*corr_met_MultiLepCalc*(1 - cos(lepphi - corr_met_phi_MultiLepCalc)));
-
       // ----------------------------------------------------------------------------
       // Loop over AK4 jets for calculations and pt ordering pair
       // ----------------------------------------------------------------------------
@@ -948,8 +964,58 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
       btagCSVWeight_HFdn = 1.0;
       btagCSVWeight_LFup = 1.0;
       btagCSVWeight_LFdn = 1.0;
-
+      double correctedMET_px = corr_met_MultiLepCalc*cos(corr_met_phi_MultiLepCalc);
+      double correctedMET_py = corr_met_MultiLepCalc*sin(corr_met_phi_MultiLepCalc);
+      
       for(unsigned int ijet=0; ijet < theJetPt_JetSubCalc->size(); ijet++){
+	// ----------------------------------------------------------------------------
+	// Reduced JEC systematic uncertainties
+	// ----------------------------------------------------------------------------
+	if ( isMC && !(Syst=="nominal" || Syst=="JECup" || Syst=="JECdown" || Syst=="JERup" || Syst=="JERdown") ) {
+		jet_lv.SetPtEtaPhiE(theJetPt_JetSubCalc->at(ijet), theJetEta_JetSubCalc->at(ijet), theJetPhi_JetSubCalc->at(ijet), theJetEnergy_JetSubCalc->at(ijet));
+		jet_jec = jet_lv;
+		jecUnc->setJetEta(theJetEta_JetSubCalc->at(ijet));
+		jecUnc->setJetPt(theJetPt_JetSubCalc->at(ijet));
+		float unc = 1.0;
+		if ( isSystUp ) {
+			try{
+				unc = jecUnc->getUncertainty(true);
+			}
+			catch(...){ // catch all exceptions. Jet Uncertainty tool throws when binning out of range
+				std::cout << "WARNING! Exception thrown by JetCorrectionUncertainty!" << std::endl;
+				std::cout << "WARNING! Possibly, trying to correct a jet/MET outside correction range." << std::endl;
+				std::cout << "WARNING! Jet/MET will remain uncorrected." << std::endl;
+				unc = 0.0;
+			}
+			unc = 1 + unc;
+		}
+		else {
+			try{
+				unc = jecUnc->getUncertainty(false);
+			}
+			catch(...){
+				std::cout << "WARNING! Exception thrown by JetCorrectionUncertainty!" << std::endl;
+				std::cout << "WARNING! Possibly, trying to correct a jet/MET outside correction range." << std::endl;
+				std::cout << "WARNING! Jet/MET will remain uncorrected." << std::endl;
+				unc = 0.0;
+			}
+			unc = 1 - unc;
+		}
+	
+		if (theJetPt_JetSubCalc->at(ijet) < 10.0 && isSystUp) unc = 2.0;
+		if (theJetPt_JetSubCalc->at(ijet) < 10.0 && !isSystUp) unc = 0.01;
+	
+		if (jentry % 1000 ==0) std::cout << Syst << " syst unc = " << unc << " (pt=" << theJetPt_JetSubCalc->at(ijet) << ", eta=" << theJetEta_JetSubCalc->at(ijet) << ")" << std::endl;
+
+		jet_jec=jet_lv*unc;
+		correctedMET_px += (jet_lv-jet_jec).Px();
+		correctedMET_py += (jet_lv-jet_jec).Py();
+		theJetPt_JetSubCalc->at(ijet) = jet_jec.Pt();
+		theJetEta_JetSubCalc->at(ijet) = jet_jec.Eta();
+		theJetPhi_JetSubCalc->at(ijet) = jet_jec.Phi();
+		theJetEnergy_JetSubCalc->at(ijet) = jet_jec.Energy();
+		}
+
 	// ----------------------------------------------------------------------------
 	// Basic cuts
 	// ----------------------------------------------------------------------------
@@ -1057,6 +1123,15 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
 	NJets_JetSubCalc+=1;
 	AK4HT+=theJetPt_JetSubCalc->at(ijet);
       }
+
+      // Correct MET for JEC
+      if ( isMC && !(Syst=="nominal" || Syst=="JECup" || Syst=="JECdown" || Syst=="JERup" || Syst=="JERdown") ) {
+		  correctedMET_p4_temp.SetPxPyPzE(correctedMET_px, correctedMET_py, 0, sqrt(correctedMET_px*correctedMET_px+correctedMET_py*correctedMET_py));
+		  corr_met_MultiLepCalc = correctedMET_p4_temp.Pt();
+		  corr_met_phi_MultiLepCalc = correctedMET_p4_temp.Phi();
+		  }
+
+      MT_lepMet = sqrt(2*leppt*corr_met_MultiLepCalc*(1 - cos(lepphi - corr_met_phi_MultiLepCalc)));
 
 	//cout << " csv wgt " << btagCSVWeight << endl; // debug -wz
 

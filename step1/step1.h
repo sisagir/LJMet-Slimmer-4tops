@@ -15,10 +15,12 @@
 #include "TH1.h"
 
 // Header file for the classes stored in the TTree if any.
-#include "vector"
 #include "TLorentzVector.h"
 #include "HardcodedConditions.h"
 #include "BTagCalibForLJMet.h"
+#include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
+#include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
+#include <vector>
 
 enum shift:char;
 
@@ -30,6 +32,7 @@ public :
    TFile          *inputFile, *outputFile;
    Int_t           fCurrent; //!current Tree number in a TChain
 
+   std::shared_ptr<JetCorrectionUncertainty> jecUnc;
    Bool_t          isSig=false;
    Bool_t          isTTTT=false;
    Bool_t          isTpTp=false;
@@ -65,6 +68,7 @@ public :
    Bool_t          outTTLF=false;
    Int_t           SigMass=-1;
    Int_t           Year=2017;
+   TString         Syst="nominal";
    TString         Era="";
    TString         sample_="";
    std::string     sample="";
@@ -1258,7 +1262,7 @@ public :
    TBranch        *b_vsSelTriggersHad_MultiLepCalc;   //!
    TBranch        *b_vsSelTriggersMu_MultiLepCalc;   //!
  
-   step1(TString inputFileName, TString outputFileName, Int_t Year_);
+   step1(TString inputFileName, TString outputFileName, Int_t Year_, TString Syst_);
    virtual ~step1();
    virtual Int_t    Cut(Long64_t entry);
    virtual Int_t    GetEntry(Long64_t entry);
@@ -1274,12 +1278,13 @@ public :
 #endif
 
 #ifdef step1_cxx
-step1::step1(TString inputFileName, TString outputFileName, Int_t Year_) : inputTree(0), inputFile(0), outputFile(0) 
+step1::step1(TString inputFileName, TString outputFileName, Int_t Year_, TString Syst_) : inputTree(0), inputFile(0), outputFile(0) 
 {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
 
   Year = Year_;
+  Syst = Syst_;
   isSig  = (inputFileName.Contains("TTTT_Tune") || inputFileName.Contains("prime") || inputFileName.Contains("X53") || inputFileName.Contains("ChargedHiggs_Hplus"));
   if(isSig){
     if(inputFileName.Contains("Tprime")) isTpTp = true;

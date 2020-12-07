@@ -9,22 +9,25 @@ start_time = time.time()
 
 #IO directories must be full paths
 
-Year = 2016 # or 2018
+Year = 2018 # or 2018
 finalStateYear = 'singleLep'+str(Year)
-#inputDir='/eos/uscms/store/user/lpcljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # or 2018
-inputDir='/isilon/hadoop/store/group/bruxljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # or 2018
-outputDir='/eos/uscms/store/user/npervan/FWLJMET102X_1lep'+str(Year)+'_Oct2019_4t_080420_step1/nominal/' # or 2018
-condorDir='/uscms_data/d3/npervan/TTTT/CMSSW_10_2_16_UL/src/LJMet-Slimmer-4tops/step1/FWLJMET102X_1lep'+str(Year)+'_Oct2019_4t_080420_step1/' # or 2018
+inputDir='/eos/uscms/store/user/lpcljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # or 2018
+#inputDir='/isilon/hadoop/store/group/bruxljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # or 2018
+outputDir='/eos/uscms/store/user/ssagir/FWLJMET102X_1lep'+str(Year)+'_Oct2019_4t_redJECs_120420_step1/nominal/' # or 2018
+condorDir='/uscms_data/d3/ssagir/FWLJMET102X_1lep'+str(Year)+'_Oct2019_4t_redJECs_120420_step1/' # or 2018
 shifts = [] #['JECup','JECdown','JERup','JERdown']
 nFilesPerJob=30 #1
 inputLoc='lpc'
 if inputDir.startswith('/isilon/hadoop/'): inputLoc='brux'
 
 csvFilename='DeepCSV_94XSF_V5_B_F.csv'
+jecTXTfile='RegroupedV2_Fall17_17Nov2017_V32_MC_UncertaintySources_AK4PFchs.txt'
 if Year==2018: 
     csvFilename='DeepCSV_102XSF_V2.csv'
+    jecTXTfile='RegroupedV2_Autumn18_V19_MC_UncertaintySources_AK4PFchs.txt'
 if Year==2016: 
     csvFilename='DeepCSV_2016LegacySF_V1.csv'
+    jecTXTfile='RegroupedV2_Summer16_07Aug2017_V11_MC_UncertaintySources_AK4PFchs.txt'
 runDir=os.getcwd()
 inDir=inputDir[10:]
 if inputLoc=='brux': inDir=inputDir
@@ -64,23 +67,23 @@ dirList17 = [
 'TTTW_TuneCP5_13TeV-madgraph-pythia8',
 'TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8',
 # 'TTTo2L2Nu_TuneCP5_erdON_13TeV-powheg-pythia8',
-'TTTo2L2Nu_TuneCP5down_PSweights_13TeV-powheg-pythia8',
-'TTTo2L2Nu_TuneCP5up_PSweights_13TeV-powheg-pythia8',
-'TTTo2L2Nu_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8',
-'TTTo2L2Nu_hdampUP_TuneCP5_PSweights_13TeV-powheg-pythia8',
+# 'TTTo2L2Nu_TuneCP5down_PSweights_13TeV-powheg-pythia8',
+# 'TTTo2L2Nu_TuneCP5up_PSweights_13TeV-powheg-pythia8',
+# 'TTTo2L2Nu_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8',
+# 'TTTo2L2Nu_hdampUP_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8',
 # 'TTToHadronic_TuneCP5_erdON_13TeV-powheg-pythia8',
-'TTToHadronic_TuneCP5down_PSweights_13TeV-powheg-pythia8',
-'TTToHadronic_TuneCP5up_PSweights_13TeV-powheg-pythia8',
-'TTToHadronic_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8',
-'TTToHadronic_hdampUP_TuneCP5_PSweights_13TeV-powheg-pythia8',
+# 'TTToHadronic_TuneCP5down_PSweights_13TeV-powheg-pythia8',
+# 'TTToHadronic_TuneCP5up_PSweights_13TeV-powheg-pythia8',
+# 'TTToHadronic_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8',
+# 'TTToHadronic_hdampUP_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'TTToSemiLepton_HT500Njet9_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8',
 # 'TTToSemiLeptonic_TuneCP5_erdON_13TeV-powheg-pythia8',
-'TTToSemiLeptonic_TuneCP5down_PSweights_13TeV-powheg-pythia8',
-'TTToSemiLeptonic_TuneCP5up_PSweights_13TeV-powheg-pythia8',
-'TTToSemiLeptonic_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8',
-'TTToSemiLeptonic_hdampUP_TuneCP5_PSweights_13TeV-powheg-pythia8',
+# 'TTToSemiLeptonic_TuneCP5down_PSweights_13TeV-powheg-pythia8',
+# 'TTToSemiLeptonic_TuneCP5up_PSweights_13TeV-powheg-pythia8',
+# 'TTToSemiLeptonic_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8',
+# 'TTToSemiLeptonic_hdampUP_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'TTWH_TuneCP5_13TeV-madgraph-pythia8',
 'TTWJetsToLNu_TuneCP5_PSweights_13TeV-amcatnloFXFX-madspin-pythia8',
 'TTWW_TuneCP5_13TeV-madgraph-pythia8',
@@ -128,17 +131,17 @@ dirList18lpc = [
 'SingleMuon',
 'TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8',
 # 'TTTo2L2Nu_TuneCP5_erdON_13TeV-powheg-pythia8',
-'TTTo2L2Nu_TuneCP5down_13TeV-powheg-pythia8',
-'TTTo2L2Nu_hdampDOWN_TuneCP5_13TeV-powheg-pythia8',
-'TTTo2L2Nu_hdampUP_TuneCP5_13TeV-powheg-pythia8',
+# 'TTTo2L2Nu_TuneCP5down_13TeV-powheg-pythia8',
+# 'TTTo2L2Nu_hdampDOWN_TuneCP5_13TeV-powheg-pythia8',
+# 'TTTo2L2Nu_hdampUP_TuneCP5_13TeV-powheg-pythia8',
 'TTToHadronic_TuneCP5_13TeV-powheg-pythia8',
 # 'TTToHadronic_TuneCP5_erdON_13TeV-powheg-pythia8',
-'TTToHadronic_hdampDOWN_TuneCP5_13TeV-powheg-pythia8',
-'TTToHadronic_hdampUP_TuneCP5_13TeV-powheg-pythia8',
+# 'TTToHadronic_hdampDOWN_TuneCP5_13TeV-powheg-pythia8',
+# 'TTToHadronic_hdampUP_TuneCP5_13TeV-powheg-pythia8',
 'TTToSemiLepton_HT500Njet9_TuneCP5_13TeV-powheg-pythia8',
 'TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8',
 # 'TTToSemiLeptonic_TuneCP5_erdON_13TeV-powheg-pythia8',
-'TTToSemiLeptonic_TuneCP5up_13TeV-powheg-pythia8',
+# 'TTToSemiLeptonic_TuneCP5up_13TeV-powheg-pythia8',
 'TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8',
 'TTZToLLNuNu_M-10_TuneCP5_13TeV-amcatnlo-pythia8',
 'TTZToLL_M-1to10_TuneCP5_13TeV-amcatnlo-pythia8',
@@ -161,12 +164,12 @@ dirList18brux = [
 'TTTJ_TuneCP5_13TeV-madgraph-pythia8',
 'TTTT_TuneCP5_13TeV-amcatnlo-pythia8',
 'TTTW_TuneCP5_13TeV-madgraph-pythia8',
-'TTTo2L2Nu_TuneCP5up_13TeV-powheg-pythia8',
-'TTToHadronic_TuneCP5down_13TeV-powheg-pythia8',
-'TTToHadronic_TuneCP5up_13TeV-powheg-pythia8',
-'TTToSemiLeptonic_TuneCP5down_13TeV-powheg-pythia8',
-'TTToSemiLeptonic_hdampDOWN_TuneCP5_13TeV-powheg-pythia8',
-'TTToSemiLeptonic_hdampUP_TuneCP5_13TeV-powheg-pythia8',
+# 'TTTo2L2Nu_TuneCP5up_13TeV-powheg-pythia8',
+# 'TTToHadronic_TuneCP5down_13TeV-powheg-pythia8',
+# 'TTToHadronic_TuneCP5up_13TeV-powheg-pythia8',
+# 'TTToSemiLeptonic_TuneCP5down_13TeV-powheg-pythia8',
+# 'TTToSemiLeptonic_hdampDOWN_TuneCP5_13TeV-powheg-pythia8',
+# 'TTToSemiLeptonic_hdampUP_TuneCP5_13TeV-powheg-pythia8',
 'TTWH_TuneCP5_13TeV-madgraph-pythia8',
 'TTWW_TuneCP5_13TeV-madgraph-pythia8',
 'TTWZ_TuneCP5_13TeV-madgraph-pythia8',
@@ -324,7 +327,7 @@ for sample in dirList:
                     		idlist = idlist.replace(id_,'').replace('  ',' ')
                     print "Running IDs",idlist
                 
-                    dict={'RUNDIR':runDir, 'SAMPLE':sample, 'INPATHSUFFIX':pathsuffix, 'INPUTDIR':inDir, 'FILENAME':basefilename, 'OUTFILENAME':outsample, 'OUTPUTDIR':outDir, 'LIST':idlist, 'ID':tmpcount, 'YEAR':Year, 'CSVFILE':csvFilename}
+                    dict={'RUNDIR':runDir, 'SAMPLE':sample, 'INPATHSUFFIX':pathsuffix, 'INPUTDIR':inDir, 'FILENAME':basefilename, 'OUTFILENAME':outsample, 'OUTPUTDIR':outDir, 'LIST':idlist, 'ID':tmpcount, 'YEAR':Year, 'CSVFILE':csvFilename, 'JECFILE':jecTXTfile}
                     jdfName=condorDir+'/%(OUTFILENAME)s/%(OUTFILENAME)s_%(ID)s.job'%dict
                     print jdfName
                     jdf=open(jdfName,'w')
@@ -334,7 +337,7 @@ universe = vanilla
 Executable = %(RUNDIR)s/makeStep1.sh
 Should_Transfer_Files = YES
 WhenToTransferOutput = ON_EXIT
-Transfer_Input_Files = %(RUNDIR)s/compileStep1.C, %(RUNDIR)s/makeStep1.C, %(RUNDIR)s/step1.cc, %(RUNDIR)s/step1.h, %(RUNDIR)s/HardcodedConditions.cc, %(RUNDIR)s/HardcodedConditions.h, %(RUNDIR)s/BTagCalibForLJMet.cpp, %(RUNDIR)s/BTagCalibForLJMet.h, %(RUNDIR)s/%(CSVFILE)s
+Transfer_Input_Files = %(RUNDIR)s/compileStep1.C, %(RUNDIR)s/makeStep1.C, %(RUNDIR)s/step1.cc, %(RUNDIR)s/step1.h, %(RUNDIR)s/HardcodedConditions.cc, %(RUNDIR)s/HardcodedConditions.h, %(RUNDIR)s/BTagCalibForLJMet.cpp, %(RUNDIR)s/BTagCalibForLJMet.h, %(RUNDIR)s/%(CSVFILE)s, %(RUNDIR)s/%(JECFILE)s
 Output = %(OUTFILENAME)s_%(ID)s.out
 Error = %(OUTFILENAME)s_%(ID)s.err
 Log = %(OUTFILENAME)s_%(ID)s.log

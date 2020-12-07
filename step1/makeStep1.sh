@@ -57,7 +57,8 @@ ls -l *.root
 
 NOM="nominal"
 echo "xrdcp output for condor"
-for SHIFT in nominal JECup JECdown JERup JERdown
+#for SHIFT in nominal JECup JECdown JERup JERdown
+for SHIFT in nominal JECup JECdown JERup JERdown JEC_Totalup JEC_Totaldown JEC_FlavorQCDup JEC_RelativeBalup JEC_RelativeSample_${Year}up JEC_Absoluteup JEC_Absolute_${Year}up JEC_HFup JEC_HF_${Year}up JEC_EC2up JEC_EC2_${Year}up JEC_BBEC1up JEC_BBEC1_${Year}up JEC_FlavorQCDdown JEC_RelativeBaldown JEC_RelativeSample_${Year}down JEC_Absolutedown JEC_Absolute_${Year}down JEC_HFdown JEC_HF_${Year}down JEC_EC2down JEC_EC2_${Year}down JEC_BBEC1down JEC_BBEC1_${Year}down
   do
   haddFile=${outfilename}_${ID}${SHIFT}_hadd.root
   hadd ${haddFile} *${SHIFT}.root
