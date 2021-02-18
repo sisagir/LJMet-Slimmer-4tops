@@ -58,14 +58,19 @@ void makeStep1(TString macroDir, string filelist, Int_t Year){
     myfile.close();
 
     std::string btagcsvfile("DeepCSV_94XSF_V5_B_F.csv");
+    std::string btagDeepJetfile("DeepFlavour_94XSF_V4_B_F.csv");
     if (Year== 2018) {
-      btagcsvfile = "DeepCSV_102XSF_V2.csv"; 
+      btagcsvfile = "DeepCSV_102XSF_V2.csv";
+      btagDeepJetfile = "DeepJet_102XSF_V2.csv";
     }
-    if (Year== 2016) {
+    if (Year == 2016) {
       btagcsvfile = "DeepCSV_2016LegacySF_V1.csv";
+      btagDeepJetfile = "DeepJet_2016LegacySF_V1.csv";
     }
     cout << "CSV reshaping file " << btagcsvfile << endl;
     auto calib = new const BTagCalibrationForLJMet("DeepCSV", btagcsvfile); 
+    auto calib_DeepJet = new const BTagCalibrationForLJMet("DeepFlavour", btagDeepJetfile);
+
     for (auto f : Files)
     {
       TString inputFile(f.first);
@@ -73,7 +78,7 @@ void makeStep1(TString macroDir, string filelist, Int_t Year){
       if ( inputFile.Contains("Run2017") || inputFile.Contains("Run2018") || inputFile.Contains("Single") || inputFile.Contains("Double") || inputFile.Contains("MuonEG") || inputFile.Contains("EGamma") || inputFile.Contains("JetHT") )
       { 
         step1 t(inputFile,outputFile.ReplaceAll(".root","nominal.root"),Year);
-        t.Loop("ljmet", "ljmet",calib); 
+        t.Loop("ljmet", "ljmet", calib, calib_DeepJet); 
       }
       else
       {
@@ -88,7 +93,7 @@ void makeStep1(TString macroDir, string filelist, Int_t Year){
           }
           step1 t(inputFile,outputFile.ReplaceAll(".root",shifts[i].Append(".root")),Year); //"shifts[i]" is now changed to "shifts[i].root"
           t.saveHistograms();
-          t.Loop(tName, "ljmet",calib);
+          t.Loop(tName, "ljmet", calib, calib_DeepJet);
           outputFile.ReplaceAll(shifts[i],".root"); //Change outputFile back to its original name.
         }
       }
