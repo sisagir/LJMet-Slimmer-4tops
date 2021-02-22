@@ -1196,7 +1196,8 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
         if (csvWgt_lfstats2Dn != 0) btagCSVWeight_lfstats2Dn *= csvWgt_lfstats2Dn;
 
 	// DeepJet reshaping 
-	
+
+        double deepjet = theJetDeepFlavB_JetSubCalc->at(ijet);	
         float DeepJetWgt(1.0), DeepJetWgt_hfup(1.0), DeepJetWgt_hfdn(1.0), DeepJetWgt_lfup(1.0), DeepJetWgt_lfdn(1.0),
               DeepJetWgt_jesUp(1.0), DeepJetWgt_jesDn(1.0),
               DeepJetWgt_hfstats1Up(1.0), DeepJetWgt_hfstats1Dn(1.0), DeepJetWgt_hfstats2Up(1.0), DeepJetWgt_hfstats2Dn(1.0),
@@ -1204,67 +1205,67 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
               DeepJetWgt_lfstats1Up(1.0), DeepJetWgt_lfstats1Dn(1.0), DeepJetWgt_lfstats2Up(1.0), DeepJetWgt_lfstats2Dn(1.0);
 
         if (abs(ijetHFlv) ==5) {
-            DeepJetWgt = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfup = reader_DeepJet.eval_auto_bounds("up_hf", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfdn = reader_DeepJet.eval_auto_bounds("down_hf", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfup = reader_DeepJet.eval_auto_bounds("up_lf", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfdn = reader_DeepJet.eval_auto_bounds("down_lf", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_jesUp = reader_DeepJet.eval_auto_bounds("up_jes", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_jesDn = reader_DeepJet.eval_auto_bounds("down_jes", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfstats1Up = reader_DeepJet.eval_auto_bounds("up_hfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfstats1Dn = reader_DeepJet.eval_auto_bounds("down_hfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfstats2Up = reader_DeepJet.eval_auto_bounds("up_hfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfstats2Dn = reader_DeepJet.eval_auto_bounds("down_hfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_cferr1Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_cferr1Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_cferr2Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_cferr2Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfstats1Up = reader_DeepJet.eval_auto_bounds("up_lfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfstats1Dn = reader_DeepJet.eval_auto_bounds("down_lfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfstats2Up = reader_DeepJet.eval_auto_bounds("up_lfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfstats2Dn = reader_DeepJet.eval_auto_bounds("down_lfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
+            DeepJetWgt = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfup = reader_DeepJet.eval_auto_bounds("up_hf", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfdn = reader_DeepJet.eval_auto_bounds("down_hf", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfup = reader_DeepJet.eval_auto_bounds("up_lf", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfdn = reader_DeepJet.eval_auto_bounds("down_lf", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_jesUp = reader_DeepJet.eval_auto_bounds("up_jes", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_jesDn = reader_DeepJet.eval_auto_bounds("down_jes", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfstats1Up = reader_DeepJet.eval_auto_bounds("up_hfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfstats1Dn = reader_DeepJet.eval_auto_bounds("down_hfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfstats2Up = reader_DeepJet.eval_auto_bounds("up_hfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfstats2Dn = reader_DeepJet.eval_auto_bounds("down_hfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_cferr1Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_cferr1Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_cferr2Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_cferr2Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfstats1Up = reader_DeepJet.eval_auto_bounds("up_lfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfstats1Dn = reader_DeepJet.eval_auto_bounds("down_lfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfstats2Up = reader_DeepJet.eval_auto_bounds("up_lfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfstats2Dn = reader_DeepJet.eval_auto_bounds("down_lfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
         }
         else if (abs(ijetHFlv) ==4) {
-            DeepJetWgt = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfup = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfdn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfup = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfdn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_jesUp = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_jesDn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfstats1Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfstats1Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfstats2Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfstats2Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_cferr1Up = reader_DeepJet.eval_auto_bounds("up_cferr1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_cferr1Dn = reader_DeepJet.eval_auto_bounds("down_cferr1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_cferr2Up = reader_DeepJet.eval_auto_bounds("up_cferr2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_cferr2Dn = reader_DeepJet.eval_auto_bounds("down_cferr2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfstats1Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfstats1Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfstats2Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfstats2Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
+            DeepJetWgt = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfup = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfdn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfup = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfdn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_jesUp = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_jesDn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfstats1Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfstats1Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfstats2Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfstats2Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_cferr1Up = reader_DeepJet.eval_auto_bounds("up_cferr1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_cferr1Dn = reader_DeepJet.eval_auto_bounds("down_cferr1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_cferr2Up = reader_DeepJet.eval_auto_bounds("up_cferr2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_cferr2Dn = reader_DeepJet.eval_auto_bounds("down_cferr2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfstats1Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfstats1Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfstats2Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfstats2Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
         }
         else {
-            DeepJetWgt = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfup = reader_DeepJet.eval_auto_bounds("up_hf", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfdn = reader_DeepJet.eval_auto_bounds("down_hf", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfup = reader_DeepJet.eval_auto_bounds("up_lf", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfdn = reader_DeepJet.eval_auto_bounds("down_lf", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_jesUp = reader_DeepJet.eval_auto_bounds("up_jes", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_jesDn = reader_DeepJet.eval_auto_bounds("down_jes", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfstats1Up = reader_DeepJet.eval_auto_bounds("up_hfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfstats1Dn = reader_DeepJet.eval_auto_bounds("down_hfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfstats2Up = reader_DeepJet.eval_auto_bounds("up_hfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_hfstats2Dn = reader_DeepJet.eval_auto_bounds("down_hfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_cferr1Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_cferr1Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_cferr2Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_cferr2Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfstats1Up = reader_DeepJet.eval_auto_bounds("up_lfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfstats1Dn = reader_DeepJet.eval_auto_bounds("down_lfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfstats2Up = reader_DeepJet.eval_auto_bounds("up_lfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            DeepJetWgt_lfstats2Dn = reader_DeepJet.eval_auto_bounds("down_lfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
+            DeepJetWgt = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfup = reader_DeepJet.eval_auto_bounds("up_hf", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfdn = reader_DeepJet.eval_auto_bounds("down_hf", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfup = reader_DeepJet.eval_auto_bounds("up_lf", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfdn = reader_DeepJet.eval_auto_bounds("down_lf", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_jesUp = reader_DeepJet.eval_auto_bounds("up_jes", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_jesDn = reader_DeepJet.eval_auto_bounds("down_jes", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfstats1Up = reader_DeepJet.eval_auto_bounds("up_hfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfstats1Dn = reader_DeepJet.eval_auto_bounds("down_hfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfstats2Up = reader_DeepJet.eval_auto_bounds("up_hfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_hfstats2Dn = reader_DeepJet.eval_auto_bounds("down_hfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_cferr1Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_cferr1Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_cferr2Up = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_cferr2Dn = reader_DeepJet.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfstats1Up = reader_DeepJet.eval_auto_bounds("up_lfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfstats1Dn = reader_DeepJet.eval_auto_bounds("down_lfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfstats2Up = reader_DeepJet.eval_auto_bounds("up_lfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
+            DeepJetWgt_lfstats2Dn = reader_DeepJet.eval_auto_bounds("down_lfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, deepjet);
         }
 
         if (DeepJetWgt != 0) btagDeepJetWeight *= DeepJetWgt;
