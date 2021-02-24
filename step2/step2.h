@@ -69,6 +69,10 @@ public :
    Float_t         thirdcsvb_bb_BTagNBHad;
    Float_t         thirdcsvb_bb_NBTagBHad;
    Float_t         thirdcsvb_bb_NBTagNBHad;
+   Float_t         firstdeepjetb;
+   Float_t         seconddeepjetb;
+   Float_t         thirddeepjetb;
+   Float_t         fourthdeepjetb;
    Float_t         PtFifthJet;
    Float_t         deltaR_lepJetInMinMljet;      
    Float_t         deltaPhi_lepJetInMinMljet;         
@@ -89,6 +93,10 @@ public :
    Float_t         csvJet2;
    Float_t         csvJet3;
    Float_t         csvJet4;
+   Float_t         deepjetJet1;
+   Float_t         deepjetJet2;
+   Float_t         deepjetJet3;
+   Float_t         deepjetJet4;
    Float_t         pT_3rdcsvJet;
    Float_t         pT_4thcsvJet;      
    Float_t         MHRE;
@@ -151,12 +159,14 @@ public :
    Float_t         HOTGoodTrijet1_dRtridijet;
    Float_t         HOTGoodTrijet1_dRtrijetJetnotdijet;
    Float_t         HOTGoodTrijet1_csvJetnotdijet;
+   Float_t         HOTGoodTrijet1_deepjet_Jetnotdijet;
    Float_t         HOTGoodTrijet2_mass;
    Float_t         HOTGoodTrijet2_dijetmass;
    Float_t         HOTGoodTrijet2_pTratio;
    Float_t         HOTGoodTrijet2_dRtridijet;
    Float_t         HOTGoodTrijet2_dRtrijetJetnotdijet;
    Float_t         HOTGoodTrijet2_csvJetnotdijet;
+   Float_t         HOTGoodTrijet2_deepjet_Jetnotdijet;
    Float_t         HOTGoodTrijet3_mass;
    Float_t         HOTGoodTrijet3_dijetmass;
    Float_t         HOTGoodTrijet3_pTratio;

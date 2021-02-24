@@ -302,6 +302,10 @@ void step2::Loop()
    TBranch *b_thirdcsvb_bb_BTagNBHad          = outputTree->Branch("thirdcsvb_bb_BTagNBHad",&thirdcsvb_bb_BTagNBHad,"thirdcsvb_bb_BTagNBHad/F");
    TBranch *b_thirdcsvb_bb_NBTagBHad          = outputTree->Branch("thirdcsvb_bb_NBTagBHad",&thirdcsvb_bb_NBTagBHad,"thirdcsvb_bb_NBTagBHad/F");
    TBranch *b_thirdcsvb_bb_NBTagNBHad          = outputTree->Branch("thirdcsvb_bb_NBTagNBHad",&thirdcsvb_bb_NBTagNBHad,"thirdcsvb_bb_NBTagNBHad/F");
+   TBranch *b_firstdeepjetb         = outputTree->Branch("firstdeepjetb",&firstdeepjetb,"firstdeepjetb/F");
+   TBranch *b_seconddeepjetb        = outputTree->Branch("seconddeepjetb",&seconddeepjetb,"seconddeepjetb/F");
+   TBranch *b_thirddeepjetb         = outputTree->Branch("thirddeepjetb",&thirddeepjetb,"thirddeepjetb/F");
+   TBranch *b_fourthdeepjetb        = outputTree->Branch("fourthdeepjetb",&fourthdeepjetb,"fourthdeepjetb/F");
 
    TBranch *b_secondJetPt           = outputTree->Branch("secondJetPt",&secondJetPt,"secondJetPt/F");        
    TBranch *b_fifthJetPt            = outputTree->Branch("fifthJetPt",&fifthJetPt,"fifthJetPt/F");        
@@ -311,6 +315,10 @@ void step2::Loop()
    TBranch *b_csvJet2               = outputTree->Branch("csvJet2",&csvJet2,"csvJet2/F");
    TBranch *b_csvJet3               = outputTree->Branch("csvJet3",&csvJet3,"csvJet3/F");
    TBranch *b_csvJet4               = outputTree->Branch("csvJet4",&csvJet4,"csvJet4/F");
+   TBranch *b_deepjetJet1           = outputTree->Branch("deepjetJet1",&deepjetJet1,"deepjetJet1/F");
+   TBranch *b_deepjetJet2           = outputTree->Branch("deepjetJet2",&deepjetJet2,"deepjetJet2/F");
+   TBranch *b_deepjetJet3           = outputTree->Branch("deepjetJet3",&deepjetJet3,"deepjetJet3/F");
+   TBranch *b_deepjetJet4           = outputTree->Branch("deepjetJet4",&deepjetJet4,"deepjetJet4/F");
 
    TBranch *b_MHRE                  = outputTree->Branch("MHRE",&MHRE,"MHRE/F");              
    TBranch *b_HTx                   = outputTree->Branch("HTx",&HTx,"HTx/F");                 
@@ -407,12 +415,16 @@ void step2::Loop()
    TBranch *b_HOTGoodTrijet1_dRtridijet = outputTree->Branch("HOTGoodTrijet1_dRtridijet",&HOTGoodTrijet1_dRtridijet,"HOTGoodTrijet1_dRtridijet/F");
    TBranch *b_HOTGoodTrijet1_dRtrijetJetnotdijet = outputTree->Branch("HOTGoodTrijet1_dRtrijetJetnotdijet",&HOTGoodTrijet1_dRtrijetJetnotdijet,"HOTGoodTrijet1_dRtrijetJetnotdijet/F");
    TBranch *b_HOTGoodTrijet1_csvJetnotdijet = outputTree->Branch("HOTGoodTrijet1_csvJetnotdijet",&HOTGoodTrijet1_csvJetnotdijet,"HOTGoodTrijet1_csvJetnotdijet/F");
+   TBranch *b_HOTGoodTrijet1_deepjet_Jetnotdijet = outputTree->Branch("HOTGoodTrijet1_deepjet_Jetnotdijet",&HOTGoodTrijet1_deepjet_Jetnotdijet,"HOTGoodTrijet1_deepjet_Jetnotdijet/F");
+
    TBranch *b_HOTGoodTrijet2_mass       = outputTree->Branch("HOTGoodTrijet2_mass",&HOTGoodTrijet2_mass,"HOTGoodTrijet2_mass/F");
    TBranch *b_HOTGoodTrijet2_dijetmass  = outputTree->Branch("HOTGoodTrijet2_dijetmass",&HOTGoodTrijet2_dijetmass,"HOTGoodTrijet2_dijetmass/F");
    TBranch *b_HOTGoodTrijet2_pTratio    = outputTree->Branch("HOTGoodTrijet2_pTratio",&HOTGoodTrijet2_pTratio,"HOTGoodTrijet2_pTratio/F");
    TBranch *b_HOTGoodTrijet2_dRtridijet = outputTree->Branch("HOTGoodTrijet2_dRtridijet",&HOTGoodTrijet2_dRtridijet,"HOTGoodTrijet2_dRtridijet/F");
    TBranch *b_HOTGoodTrijet2_dRtrijetJetnotdijet = outputTree->Branch("HOTGoodTrijet2_dRtrijetJetnotdijet",&HOTGoodTrijet2_dRtrijetJetnotdijet,"HOTGoodTrijet2_dRtrijetJetnotdijet/F");
    TBranch *b_HOTGoodTrijet2_csvJetnotdijet = outputTree->Branch("HOTGoodTrijet2_csvJetnotdijet",&HOTGoodTrijet2_csvJetnotdijet,"HOTGoodTrijet2_csvJetnotdijet/F");
+   TBranch *b_HOTGoodTrijet2_deepjet_Jetnotdijet = outputTree->Branch("HOTGoodTrijet2_deepjet_Jetnotdijet",&HOTGoodTrijet2_deepjet_Jetnotdijet,"HOTGoodTrijet2_deepjet_Jetnotdijet/F");
+
    TBranch *b_HOTGoodTrijet3_mass       = outputTree->Branch("HOTGoodTrijet3_mass",&HOTGoodTrijet3_mass,"HOTGoodTrijet3_mass/F");
    TBranch *b_HOTGoodTrijet3_dijetmass  = outputTree->Branch("HOTGoodTrijet3_dijetmass",&HOTGoodTrijet3_dijetmass,"HOTGoodTrijet3_dijetmass/F");
    TBranch *b_HOTGoodTrijet3_pTratio    = outputTree->Branch("HOTGoodTrijet3_pTratio",&HOTGoodTrijet3_pTratio,"HOTGoodTrijet3_pTratio/F");
@@ -492,6 +504,10 @@ void step2::Loop()
      secondcsvb_bb = 0;
      thirdcsvb_bb = 0;
      fourthcsvb_bb = 0;
+     firstdeepjetb = 0;
+     seconddeepjetb = 0;
+     thirddeepjetb = 0;
+     fourthdeepjetb = 0;
      MT2bb = 0;      
      deltaR_minBB = 20.;
      aveBBdr = -1;      
@@ -591,6 +607,10 @@ void step2::Loop()
      csvJet2 = 0;
      csvJet3 = 0;
      csvJet4 = 0;
+     deepjetJet1 = 0;
+     deepjetJet2 = 0;
+     deepjetJet3 = 0;
+     deepjetJet4 = 0;
      mean_csv = 0;
      pT_3rdcsvJet = 0;
      pT_4thcsvJet = 0;
@@ -617,6 +637,7 @@ void step2::Loop()
      std::vector<TLorentzVector> v_allJets;
      std::vector<TLorentzVector> v_trijet;
      std::vector<double> v_DCSV_allJets;          
+     std::vector<double> v_DeepJet_allJets;
 //     std::vector<pair<double, int>> v_DCSV_jettype_allJets;
      std::vector<double> v_DCSV_trijet;     
      std::vector<TLorentzVector> v_BADtrijet;  
@@ -742,23 +763,23 @@ void step2::Loop()
 //	v_DCSV_jettype_allJets.push_back(make_pair(AK4JetDeepCSVb_MultiLepCalc_PtOrdered->at(ijet)+AK4JetDeepCSVbb_MultiLepCalc_PtOrdered->at(ijet), jettype) );	
 	if (ijet==0) {
 	    csvJet1 = AK4JetDeepCSVb_MultiLepCalc_PtOrdered->at(ijet)+AK4JetDeepCSVbb_MultiLepCalc_PtOrdered->at(ijet);
+	    deepjetJet1 = theJetDeepFlavB_JetSubCalc_PtOrdered->at(ijet);
 	}
 	else if (ijet==1) {
             csvJet2 = AK4JetDeepCSVb_MultiLepCalc_PtOrdered->at(ijet)+AK4JetDeepCSVbb_MultiLepCalc_PtOrdered->at(ijet);
+            deepjetJet2 = theJetDeepFlavB_JetSubCalc_PtOrdered->at(ijet);
 	}
 	else if (ijet==2) {
             csvJet3 = AK4JetDeepCSVb_MultiLepCalc_PtOrdered->at(ijet)+AK4JetDeepCSVbb_MultiLepCalc_PtOrdered->at(ijet);
+            deepjetJet3 = theJetDeepFlavB_JetSubCalc_PtOrdered->at(ijet);
 	}
 	else if (ijet==3) {
             csvJet4 = AK4JetDeepCSVb_MultiLepCalc_PtOrdered->at(ijet)+AK4JetDeepCSVbb_MultiLepCalc_PtOrdered->at(ijet);
+            deepjetJet4 = theJetDeepFlavB_JetSubCalc_PtOrdered->at(ijet);
 	}
 
 
-//	v_DCSV_allJets.push_back(theJetDeepFlavB_JetSubCalc_PtOrdered->at(ijet));
-//	  csvJet1 = theJetDeepFlavB_JetSubCalc_PtOrdered->at(0);
-//          csvJet2 = theJetDeepFlavB_JetSubCalc_PtOrdered->at(1);
-//          csvJet3 = theJetDeepFlavB_JetSubCalc_PtOrdered->at(2);
-//          csvJet4 = theJetDeepFlavB_JetSubCalc_PtOrdered->at(3);	  
+	v_DeepJet_allJets.push_back(theJetDeepFlavB_JetSubCalc_PtOrdered->at(ijet));
         	    
 	totalJetPt+=theJetPt_JetSubCalc_PtOrdered->at(ijet);
 	totalJetE+=theJetEnergy_JetSubCalc_PtOrdered->at(ijet);
@@ -1128,6 +1149,11 @@ void step2::Loop()
      secondcsvb_bb = v_DCSV_allJets.at(1);
      thirdcsvb_bb = v_DCSV_allJets.at(2);
      fourthcsvb_bb = v_DCSV_allJets.at(3);
+     std::sort(v_DeepJet_allJets.rbegin(), v_DeepJet_allJets.rend());
+     firstdeepjetb = v_DeepJet_allJets.at(0);
+     seconddeepjetb = v_DeepJet_allJets.at(1);
+     thirddeepjetb = v_DeepJet_allJets.at(2);
+     fourthdeepjetb = v_DeepJet_allJets.at(3);
 
 //     std::sort(v_DCSV_jettype_allJets.rbegin(), v_DCSV_jettype_allJets.rend());
 //     if (v_DCSV_jettype_allJets[2].second ==1) {
@@ -1350,12 +1376,14 @@ void step2::Loop()
      HOTGoodTrijet1_dRtridijet = 0.;
      HOTGoodTrijet1_dRtrijetJetnotdijet = 0.;
      HOTGoodTrijet1_csvJetnotdijet = 0.;
+     HOTGoodTrijet1_deepjet_Jetnotdijet = 0.;
      HOTGoodTrijet2_mass = 0.;
      HOTGoodTrijet2_dijetmass = 0.;
      HOTGoodTrijet2_pTratio = 0.;
      HOTGoodTrijet2_dRtridijet = 0.;
      HOTGoodTrijet2_dRtrijetJetnotdijet = 0.;
      HOTGoodTrijet2_csvJetnotdijet = 0.;
+     HOTGoodTrijet2_deepjet_Jetnotdijet = 0.;
      HOTGoodTrijet3_mass = 0.;
      HOTGoodTrijet3_dijetmass = 0.;
      HOTGoodTrijet3_pTratio = 0.;
@@ -1401,7 +1429,7 @@ void step2::Loop()
        unsigned int idjet1,idjet2,idjet3;	    
        TLorentzVector dijet, jetnotdijet;     
        TLorentzVector resolvedTopD1,resolvedTopD2,resolvedTopD3;
-       float trijetmass(0.), dijetmass(0.), trijet_pTratio(0.), dRtridijet(0.), dRtrijetJetnotdijet(0.), csvJetnotdijet(0.);
+       float trijetmass(0.), dijetmass(0.), trijet_pTratio(0.), dRtridijet(0.), dRtrijetJetnotdijet(0.), csvJetnotdijet(0.), deepjet_Jetnotdijet(0.);
 
        idjet1 = topJet1Index_HOTTaggerCalc->at(itop);
        idjet2 = topJet2Index_HOTTaggerCalc->at(itop);
@@ -1533,6 +1561,10 @@ void step2::Loop()
       b_secondcsvb_bb->Fill();
       b_thirdcsvb_bb->Fill();
       b_fourthcsvb_bb->Fill();
+      b_firstdeepjetb->Fill();
+      b_seconddeepjetb->Fill();
+      b_thirddeepjetb->Fill();
+      b_fourthdeepjetb->Fill();
       b_PtFifthJet->Fill();
       b_MHRE->Fill();
       b_HTx->Fill();
@@ -1571,6 +1603,10 @@ void step2::Loop()
       b_csvJet2->Fill();
       b_csvJet3->Fill();
       b_csvJet4->Fill();      
+      b_deepjetJet1->Fill();
+      b_deepjetJet2->Fill();
+      b_deepjetJet3->Fill();
+      b_deepjetJet4->Fill();
       b_GD_pTrat->Fill();
       b_BD_pTrat->Fill();	  
       b_GD_DR_Tridijet->Fill();
@@ -1629,12 +1665,14 @@ void step2::Loop()
       b_HOTGoodTrijet1_dRtridijet->Fill();
       b_HOTGoodTrijet1_dRtrijetJetnotdijet->Fill();
       b_HOTGoodTrijet1_csvJetnotdijet->Fill();
+      b_HOTGoodTrijet1_deepjet_Jetnotdijet->Fill();
       b_HOTGoodTrijet2_mass->Fill();
       b_HOTGoodTrijet2_dijetmass->Fill();
       b_HOTGoodTrijet2_pTratio->Fill();
       b_HOTGoodTrijet2_dRtridijet->Fill();
       b_HOTGoodTrijet2_dRtrijetJetnotdijet->Fill();
       b_HOTGoodTrijet2_csvJetnotdijet->Fill();
+      b_HOTGoodTrijet2_deepjet_Jetnotdijet->Fill();
       b_HOTGoodTrijet3_mass->Fill();
       b_HOTGoodTrijet3_dijetmass->Fill();
       b_HOTGoodTrijet3_pTratio->Fill();
