@@ -5508,6 +5508,12 @@ if (!isTT) return 1.0;
 // std::vector<float> njetSF18_err=
 // {0.0399403283162989, 0.042349665797684066, 0.04820757262016162};
 
+std::vector<float> njetSF16 = 
+{1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
+
+std::vector<float> njetSF16_err =
+{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+
 std::vector<float> njetSF17 =
 {1.1277934660274982, 1.102242245629874, 1.0756662016868377, 1.1090459291002919, 1.2170530772239552, 1.2377932283035988};
 
@@ -5523,7 +5529,10 @@ std::vector<float> njetSF18_err=
 std::vector<float> njetSF;
 std::vector<float> njetSF_err;
 
-if (year==2017){
+if (year==2016){
+  njetSF=njetSF16;
+  njetSF_err=njetSF16_err;
+} else if (year==2017){
   njetSF=njetSF17;
   njetSF_err=njetSF17_err;
 } else if  (year==2018){

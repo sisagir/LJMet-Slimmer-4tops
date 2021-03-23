@@ -9,6 +9,7 @@ shift = sys.argv[1]
 Year = 2016
 inputDir='/eos/uscms/store/user/npervan/FWLJMET102X_1lep'+str(Year)+'_Jan2021_4t_021821_step1/'+shift+'/'
 outputDir='/eos/uscms/store/user/npervan/FWLJMET102X_1lep'+str(Year)+'_Jan2021_4t_021821_step1hadds/'+shift+'/'
+
 inDir=inputDir[10:]
 outDir=outputDir[10:]
 
@@ -90,7 +91,7 @@ dirList18 = [
 'TTToHadronic_TuneCP5_13TeV-powheg-pythia8',
 'TTToSemiLepton_HT500Njet9_TuneCP5_13TeV-powheg-pythia8',
 'TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8',
-'TTWH_TuneCP5_13TeV-madgraph-pythia8',
+'TTWH_TuneCP5_13TeV-madgraph-pythia8', 
 'TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8',
 'TTWW_TuneCP5_13TeV-madgraph-pythia8',
 'TTWZ_TuneCP5_13TeV-madgraph-pythia8',

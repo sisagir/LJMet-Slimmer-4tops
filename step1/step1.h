@@ -349,6 +349,40 @@ public :
    float           btagCSVWeight_HFdn;
    float           btagCSVWeight_LFup;
    float           btagCSVWeight_LFdn;
+   float 	   btagCSVWeight_jesUp;
+   float           btagCSVWeight_jesDn;
+   float	   btagCSVWeight_hfstats1Up;
+   float           btagCSVWeight_hfstats1Dn;
+   float 	   btagCSVWeight_hfstats2Up;
+   float           btagCSVWeight_hfstats2Dn;
+   float           btagCSVWeight_cferr1Up;
+   float           btagCSVWeight_cferr1Dn;
+   float           btagCSVWeight_cferr2Up;
+   float           btagCSVWeight_cferr2Dn;
+   float           btagCSVWeight_lfstats1Up;
+   float           btagCSVWeight_lfstats1Dn;
+   float           btagCSVWeight_lfstats2Up;
+   float           btagCSVWeight_lfstats2Dn;
+
+   float           btagDeepJetWeight;
+   float           btagDeepJetWeight_HFup;
+   float           btagDeepJetWeight_HFdn;
+   float           btagDeepJetWeight_LFup;
+   float           btagDeepJetWeight_LFdn;
+   float           btagDeepJetWeight_jesUp;
+   float           btagDeepJetWeight_jesDn;
+   float           btagDeepJetWeight_hfstats1Up;
+   float           btagDeepJetWeight_hfstats1Dn;
+   float           btagDeepJetWeight_hfstats2Up;
+   float           btagDeepJetWeight_hfstats2Dn;
+   float           btagDeepJetWeight_cferr1Up;
+   float           btagDeepJetWeight_cferr1Dn;
+   float           btagDeepJetWeight_cferr2Up;
+   float           btagDeepJetWeight_cferr2Dn;
+   float           btagDeepJetWeight_lfstats1Up;
+   float           btagDeepJetWeight_lfstats1Dn;
+   float           btagDeepJetWeight_lfstats2Up;
+   float           btagDeepJetWeight_lfstats2Dn;
 
    // Declaration of leaf types
    Bool_t          flagBadMu_MultiLepCalc;
@@ -1264,7 +1298,7 @@ public :
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
-   virtual void     Loop(TString inTreeName, TString outTreeName, const BTagCalibrationForLJMet* calib);
+   virtual void     Loop(TString inTreeName, TString outTreeName, const BTagCalibrationForLJMet* calib, const BTagCalibrationForLJMet* calib_DeepJet);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
    virtual void     saveHistograms();
