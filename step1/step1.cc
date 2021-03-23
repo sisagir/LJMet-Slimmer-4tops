@@ -310,10 +310,10 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
    inputTree->SetBranchStatus("topJet3Index_HOTTaggerCalc",1);
    inputTree->SetBranchStatus("topNAK4_HOTTaggerCalc",1);
    inputTree->SetBranchStatus("topNtops_HOTTaggerCalc",1);
-   inputTree->SetBranchStatus("topBestGenEnergy_HOTTaggerCalc",1);
-   inputTree->SetBranchStatus("topBestGenEta_HOTTaggerCalc",1);
-   inputTree->SetBranchStatus("topBestGenPhi_HOTTaggerCalc",1);
-   inputTree->SetBranchStatus("topBestGenPt_HOTTaggerCalc",1);
+   //inputTree->SetBranchStatus("topBestGenEnergy_HOTTaggerCalc",1);
+   //inputTree->SetBranchStatus("topBestGenEta_HOTTaggerCalc",1);
+   //inputTree->SetBranchStatus("topBestGenPhi_HOTTaggerCalc",1);
+   //inputTree->SetBranchStatus("topBestGenPt_HOTTaggerCalc",1);
    inputTree->SetBranchStatus("topDRmax_HOTTaggerCalc",1);
    inputTree->SetBranchStatus("topDThetaMax_HOTTaggerCalc", 1);
    inputTree->SetBranchStatus("topDThetaMin_HOTTaggerCalc", 1);
@@ -645,7 +645,7 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
    float elEtaCut=2.1;
    float muEtaCut=2.1;
    int   njetsCut=4;
-   int   nbjetsCut=2; // events with # of b-tags <nbjetsCut (incl. btag shifts) are removed!
+   int   nbjetsCut=0; //changed from 2 to 0 // events with # of b-tags <nbjetsCut (incl. btag shifts) are removed!
    float jetPtCut=30;
    float jetEtaCut=2.4;
    float ak8EtaCut=2.4;
@@ -863,7 +863,6 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
 		}
       }
 
-
 	// csv re-normalization weight
       btagCSVRenormWeight = 1.0;
 
@@ -904,7 +903,6 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
       // ----------------------------------------------------------------------------
       // Generator-level HT correction
       // ----------------------------------------------------------------------------      
-
       HTSF_Pol = 1;
       HTSF_PolUp = 1;
       HTSF_PolDn = 1;
@@ -953,8 +951,7 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
 	// ----------------------------------------------------------------------------
 	// Basic cuts
 	// ----------------------------------------------------------------------------
-
-	if(theJetPt_JetSubCalc->at(ijet) < jetPtCut || fabs(theJetEta_JetSubCalc->at(ijet)) > jetEtaCut) continue;
+      	if(theJetPt_JetSubCalc->at(ijet) < jetPtCut || fabs(theJetEta_JetSubCalc->at(ijet)) > jetEtaCut) continue;
 	
 	// ----------------------------------------------------------------------------
 	// B TAGGING fix
@@ -1159,7 +1156,7 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
 		      {"17DEF",{"Ele32_WPTight_Gsf", "IsoMu27" , "PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2" }},
 		      {"18AB", {"Ele32_WPTight_Gsf", "IsoMu24" , "PFHT380_SixPFJet32_DoublePFBTagDeepCSV_2p2" }},
 		      {"18CD",{"Ele32_WPTight_Gsf", "IsoMu24" , "PFHT400_SixPFJet32_DoublePFBTagDeepCSV_2p94" }}};
-      if (!isMC){
+      if (!isMC && !(Year==2016)){
 	  eltrigger = datatriggers.at(Era).at(0);
 	  mutrigger =  datatriggers.at(Era).at(1);
 	  hadtrigger = datatriggers.at(Era).at(2);
