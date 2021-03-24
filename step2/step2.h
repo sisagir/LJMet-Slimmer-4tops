@@ -730,6 +730,7 @@ step2::step2(TString inputFileName, TString outputFileName)// : inputTree(0), in
 
    // TT bkg divided into TTToSemiLep, TTToHadronic, TT high mass appear below
 
+   xsecEff = 1.0;
    if (inputFileName.Contains("1lep2016")) {
        Year = 2016;
        if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8_HT0Njet0")) xsecEff = 0.122534147435;
@@ -780,8 +781,6 @@ step2::step2(TString inputFileName, TString outputFileName)// : inputTree(0), in
 ////   else if (inputFileName.Contains("TT_Mtt-1000toInf_TuneCP5_PSweights_13TeV-powheg-pythia8")) xsecEff = 0.0294081434678;
 ////   else if (inputFileName.Contains("TT_Mtt-700to1000_TuneCP5_13TeV-powheg-pythia8")) xsecEff = 0.0473629131251;
    
-   //For everything else, just have this branch be dummy at the moment, 1 will do nothing
-   else xsecEff = 1.0;
    cout << " xsecEff " << xsecEff << endl;
    isTTbar = false;
    isTTTT = false;
