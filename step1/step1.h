@@ -349,6 +349,40 @@ public :
    float           btagCSVWeight_HFdn;
    float           btagCSVWeight_LFup;
    float           btagCSVWeight_LFdn;
+   float 	   btagCSVWeight_jesUp;
+   float           btagCSVWeight_jesDn;
+   float	   btagCSVWeight_hfstats1Up;
+   float           btagCSVWeight_hfstats1Dn;
+   float 	   btagCSVWeight_hfstats2Up;
+   float           btagCSVWeight_hfstats2Dn;
+   float           btagCSVWeight_cferr1Up;
+   float           btagCSVWeight_cferr1Dn;
+   float           btagCSVWeight_cferr2Up;
+   float           btagCSVWeight_cferr2Dn;
+   float           btagCSVWeight_lfstats1Up;
+   float           btagCSVWeight_lfstats1Dn;
+   float           btagCSVWeight_lfstats2Up;
+   float           btagCSVWeight_lfstats2Dn;
+
+   float           btagDeepJetWeight;
+   float           btagDeepJetWeight_HFup;
+   float           btagDeepJetWeight_HFdn;
+   float           btagDeepJetWeight_LFup;
+   float           btagDeepJetWeight_LFdn;
+   float           btagDeepJetWeight_jesUp;
+   float           btagDeepJetWeight_jesDn;
+   float           btagDeepJetWeight_hfstats1Up;
+   float           btagDeepJetWeight_hfstats1Dn;
+   float           btagDeepJetWeight_hfstats2Up;
+   float           btagDeepJetWeight_hfstats2Dn;
+   float           btagDeepJetWeight_cferr1Up;
+   float           btagDeepJetWeight_cferr1Dn;
+   float           btagDeepJetWeight_cferr2Up;
+   float           btagDeepJetWeight_cferr2Dn;
+   float           btagDeepJetWeight_lfstats1Up;
+   float           btagDeepJetWeight_lfstats1Dn;
+   float           btagDeepJetWeight_lfstats2Up;
+   float           btagDeepJetWeight_lfstats2Dn;
 
    // Declaration of leaf types
    Bool_t          flagBadMu_MultiLepCalc;
@@ -1224,10 +1258,10 @@ public :
    TBranch        *b_theJetPhi_JetSubCalc;   //!
    TBranch        *b_theJetPileupJetId_JetSubCalc;   //!
    TBranch        *b_theJetPt_JetSubCalc;   //!
-   TBranch        *b_topBestGenEnergy_HOTTaggerCalc;   //!
-   TBranch        *b_topBestGenEta_HOTTaggerCalc;   //!
-   TBranch        *b_topBestGenPhi_HOTTaggerCalc;   //!
-   TBranch        *b_topBestGenPt_HOTTaggerCalc;   //!
+   //TBranch        *b_topBestGenEnergy_HOTTaggerCalc;   //!
+   //TBranch        *b_topBestGenEta_HOTTaggerCalc;   //!
+   //TBranch        *b_topBestGenPhi_HOTTaggerCalc;   //!
+   //TBranch        *b_topBestGenPt_HOTTaggerCalc;   //!
    TBranch        *b_topDRmax_HOTTaggerCalc;   //!
    TBranch        *b_topDThetaMax_HOTTaggerCalc;   //!
    TBranch        *b_topDThetaMin_HOTTaggerCalc;   //!
@@ -1264,7 +1298,7 @@ public :
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
-   virtual void     Loop(TString inTreeName, TString outTreeName, const BTagCalibrationForLJMet* calib);
+   virtual void     Loop(TString inTreeName, TString outTreeName, const BTagCalibrationForLJMet* calib, const BTagCalibrationForLJMet* calib_DeepJet);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
    virtual void     saveHistograms();
@@ -2227,10 +2261,10 @@ void step1::Init(TTree *tree)
    inputTree->SetBranchAddress("theJetPhi_JetSubCalc", &theJetPhi_JetSubCalc, &b_theJetPhi_JetSubCalc);
    inputTree->SetBranchAddress("theJetPileupJetId_JetSubCalc", &theJetPileupJetId_JetSubCalc, &b_theJetPileupJetId_JetSubCalc);
    inputTree->SetBranchAddress("theJetPt_JetSubCalc", &theJetPt_JetSubCalc, &b_theJetPt_JetSubCalc);
-   inputTree->SetBranchAddress("topBestGenEnergy_HOTTaggerCalc", &topBestGenEnergy_HOTTaggerCalc, &b_topBestGenEnergy_HOTTaggerCalc);
-   inputTree->SetBranchAddress("topBestGenEta_HOTTaggerCalc", &topBestGenEta_HOTTaggerCalc, &b_topBestGenEta_HOTTaggerCalc);
-   inputTree->SetBranchAddress("topBestGenPhi_HOTTaggerCalc", &topBestGenPhi_HOTTaggerCalc, &b_topBestGenPhi_HOTTaggerCalc);
-   inputTree->SetBranchAddress("topBestGenPt_HOTTaggerCalc", &topBestGenPt_HOTTaggerCalc, &b_topBestGenPt_HOTTaggerCalc);
+   //inputTree->SetBranchAddress("topBestGenEnergy_HOTTaggerCalc", &topBestGenEnergy_HOTTaggerCalc, &b_topBestGenEnergy_HOTTaggerCalc);
+   //inputTree->SetBranchAddress("topBestGenEta_HOTTaggerCalc", &topBestGenEta_HOTTaggerCalc, &b_topBestGenEta_HOTTaggerCalc);
+   //inputTree->SetBranchAddress("topBestGenPhi_HOTTaggerCalc", &topBestGenPhi_HOTTaggerCalc, &b_topBestGenPhi_HOTTaggerCalc);
+   //inputTree->SetBranchAddress("topBestGenPt_HOTTaggerCalc", &topBestGenPt_HOTTaggerCalc, &b_topBestGenPt_HOTTaggerCalc);
    inputTree->SetBranchAddress("topDRmax_HOTTaggerCalc", &topDRmax_HOTTaggerCalc, &b_topDRmax_HOTTaggerCalc);
    inputTree->SetBranchAddress("topDThetaMax_HOTTaggerCalc", &topDThetaMax_HOTTaggerCalc, &b_topDThetaMax_HOTTaggerCalc);
    inputTree->SetBranchAddress("topDThetaMin_HOTTaggerCalc", &topDThetaMin_HOTTaggerCalc, &b_topDThetaMin_HOTTaggerCalc);
