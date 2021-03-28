@@ -29,6 +29,7 @@ public :
    //Load Scale Factors
    S2HardcodedConditions hardcodedConditions;
 
+
    // Fixed size dimensions of array or collections stored in the TTree if any.
    Int_t           isTraining;
    Bool_t          isTTbar;
@@ -726,8 +727,6 @@ public :
 step2::step2(TString inputFileName, TString outputFileName)// : inputTree(0), inputFile(0), outputFile(0) 
 {   //weight branches to be used in the BDT training, xsecEff is the weight
 
-   hardcodedConditions = S2HardcodedConditions();
-
    // TT bkg divided into TTToSemiLep, TTToHadronic, TT high mass appear below
 
    xsecEff = 1.0;
@@ -780,6 +779,8 @@ step2::step2(TString inputFileName, TString outputFileName)// : inputTree(0), in
 ////   //TT high mass 
 ////   else if (inputFileName.Contains("TT_Mtt-1000toInf_TuneCP5_PSweights_13TeV-powheg-pythia8")) xsecEff = 0.0294081434678;
 ////   else if (inputFileName.Contains("TT_Mtt-700to1000_TuneCP5_13TeV-powheg-pythia8")) xsecEff = 0.0473629131251;
+
+   hardcodedConditions = S2HardcodedConditions(Year);
    
    cout << " xsecEff " << xsecEff << endl;
    isTTbar = false;
