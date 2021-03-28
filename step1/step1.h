@@ -162,12 +162,20 @@ public :
    Int_t           NJets_JetSubCalc;
    Int_t           NJetsCSV_MultiLepCalc;
    Int_t           NJetsCSVwithSF_MultiLepCalc;
+   Int_t           NJetsCSVwithSF_MultiLepCalc_bSFCorrup;
+   Int_t           NJetsCSVwithSF_MultiLepCalc_bSFCorrdn;
+   Int_t           NJetsCSVwithSF_MultiLepCalc_bSFUncorrup;
+   Int_t           NJetsCSVwithSF_MultiLepCalc_bSFUncorrdn;
    Int_t           NJetsCSVwithSF_MultiLepCalc_bSFup;
    Int_t           NJetsCSVwithSF_MultiLepCalc_bSFdn;
    Int_t           NJetsCSVwithSF_MultiLepCalc_lSFup;
    Int_t           NJetsCSVwithSF_MultiLepCalc_lSFdn;
    Int_t           NJetsCSV_JetSubCalc;
    Int_t           NJetsCSVwithSF_JetSubCalc;
+   Int_t           NJetsCSVwithSF_JetSubCalc_bSFCorrup;
+   Int_t           NJetsCSVwithSF_JetSubCalc_bSFCorrdn;
+   Int_t           NJetsCSVwithSF_JetSubCalc_bSFUncorrup;
+   Int_t           NJetsCSVwithSF_JetSubCalc_bSFUncorrdn;
    Int_t           NJetsCSVwithSF_JetSubCalc_bSFup;
    Int_t           NJetsCSVwithSF_JetSubCalc_bSFdn;
    Int_t           NJetsCSVwithSF_JetSubCalc_lSFup;
@@ -194,6 +202,14 @@ public :
    vector<double>  AK4JetDeepCSVc_MultiLepCalc_PtOrdered;
    vector<double>  AK4JetDeepCSVudsg_MultiLepCalc_PtOrdered;
    vector<int>     AK4JetBTag_MultiLepCalc_PtOrdered;
+   vector<int>     AK4JetBTag_bSFCorrup_MultiLepCalc;
+   vector<int>     AK4JetBTag_bSFCorrdn_MultiLepCalc;
+   vector<int>     AK4JetBTag_bSFUncorrup_MultiLepCalc;
+   vector<int>     AK4JetBTag_bSFUncorrdn_MultiLepCalc;
+   vector<int>     AK4JetBTag_bSFCorrup_MultiLepCalc_PtOrdered;
+   vector<int>     AK4JetBTag_bSFCorrdn_MultiLepCalc_PtOrdered;
+   vector<int>     AK4JetBTag_bSFUncorrup_MultiLepCalc_PtOrdered;
+   vector<int>     AK4JetBTag_bSFUncorrdn_MultiLepCalc_PtOrdered;
    vector<int>     AK4JetBTag_bSFup_MultiLepCalc_PtOrdered;
    vector<int>     AK4JetBTag_bSFdn_MultiLepCalc_PtOrdered;
    vector<int>     AK4JetBTag_lSFup_MultiLepCalc_PtOrdered;
@@ -201,6 +217,14 @@ public :
    vector<int>     theJetHFlav_JetSubCalc_PtOrdered;
    vector<int>     theJetPFlav_JetSubCalc_PtOrdered;
    vector<int>     theJetBTag_JetSubCalc_PtOrdered;
+   vector<int>     theJetBTag_bSFCorrup_JetSubCalc;
+   vector<int>     theJetBTag_bSFCorrdn_JetSubCalc;
+   vector<int>     theJetBTag_bSFUncorrup_JetSubCalc;
+   vector<int>     theJetBTag_bSFUncorrdn_JetSubCalc;
+   vector<int>     theJetBTag_bSFCorrup_JetSubCalc_PtOrdered;
+   vector<int>     theJetBTag_bSFCorrdn_JetSubCalc_PtOrdered;
+   vector<int>     theJetBTag_bSFUncorrup_JetSubCalc_PtOrdered;
+   vector<int>     theJetBTag_bSFUncorrdn_JetSubCalc_PtOrdered;
    vector<int>     theJetBTag_bSFup_JetSubCalc_PtOrdered;
    vector<int>     theJetBTag_bSFdn_JetSubCalc_PtOrdered;
    vector<int>     theJetBTag_lSFup_JetSubCalc_PtOrdered;
@@ -208,6 +232,8 @@ public :
 
    Float_t         AK4HTpMETpLepPt;
    Float_t         AK4HT;
+   Float_t         AK4GenHT;
+   Int_t           NAK4GenJets;
 
    Float_t         minMleppJet;
    Float_t         deltaR_lepMinMlj;

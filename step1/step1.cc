@@ -533,12 +533,20 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
    outputTree->Branch("NJets_JetSubCalc",&NJets_JetSubCalc,"NJets_JetSubCalc/I");
    outputTree->Branch("NJetsCSV_MultiLepCalc",&NJetsCSV_MultiLepCalc,"NJetsCSV_MultiLepCalc/I");
    outputTree->Branch("NJetsCSVwithSF_MultiLepCalc",&NJetsCSVwithSF_MultiLepCalc,"NJetsCSVwithSF_MultiLepCalc/I");
+   outputTree->Branch("NJetsCSVwithSF_MultiLepCalc_bSFCorrup",&NJetsCSVwithSF_MultiLepCalc_bSFCorrup,"NJetsCSVwithSF_MultiLepCalc_bSFCorrup/I");
+   outputTree->Branch("NJetsCSVwithSF_MultiLepCalc_bSFCorrdn",&NJetsCSVwithSF_MultiLepCalc_bSFCorrdn,"NJetsCSVwithSF_MultiLepCalc_bSFCorrdn/I");
+   outputTree->Branch("NJetsCSVwithSF_MultiLepCalc_bSFUncorrup",&NJetsCSVwithSF_MultiLepCalc_bSFUncorrup,"NJetsCSVwithSF_MultiLepCalc_bSFUncorrup/I");
+   outputTree->Branch("NJetsCSVwithSF_MultiLepCalc_bSFUncorrdn",&NJetsCSVwithSF_MultiLepCalc_bSFUncorrdn,"NJetsCSVwithSF_MultiLepCalc_bSFUncorrdn/I");
    outputTree->Branch("NJetsCSVwithSF_MultiLepCalc_bSFup",&NJetsCSVwithSF_MultiLepCalc_bSFup,"NJetsCSVwithSF_MultiLepCalc_bSFup/I");
    outputTree->Branch("NJetsCSVwithSF_MultiLepCalc_bSFdn",&NJetsCSVwithSF_MultiLepCalc_bSFdn,"NJetsCSVwithSF_MultiLepCalc_bSFdn/I");
    outputTree->Branch("NJetsCSVwithSF_MultiLepCalc_lSFup",&NJetsCSVwithSF_MultiLepCalc_lSFup,"NJetsCSVwithSF_MultiLepCalc_lSFup/I");
    outputTree->Branch("NJetsCSVwithSF_MultiLepCalc_lSFdn",&NJetsCSVwithSF_MultiLepCalc_lSFdn,"NJetsCSVwithSF_MultiLepCalc_lSFdn/I");
    outputTree->Branch("NJetsCSV_JetSubCalc",&NJetsCSV_JetSubCalc,"NJetsCSV_JetSubCalc/I");
    outputTree->Branch("NJetsCSVwithSF_JetSubCalc",&NJetsCSVwithSF_JetSubCalc,"NJetsCSVwithSF_JetSubCalc/I");
+   outputTree->Branch("NJetsCSVwithSF_JetSubCalc_bSFCorrup",&NJetsCSVwithSF_JetSubCalc_bSFCorrup,"NJetsCSVwithSF_JetSubCalc_bSFCorrup/I");
+   outputTree->Branch("NJetsCSVwithSF_JetSubCalc_bSFCorrdn",&NJetsCSVwithSF_JetSubCalc_bSFCorrdn,"NJetsCSVwithSF_JetSubCalc_bSFCorrdn/I");
+   outputTree->Branch("NJetsCSVwithSF_JetSubCalc_bSFUncorrup",&NJetsCSVwithSF_JetSubCalc_bSFUncorrup,"NJetsCSVwithSF_JetSubCalc_bSFUncorrup/I");
+   outputTree->Branch("NJetsCSVwithSF_JetSubCalc_bSFUncorrdn",&NJetsCSVwithSF_JetSubCalc_bSFUncorrdn,"NJetsCSVwithSF_JetSubCalc_bSFUncorrdn/I");
    outputTree->Branch("NJetsCSVwithSF_JetSubCalc_bSFup",&NJetsCSVwithSF_JetSubCalc_bSFup,"NJetsCSVwithSF_JetSubCalc_bSFup/I");
    outputTree->Branch("NJetsCSVwithSF_JetSubCalc_bSFdn",&NJetsCSVwithSF_JetSubCalc_bSFdn,"NJetsCSVwithSF_JetSubCalc_bSFdn/I");
    outputTree->Branch("NJetsCSVwithSF_JetSubCalc_lSFup",&NJetsCSVwithSF_JetSubCalc_lSFup,"NJetsCSVwithSF_JetSubCalc_lSFup/I");
@@ -672,6 +680,8 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
    outputTree->Branch("NresolvedTops5pFake_shifts",&NresolvedTops5pFake_shifts);
    outputTree->Branch("NresolvedTops10pFake_shifts",&NresolvedTops10pFake_shifts);
 
+   outputTree->Branch("AK4GenHT",&AK4GenHT,"AK4GenHT/F");
+   outputTree->Branch("NAK4GenJets",&NAK4GenJets,"NAK4GenJets/I");
    outputTree->Branch("isHTgt500Njetge9",&isHTgt500Njetge9,"isHTgt500Njetge9/I");
    outputTree->Branch("BJetLeadPt",&BJetLeadPt,"BJetLeadPt/F");
    outputTree->Branch("BJetLeadPt_bSFup",&BJetLeadPt_bSFup,"BJetLeadPt_bSFup/F");
@@ -696,7 +706,7 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
    float elEtaCut=2.1;
    float muEtaCut=2.1;
    int   njetsCut=4;
-   int   nbjetsCut=0; // events with # of b-tags <nbjetsCut (incl. btag shifts) are removed!
+   int   nbjetsCut=2; // events with # of b-tags <nbjetsCut (incl. btag shifts) are removed!
    float jetPtCut=30;
    float jetEtaCut=2.4;
    float ak8EtaCut=2.4;
@@ -823,13 +833,13 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
       // Jet multiplicity (jet pT>30) >= 9
       isHTgt500Njetge9 = 0;
       if(isTT){
-      double genHT = 0;
-      int Ngenjet = 0;
+      AK4GenHT = 0;
+      NAK4GenJets = 0;
       for(unsigned int ijet=0; ijet < genJetPtNoClean_MultiLepCalc->size(); ijet++){
-	    if(genJetPtNoClean_MultiLepCalc->at(ijet) > 30) Ngenjet+=1;
-	    if(genJetPtNoClean_MultiLepCalc->at(ijet) > 30 && fabs(genJetEtaNoClean_MultiLepCalc->at(ijet)) < 2.4) genHT+=genJetPtNoClean_MultiLepCalc->at(ijet);
+	    if(genJetPtNoClean_MultiLepCalc->at(ijet) > 30) NAK4GenJets+=1;
+	    if(genJetPtNoClean_MultiLepCalc->at(ijet) > 30 && fabs(genJetEtaNoClean_MultiLepCalc->at(ijet)) < 2.4) AK4GenHT+=genJetPtNoClean_MultiLepCalc->at(ijet);
       }
-      if(genHT>500 && Ngenjet>=9) {isHTgt500Njetge9 = 1;}
+      if(AK4GenHT>500 && NAK4GenJets>=9) {isHTgt500Njetge9 = 1;}
       }
       
       if( isTTSemilepIncHT0Njet0   && isHTgt500Njetge9==1 ) continue;
@@ -1033,8 +1043,26 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
       btagDeepJetWeight_lfstats2Dn = 1.0;
 
 
+      AK4JetBTag_bSFCorrup_MultiLepCalc.clear();
+      AK4JetBTag_bSFCorrdn_MultiLepCalc.clear();
+      AK4JetBTag_bSFUncorrup_MultiLepCalc.clear();
+      AK4JetBTag_bSFUncorrdn_MultiLepCalc.clear();
+      theJetBTag_bSFCorrup_JetSubCalc.clear();
+      theJetBTag_bSFCorrdn_JetSubCalc.clear();
+      theJetBTag_bSFUncorrup_JetSubCalc.clear();
+      theJetBTag_bSFUncorrdn_JetSubCalc.clear();	
+      // ----------------------------------------------------------------------------
       for(unsigned int ijet=0; ijet < theJetPt_JetSubCalc->size(); ijet++){
-	// ----------------------------------------------------------------------------
+
+	AK4JetBTag_bSFCorrup_MultiLepCalc.push_back(AK4JetBTag_bSFup_MultiLepCalc->at(ijet));
+	AK4JetBTag_bSFCorrdn_MultiLepCalc.push_back(AK4JetBTag_bSFdn_MultiLepCalc->at(ijet));
+	AK4JetBTag_bSFUncorrup_MultiLepCalc.push_back(AK4JetBTag_bSFup_MultiLepCalc->at(ijet));
+	AK4JetBTag_bSFUncorrdn_MultiLepCalc.push_back(AK4JetBTag_bSFdn_MultiLepCalc->at(ijet));
+	theJetBTag_bSFCorrup_JetSubCalc.push_back(theJetBTag_bSFup_JetSubCalc->at(ijet));
+	theJetBTag_bSFCorrdn_JetSubCalc.push_back(theJetBTag_bSFdn_JetSubCalc->at(ijet));
+	theJetBTag_bSFUncorrup_JetSubCalc.push_back(theJetBTag_bSFup_JetSubCalc->at(ijet));
+	theJetBTag_bSFUncorrdn_JetSubCalc.push_back(theJetBTag_bSFdn_JetSubCalc->at(ijet));
+	
 	// Basic cuts
 	// ----------------------------------------------------------------------------
       	if(theJetPt_JetSubCalc->at(ijet) < jetPtCut || fabs(theJetEta_JetSubCalc->at(ijet)) > jetEtaCut) continue;
@@ -1045,7 +1073,8 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
 	if(isMC){
 	// First fix b tagging for DeepFlv
 	double btagSF = 1.0;
-	double btagSFerr = 0.0;
+	double btagSFerr0 = 0.0; //fully-correlated part when year correlation recommendation is taken into account; otherwise, nominal SF uncertainty
+	double btagSFerr1 = 0.0; //fully-uncorrelated part when year correlation recommendation is taken into account; otherwise, redundant
 	double btagEff = 1.0;
 	
 	// Set the initial tagged/untagged state
@@ -1053,50 +1082,102 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
 	double ijetPt = theJetPt_JetSubCalc->at(ijet);
 	double ijetEta= theJetEta_JetSubCalc->at(ijet);
 	int ijetHFlv  = theJetHFlav_JetSubCalc->at(ijet);
-	
-	// Get btag SF and uncertainty
-	hardcodedConditions.GetBtaggingSF(ijetPt, ijetEta, &btagSF, &btagSFerr, "DeepJetMEDIUM", ijetHFlv, Year);
+
+	// Get btag SF and uncertainty WITH YEAR CORRELATION
+	hardcodedConditions.GetBtaggingSF(ijetPt, ijetEta, &btagSF, &btagSFerr0, &btagSFerr1, "DeepJetMEDIUM", ijetHFlv, Year, "YearCorrelation");
 	// Get btag efficiency
 	hardcodedConditions.GetBtaggingEff(ijetPt, &btagEff, "DeepJetMEDIUM", ijetHFlv, Year);
 	
 	// Apply scale factors
 	theJetBTag_JetSubCalc->at(ijet) = applySF(istagged,btagSF,btagEff);
 	if(ijetHFlv == 5 || ijetHFlv == 4){
-		theJetBTag_bSFup_JetSubCalc->at(ijet) = applySF(istagged,btagSF+btagSFerr,btagEff);
-		theJetBTag_bSFdn_JetSubCalc->at(ijet) = applySF(istagged,btagSF-btagSFerr,btagEff);
-		theJetBTag_lSFup_JetSubCalc->at(ijet) = applySF(istagged,btagSF,btagEff);
-		theJetBTag_lSFdn_JetSubCalc->at(ijet) = applySF(istagged,btagSF,btagEff);
+		theJetBTag_bSFCorrup_JetSubCalc.at(ijet) = applySF(istagged,btagSF+btagSFerr0,btagEff);
+		theJetBTag_bSFCorrdn_JetSubCalc.at(ijet) = applySF(istagged,btagSF-btagSFerr0,btagEff);
+		theJetBTag_bSFUncorrup_JetSubCalc.at(ijet) = applySF(istagged,btagSF+btagSFerr1,btagEff);
+		theJetBTag_bSFUncorrdn_JetSubCalc.at(ijet) = applySF(istagged,btagSF-btagSFerr1,btagEff);
+		theJetBTag_lSFup_JetSubCalc->at(ijet) = theJetBTag_JetSubCalc->at(ijet);
+		theJetBTag_lSFdn_JetSubCalc->at(ijet) = theJetBTag_JetSubCalc->at(ijet);
 		}
 	else{
-		theJetBTag_bSFup_JetSubCalc->at(ijet) = applySF(istagged,btagSF,btagEff);
-		theJetBTag_bSFdn_JetSubCalc->at(ijet) = applySF(istagged,btagSF,btagEff);
-		theJetBTag_lSFup_JetSubCalc->at(ijet) = applySF(istagged,btagSF+btagSFerr,btagEff);
-		theJetBTag_lSFdn_JetSubCalc->at(ijet) = applySF(istagged,btagSF-btagSFerr,btagEff);
+		theJetBTag_bSFCorrup_JetSubCalc.at(ijet) = theJetBTag_JetSubCalc->at(ijet);
+		theJetBTag_bSFCorrdn_JetSubCalc.at(ijet) = theJetBTag_JetSubCalc->at(ijet);
+		theJetBTag_bSFUncorrup_JetSubCalc.at(ijet) = theJetBTag_JetSubCalc->at(ijet);
+		theJetBTag_bSFUncorrdn_JetSubCalc.at(ijet) = theJetBTag_JetSubCalc->at(ijet);
+		theJetBTag_lSFup_JetSubCalc->at(ijet) = applySF(istagged,btagSF+btagSFerr0,btagEff);
+		theJetBTag_lSFdn_JetSubCalc->at(ijet) = applySF(istagged,btagSF-btagSFerr0,btagEff);
+		}
+			
+	// Get btag SF and uncertainty WITHOUT YEAR CORRELATION
+	hardcodedConditions.GetBtaggingSF(ijetPt, ijetEta, &btagSF, &btagSFerr0, &btagSFerr1, "DeepJetMEDIUM", ijetHFlv, Year, "None");
+	// Get btag efficiency
+	hardcodedConditions.GetBtaggingEff(ijetPt, &btagEff, "DeepJetMEDIUM", ijetHFlv, Year);
+	
+	// Apply scale factors (it is applied above, so no need to apply again to nominal jets)
+	// theJetBTag_JetSubCalc->at(ijet) = applySF(istagged,btagSF,btagEff);
+	if(ijetHFlv == 5 || ijetHFlv == 4){
+		theJetBTag_bSFup_JetSubCalc->at(ijet) = applySF(istagged,btagSF+btagSFerr0,btagEff);
+		theJetBTag_bSFdn_JetSubCalc->at(ijet) = applySF(istagged,btagSF-btagSFerr0,btagEff);
+		// udsg jets are done above in year correlation part
+		//theJetBTag_lSFup_JetSubCalc->at(ijet) = theJetBTag_JetSubCalc->at(ijet);
+		//theJetBTag_lSFdn_JetSubCalc->at(ijet) = theJetBTag_JetSubCalc->at(ijet);
+		}
+	else{
+		theJetBTag_bSFup_JetSubCalc->at(ijet) = theJetBTag_JetSubCalc->at(ijet);
+		theJetBTag_bSFdn_JetSubCalc->at(ijet) = theJetBTag_JetSubCalc->at(ijet);
+		// udsg jets are done above in year correlation part
+		//theJetBTag_lSFup_JetSubCalc->at(ijet) = applySF(istagged,btagSF+btagSFerr0,btagEff);
+		//theJetBTag_lSFdn_JetSubCalc->at(ijet) = applySF(istagged,btagSF-btagSFerr0,btagEff);
 		}
 
 	// Second fix b tagging for DeepCSV
 	
 	// Set the initial tagged/untagged state
 	istagged = AK4JetDeepCSVb_MultiLepCalc->at(ijet) + AK4JetDeepCSVbb_MultiLepCalc->at(ijet) > btagWPdcsv;
-	
-	// Get btag SF and uncertainty
-	hardcodedConditions.GetBtaggingSF(ijetPt, ijetEta, &btagSF, &btagSFerr, "DeepCSVMEDIUM", ijetHFlv, Year);
+
+	// Get btag SF and uncertainty WITH YEAR CORRELATION
+	hardcodedConditions.GetBtaggingSF(ijetPt, ijetEta, &btagSF, &btagSFerr0, &btagSFerr1, "DeepCSVMEDIUM", ijetHFlv, Year, "YearCorrelation");
 	// Get btag efficiency
 	hardcodedConditions.GetBtaggingEff(ijetPt, &btagEff, "DeepCSVMEDIUM", ijetHFlv, Year);
 	
 	// Apply scale factors
 	AK4JetBTag_MultiLepCalc->at(ijet) = applySF(istagged,btagSF,btagEff);
 	if(ijetHFlv == 5 || ijetHFlv == 4){
-		AK4JetBTag_bSFup_MultiLepCalc->at(ijet) = applySF(istagged,btagSF+btagSFerr,btagEff);
-		AK4JetBTag_bSFdn_MultiLepCalc->at(ijet) = applySF(istagged,btagSF-btagSFerr,btagEff);
-		AK4JetBTag_lSFup_MultiLepCalc->at(ijet) = applySF(istagged,btagSF,btagEff);
-		AK4JetBTag_lSFdn_MultiLepCalc->at(ijet) = applySF(istagged,btagSF,btagEff);
+		AK4JetBTag_bSFCorrup_MultiLepCalc.at(ijet) = applySF(istagged,btagSF+btagSFerr0,btagEff);
+		AK4JetBTag_bSFCorrdn_MultiLepCalc.at(ijet) = applySF(istagged,btagSF-btagSFerr0,btagEff);
+		AK4JetBTag_bSFUncorrup_MultiLepCalc.at(ijet) = applySF(istagged,btagSF+btagSFerr1,btagEff);
+		AK4JetBTag_bSFUncorrdn_MultiLepCalc.at(ijet) = applySF(istagged,btagSF-btagSFerr1,btagEff);
+		AK4JetBTag_lSFup_MultiLepCalc->at(ijet) = AK4JetBTag_MultiLepCalc->at(ijet);
+		AK4JetBTag_lSFdn_MultiLepCalc->at(ijet) = AK4JetBTag_MultiLepCalc->at(ijet);
 		}
 	else{
-		AK4JetBTag_bSFup_MultiLepCalc->at(ijet) = applySF(istagged,btagSF,btagEff);
-		AK4JetBTag_bSFdn_MultiLepCalc->at(ijet) = applySF(istagged,btagSF,btagEff);
-		AK4JetBTag_lSFup_MultiLepCalc->at(ijet) = applySF(istagged,btagSF+btagSFerr,btagEff);
-		AK4JetBTag_lSFdn_MultiLepCalc->at(ijet) = applySF(istagged,btagSF-btagSFerr,btagEff);
+		AK4JetBTag_bSFCorrup_MultiLepCalc.at(ijet) = AK4JetBTag_MultiLepCalc->at(ijet);
+		AK4JetBTag_bSFCorrdn_MultiLepCalc.at(ijet) = AK4JetBTag_MultiLepCalc->at(ijet);
+		AK4JetBTag_bSFUncorrup_MultiLepCalc.at(ijet) = AK4JetBTag_MultiLepCalc->at(ijet);
+		AK4JetBTag_bSFUncorrdn_MultiLepCalc.at(ijet) = AK4JetBTag_MultiLepCalc->at(ijet);
+		AK4JetBTag_lSFup_MultiLepCalc->at(ijet) = applySF(istagged,btagSF+btagSFerr0,btagEff);
+		AK4JetBTag_lSFdn_MultiLepCalc->at(ijet) = applySF(istagged,btagSF-btagSFerr0,btagEff);
+		}
+			
+	// Get btag SF and uncertainty WITHOUT YEAR CORRELATION
+	hardcodedConditions.GetBtaggingSF(ijetPt, ijetEta, &btagSF, &btagSFerr0, &btagSFerr1, "DeepCSVMEDIUM", ijetHFlv, Year, "None");
+	// Get btag efficiency
+	hardcodedConditions.GetBtaggingEff(ijetPt, &btagEff, "DeepCSVMEDIUM", ijetHFlv, Year);
+	
+	// Apply scale factors (it is applied above, so no need to apply again to nominal jets)
+	// AK4JetBTag_MultiLepCalc->at(ijet) = applySF(istagged,btagSF,btagEff);
+	if(ijetHFlv == 5 || ijetHFlv == 4){
+		AK4JetBTag_bSFup_MultiLepCalc->at(ijet) = applySF(istagged,btagSF+btagSFerr0,btagEff);
+		AK4JetBTag_bSFdn_MultiLepCalc->at(ijet) = applySF(istagged,btagSF-btagSFerr0,btagEff);
+		// udsg jets are done above in year correlation part
+		//AK4JetBTag_lSFup_MultiLepCalc->at(ijet) = AK4JetBTag_MultiLepCalc->at(ijet);
+		//AK4JetBTag_lSFdn_MultiLepCalc->at(ijet) = AK4JetBTag_MultiLepCalc->at(ijet);
+		}
+	else{
+		AK4JetBTag_bSFup_MultiLepCalc->at(ijet) = AK4JetBTag_MultiLepCalc->at(ijet);
+		AK4JetBTag_bSFdn_MultiLepCalc->at(ijet) = AK4JetBTag_MultiLepCalc->at(ijet);
+		// udsg jets are done above in year correlation part
+		//AK4JetBTag_lSFup_MultiLepCalc->at(ijet) = applySF(istagged,btagSF+btagSFerr0,btagEff);
+		//AK4JetBTag_lSFdn_MultiLepCalc->at(ijet) = applySF(istagged,btagSF-btagSFerr0,btagEff);
 		}
 
 	// csv reshaping
@@ -1656,11 +1737,19 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
       theJetHFlav_JetSubCalc_PtOrdered.clear();
       theJetPFlav_JetSubCalc_PtOrdered.clear();
       theJetBTag_JetSubCalc_PtOrdered.clear();
+      theJetBTag_bSFCorrup_JetSubCalc_PtOrdered.clear();
+      theJetBTag_bSFCorrdn_JetSubCalc_PtOrdered.clear();
+      theJetBTag_bSFUncorrup_JetSubCalc_PtOrdered.clear();
+      theJetBTag_bSFUncorrdn_JetSubCalc_PtOrdered.clear();
       theJetBTag_bSFup_JetSubCalc_PtOrdered.clear();
       theJetBTag_bSFdn_JetSubCalc_PtOrdered.clear();
       theJetBTag_lSFup_JetSubCalc_PtOrdered.clear();
       theJetBTag_lSFdn_JetSubCalc_PtOrdered.clear();
       AK4JetBTag_MultiLepCalc_PtOrdered.clear();
+      AK4JetBTag_bSFCorrup_MultiLepCalc_PtOrdered.clear();
+      AK4JetBTag_bSFCorrdn_MultiLepCalc_PtOrdered.clear();
+      AK4JetBTag_bSFUncorrup_MultiLepCalc_PtOrdered.clear();
+      AK4JetBTag_bSFUncorrdn_MultiLepCalc_PtOrdered.clear();
       AK4JetBTag_bSFup_MultiLepCalc_PtOrdered.clear();
       AK4JetBTag_bSFdn_MultiLepCalc_PtOrdered.clear();
       AK4JetBTag_lSFup_MultiLepCalc_PtOrdered.clear();
@@ -1670,23 +1759,31 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
       	theJetEta_JetSubCalc_PtOrdered.push_back(theJetEta_JetSubCalc->at(jetptindpair[ijet].second));
       	theJetPhi_JetSubCalc_PtOrdered.push_back(theJetPhi_JetSubCalc->at(jetptindpair[ijet].second));
       	theJetEnergy_JetSubCalc_PtOrdered.push_back(theJetEnergy_JetSubCalc->at(jetptindpair[ijet].second));
-         theJetDeepFlavB_JetSubCalc_PtOrdered.push_back(theJetDeepFlavB_JetSubCalc->at(jetptindpair[ijet].second));
+      	theJetDeepFlavB_JetSubCalc_PtOrdered.push_back(theJetDeepFlavB_JetSubCalc->at(jetptindpair[ijet].second));
       	AK4JetDeepCSVb_MultiLepCalc_PtOrdered.push_back(AK4JetDeepCSVb_MultiLepCalc->at(jetptindpair[ijet].second));
-		AK4JetDeepCSVbb_MultiLepCalc_PtOrdered.push_back(AK4JetDeepCSVbb_MultiLepCalc->at(jetptindpair[ijet].second));
-		AK4JetDeepCSVc_MultiLepCalc_PtOrdered.push_back(AK4JetDeepCSVc_MultiLepCalc->at(jetptindpair[ijet].second));
-		AK4JetDeepCSVudsg_MultiLepCalc_PtOrdered.push_back(AK4JetDeepCSVudsg_MultiLepCalc->at(jetptindpair[ijet].second));
+      	AK4JetDeepCSVbb_MultiLepCalc_PtOrdered.push_back(AK4JetDeepCSVbb_MultiLepCalc->at(jetptindpair[ijet].second));
+      	AK4JetDeepCSVc_MultiLepCalc_PtOrdered.push_back(AK4JetDeepCSVc_MultiLepCalc->at(jetptindpair[ijet].second));
+      	AK4JetDeepCSVudsg_MultiLepCalc_PtOrdered.push_back(AK4JetDeepCSVudsg_MultiLepCalc->at(jetptindpair[ijet].second));
       	theJetHFlav_JetSubCalc_PtOrdered.push_back(theJetHFlav_JetSubCalc->at(jetptindpair[ijet].second));
       	theJetPFlav_JetSubCalc_PtOrdered.push_back(theJetPFlav_JetSubCalc->at(jetptindpair[ijet].second));
-		theJetBTag_JetSubCalc_PtOrdered.push_back(theJetBTag_JetSubCalc->at(jetptindpair[ijet].second));
-	theJetBTag_bSFup_JetSubCalc_PtOrdered.push_back(theJetBTag_bSFup_JetSubCalc->at(jetptindpair[ijet].second));
-	theJetBTag_bSFdn_JetSubCalc_PtOrdered.push_back(theJetBTag_bSFdn_JetSubCalc->at(jetptindpair[ijet].second));
-	theJetBTag_lSFup_JetSubCalc_PtOrdered.push_back(theJetBTag_lSFup_JetSubCalc->at(jetptindpair[ijet].second));
-	theJetBTag_lSFdn_JetSubCalc_PtOrdered.push_back(theJetBTag_lSFdn_JetSubCalc->at(jetptindpair[ijet].second));
-		AK4JetBTag_MultiLepCalc_PtOrdered.push_back(AK4JetBTag_MultiLepCalc->at(jetptindpair[ijet].second));
-	AK4JetBTag_bSFup_MultiLepCalc_PtOrdered.push_back(AK4JetBTag_bSFup_MultiLepCalc->at(jetptindpair[ijet].second));
-	AK4JetBTag_bSFdn_MultiLepCalc_PtOrdered.push_back(AK4JetBTag_bSFdn_MultiLepCalc->at(jetptindpair[ijet].second));
-	AK4JetBTag_lSFup_MultiLepCalc_PtOrdered.push_back(AK4JetBTag_lSFup_MultiLepCalc->at(jetptindpair[ijet].second));
-	AK4JetBTag_lSFdn_MultiLepCalc_PtOrdered.push_back(AK4JetBTag_lSFdn_MultiLepCalc->at(jetptindpair[ijet].second));
+      	theJetBTag_JetSubCalc_PtOrdered.push_back(theJetBTag_JetSubCalc->at(jetptindpair[ijet].second));
+      	theJetBTag_bSFCorrup_JetSubCalc_PtOrdered.push_back(theJetBTag_bSFCorrup_JetSubCalc.at(jetptindpair[ijet].second));
+      	theJetBTag_bSFCorrdn_JetSubCalc_PtOrdered.push_back(theJetBTag_bSFCorrdn_JetSubCalc.at(jetptindpair[ijet].second));
+      	theJetBTag_bSFUncorrup_JetSubCalc_PtOrdered.push_back(theJetBTag_bSFUncorrup_JetSubCalc.at(jetptindpair[ijet].second));
+      	theJetBTag_bSFUncorrdn_JetSubCalc_PtOrdered.push_back(theJetBTag_bSFUncorrdn_JetSubCalc.at(jetptindpair[ijet].second));
+      	theJetBTag_bSFup_JetSubCalc_PtOrdered.push_back(theJetBTag_bSFup_JetSubCalc->at(jetptindpair[ijet].second));
+      	theJetBTag_bSFdn_JetSubCalc_PtOrdered.push_back(theJetBTag_bSFdn_JetSubCalc->at(jetptindpair[ijet].second));
+      	theJetBTag_lSFup_JetSubCalc_PtOrdered.push_back(theJetBTag_lSFup_JetSubCalc->at(jetptindpair[ijet].second));
+      	theJetBTag_lSFdn_JetSubCalc_PtOrdered.push_back(theJetBTag_lSFdn_JetSubCalc->at(jetptindpair[ijet].second));
+      	AK4JetBTag_MultiLepCalc_PtOrdered.push_back(AK4JetBTag_MultiLepCalc->at(jetptindpair[ijet].second));
+      	AK4JetBTag_bSFCorrup_MultiLepCalc_PtOrdered.push_back(AK4JetBTag_bSFCorrup_MultiLepCalc.at(jetptindpair[ijet].second));
+      	AK4JetBTag_bSFCorrdn_MultiLepCalc_PtOrdered.push_back(AK4JetBTag_bSFCorrdn_MultiLepCalc.at(jetptindpair[ijet].second));
+      	AK4JetBTag_bSFUncorrup_MultiLepCalc_PtOrdered.push_back(AK4JetBTag_bSFUncorrup_MultiLepCalc.at(jetptindpair[ijet].second));
+      	AK4JetBTag_bSFUncorrdn_MultiLepCalc_PtOrdered.push_back(AK4JetBTag_bSFUncorrdn_MultiLepCalc.at(jetptindpair[ijet].second));
+      	AK4JetBTag_bSFup_MultiLepCalc_PtOrdered.push_back(AK4JetBTag_bSFup_MultiLepCalc->at(jetptindpair[ijet].second));
+      	AK4JetBTag_bSFdn_MultiLepCalc_PtOrdered.push_back(AK4JetBTag_bSFdn_MultiLepCalc->at(jetptindpair[ijet].second));
+      	AK4JetBTag_lSFup_MultiLepCalc_PtOrdered.push_back(AK4JetBTag_lSFup_MultiLepCalc->at(jetptindpair[ijet].second));
+      	AK4JetBTag_lSFdn_MultiLepCalc_PtOrdered.push_back(AK4JetBTag_lSFdn_MultiLepCalc->at(jetptindpair[ijet].second));
       }
 
       // ----------------------------------------------------------------------------
@@ -1722,12 +1819,20 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
       deltaR_lepMinMlj = 1e8;
       NJetsCSV_MultiLepCalc = 0;
 	  NJetsCSVwithSF_MultiLepCalc = 0;
+	  NJetsCSVwithSF_MultiLepCalc_bSFCorrup = 0;
+	  NJetsCSVwithSF_MultiLepCalc_bSFCorrdn = 0;
+	  NJetsCSVwithSF_MultiLepCalc_bSFUncorrup = 0;
+	  NJetsCSVwithSF_MultiLepCalc_bSFUncorrdn = 0;
 	  NJetsCSVwithSF_MultiLepCalc_bSFup = 0;
 	  NJetsCSVwithSF_MultiLepCalc_bSFdn = 0;
 	  NJetsCSVwithSF_MultiLepCalc_lSFup = 0;
 	  NJetsCSVwithSF_MultiLepCalc_lSFdn = 0;
       NJetsCSV_JetSubCalc = 0;
       NJetsCSVwithSF_JetSubCalc = 0;
+      NJetsCSVwithSF_JetSubCalc_bSFCorrup = 0;
+      NJetsCSVwithSF_JetSubCalc_bSFCorrdn = 0;
+      NJetsCSVwithSF_JetSubCalc_bSFUncorrup = 0;
+      NJetsCSVwithSF_JetSubCalc_bSFUncorrdn = 0;
       NJetsCSVwithSF_JetSubCalc_bSFup = 0;
       NJetsCSVwithSF_JetSubCalc_bSFdn = 0;
       NJetsCSVwithSF_JetSubCalc_lSFup = 0;
@@ -1761,6 +1866,46 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
           if((lepton_lv + jet_lv).M() < minMleppBjet) {
             minMleppBjet = fabs( (lepton_lv + jet_lv).M() );
             deltaR_lepMinMlb = jet_lv.DeltaR(lepton_lv);
+          }
+	}
+	if(AK4JetBTag_bSFCorrup_MultiLepCalc_PtOrdered.at(ijet) == 1){
+	  NJetsCSVwithSF_MultiLepCalc_bSFCorrup += 1;
+         if(theJetPt_JetSubCalc_PtOrdered.at(ijet) > BJetLeadPt_bSFup) BJetLeadPt_bSFup = theJetPt_JetSubCalc_PtOrdered.at(ijet);
+          deltaR_lepBJets_bSFup.push_back(lepton_lv.DeltaR(jet_lv));
+	  
+          if((lepton_lv + jet_lv).M() < minMleppBjet_bSFup) {
+            minMleppBjet_bSFup = fabs( (lepton_lv + jet_lv).M() );
+	    deltaR_lepMinMlb_bSFup = jet_lv.DeltaR(lepton_lv);
+           }
+	}
+	if(AK4JetBTag_bSFCorrdn_MultiLepCalc_PtOrdered.at(ijet) == 1){
+	  NJetsCSVwithSF_MultiLepCalc_bSFCorrdn += 1;
+          if(theJetPt_JetSubCalc_PtOrdered.at(ijet) > BJetLeadPt_bSFdn) BJetLeadPt_bSFdn = theJetPt_JetSubCalc_PtOrdered.at(ijet);
+          deltaR_lepBJets_bSFdn.push_back(lepton_lv.DeltaR(jet_lv));
+	  
+          if((lepton_lv + jet_lv).M() < minMleppBjet_bSFdn) {
+            minMleppBjet_bSFdn = fabs( (lepton_lv + jet_lv).M() );
+	    deltaR_lepMinMlb_bSFdn = jet_lv.DeltaR(lepton_lv);
+          }
+	}
+	if(AK4JetBTag_bSFUncorrup_MultiLepCalc_PtOrdered.at(ijet) == 1){
+	  NJetsCSVwithSF_MultiLepCalc_bSFUncorrup += 1;
+         if(theJetPt_JetSubCalc_PtOrdered.at(ijet) > BJetLeadPt_bSFup) BJetLeadPt_bSFup = theJetPt_JetSubCalc_PtOrdered.at(ijet);
+          deltaR_lepBJets_bSFup.push_back(lepton_lv.DeltaR(jet_lv));
+	  
+          if((lepton_lv + jet_lv).M() < minMleppBjet_bSFup) {
+            minMleppBjet_bSFup = fabs( (lepton_lv + jet_lv).M() );
+	    deltaR_lepMinMlb_bSFup = jet_lv.DeltaR(lepton_lv);
+           }
+	}
+	if(AK4JetBTag_bSFUncorrdn_MultiLepCalc_PtOrdered.at(ijet) == 1){
+	  NJetsCSVwithSF_MultiLepCalc_bSFUncorrdn += 1;
+          if(theJetPt_JetSubCalc_PtOrdered.at(ijet) > BJetLeadPt_bSFdn) BJetLeadPt_bSFdn = theJetPt_JetSubCalc_PtOrdered.at(ijet);
+          deltaR_lepBJets_bSFdn.push_back(lepton_lv.DeltaR(jet_lv));
+	  
+          if((lepton_lv + jet_lv).M() < minMleppBjet_bSFdn) {
+            minMleppBjet_bSFdn = fabs( (lepton_lv + jet_lv).M() );
+	    deltaR_lepMinMlb_bSFdn = jet_lv.DeltaR(lepton_lv);
           }
 	}
 	if(AK4JetBTag_bSFup_MultiLepCalc_PtOrdered.at(ijet) == 1){
@@ -1810,6 +1955,18 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
 	if(theJetBTag_JetSubCalc_PtOrdered.at(ijet) == 1){
 	  NJetsCSVwithSF_JetSubCalc += 1;	  
 	}
+	if(theJetBTag_bSFCorrup_JetSubCalc_PtOrdered.at(ijet) == 1){
+	  NJetsCSVwithSF_JetSubCalc_bSFCorrup += 1;
+	}
+	if(theJetBTag_bSFCorrdn_JetSubCalc_PtOrdered.at(ijet) == 1){
+	  NJetsCSVwithSF_JetSubCalc_bSFCorrdn += 1;
+	}
+	if(theJetBTag_bSFUncorrup_JetSubCalc_PtOrdered.at(ijet) == 1){
+	  NJetsCSVwithSF_JetSubCalc_bSFUncorrup += 1;
+	}
+	if(theJetBTag_bSFUncorrdn_JetSubCalc_PtOrdered.at(ijet) == 1){
+	  NJetsCSVwithSF_JetSubCalc_bSFUncorrdn += 1;
+	}
 	if(theJetBTag_bSFup_JetSubCalc_PtOrdered.at(ijet) == 1){
 	  NJetsCSVwithSF_JetSubCalc_bSFup += 1;
 	}
@@ -1847,11 +2004,19 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
       // Skip events that fail # of btag requirement
       // ----------------------------------------------------------------------------  
       if(NJetsCSVwithSF_MultiLepCalc<nbjetsCut && 
+      	 NJetsCSVwithSF_MultiLepCalc_bSFCorrup<nbjetsCut && 
+      	 NJetsCSVwithSF_MultiLepCalc_bSFCorrdn<nbjetsCut && 
+      	 NJetsCSVwithSF_MultiLepCalc_bSFUncorrup<nbjetsCut && 
+      	 NJetsCSVwithSF_MultiLepCalc_bSFUncorrdn<nbjetsCut && 
       	 NJetsCSVwithSF_MultiLepCalc_bSFup<nbjetsCut && 
       	 NJetsCSVwithSF_MultiLepCalc_bSFdn<nbjetsCut && 
       	 NJetsCSVwithSF_MultiLepCalc_lSFup<nbjetsCut && 
       	 NJetsCSVwithSF_MultiLepCalc_lSFdn<nbjetsCut && 
       	 NJetsCSVwithSF_JetSubCalc<nbjetsCut && 
+      	 NJetsCSVwithSF_JetSubCalc_bSFCorrup<nbjetsCut && 
+      	 NJetsCSVwithSF_JetSubCalc_bSFCorrdn<nbjetsCut && 
+      	 NJetsCSVwithSF_JetSubCalc_bSFUncorrup<nbjetsCut && 
+      	 NJetsCSVwithSF_JetSubCalc_bSFUncorrdn<nbjetsCut && 
       	 NJetsCSVwithSF_JetSubCalc_bSFup<nbjetsCut && 
       	 NJetsCSVwithSF_JetSubCalc_bSFdn<nbjetsCut && 
       	 NJetsCSVwithSF_JetSubCalc_lSFup<nbjetsCut && 
