@@ -34,95 +34,144 @@ HardcodedConditions::~HardcodedConditions() {
   \     /                                                       \     /
    `---'                                                         `---'*/
 
-void HardcodedConditions::GetBtaggingSF(double pt, double eta, double *btagsf, double *btagsfunc, std::string tagger, int jetHFlav, int year)
+void HardcodedConditions::GetBtaggingSF(double pt, double eta, double *btagsf, double *btagsfunc0, double *btagsfunc1, std::string tagger, int jetHFlav, int year, std::string yearCorr)
 {
   //The main getter for GetBtaggingSF Scale Factors
   *btagsf   = 1.000;
-  *btagsfunc = 0.000;
+  *btagsfunc0 = 0.000;
+  *btagsfunc1 = 0.000;
   if(year==2016){
-  	if      (jetHFlav==5) GetBtaggingSF2016(pt, eta, btagsf, btagsfunc, tagger);
-  	else if (jetHFlav==4) GetCtaggingSF2016(pt, eta, btagsf, btagsfunc, tagger);
-  	else                  GetLtaggingSF2016(pt, eta, btagsf, btagsfunc, tagger);
+  	if      (jetHFlav==5) GetBtaggingSF2016(pt, eta, btagsf, btagsfunc0, btagsfunc1, tagger, yearCorr);
+  	else if (jetHFlav==4) GetCtaggingSF2016(pt, eta, btagsf, btagsfunc0, btagsfunc1, tagger, yearCorr);
+  	else                  GetLtaggingSF2016(pt, eta, btagsf, btagsfunc0, tagger);
   	}
   else if(year==2017){
-  	if      (jetHFlav==5) GetBtaggingSF2017(pt, eta, btagsf, btagsfunc, tagger);
-  	else if (jetHFlav==4) GetCtaggingSF2017(pt, eta, btagsf, btagsfunc, tagger);
-  	else                  GetLtaggingSF2017(pt, eta, btagsf, btagsfunc, tagger);
+  	if      (jetHFlav==5) GetBtaggingSF2017(pt, eta, btagsf, btagsfunc0, btagsfunc1, tagger, yearCorr);
+  	else if (jetHFlav==4) GetCtaggingSF2017(pt, eta, btagsf, btagsfunc0, btagsfunc1, tagger, yearCorr);
+  	else                  GetLtaggingSF2017(pt, eta, btagsf, btagsfunc0, tagger);
   	}
   else if(year==2018){
-  	if      (jetHFlav==5) GetBtaggingSF2018(pt, eta, btagsf, btagsfunc, tagger);
-  	else if (jetHFlav==4) GetCtaggingSF2018(pt, eta, btagsf, btagsfunc, tagger);
-  	else                  GetLtaggingSF2018(pt, eta, btagsf, btagsfunc, tagger);
+  	if      (jetHFlav==5) GetBtaggingSF2018(pt, eta, btagsf, btagsfunc0, btagsfunc1, tagger, yearCorr);
+  	else if (jetHFlav==4) GetCtaggingSF2018(pt, eta, btagsf, btagsfunc0, btagsfunc1, tagger, yearCorr);
+  	else                  GetLtaggingSF2018(pt, eta, btagsf, btagsfunc0, tagger);
   	}
   else{ std::cerr << "Year " << year << " not coded into HardcodedConditions::GetBtaggingSF! Aborting ..." << std::endl; std::abort();}
 }//end GetBtaggingSF
 
-void HardcodedConditions::GetBtaggingSF2016(double pt, double eta, double *btagsf, double *btagsfunc, std::string tagger)
+void HardcodedConditions::GetBtaggingSF2016(double pt, double eta, double *btagsf, double *btagsfunc0, double *btagsfunc1, std::string tagger, std::string yearCorr)
 {
 	double pt_ = pt;
 	if(pt > 1000.) pt_ = 1000.;
-    if(tagger == "DeepCSVMEDIUM"){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation2016Legacy/DeepCSV_2016LegacySF_WP_V1.csv
+    if( tagger == "DeepCSVMEDIUM" && yearCorr == "None" ){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation2016Legacy/DeepCSV_2016LegacySF_WP_V1.csv
       *btagsf = 0.653526*((1.+(0.220245*pt_))/(1.+(0.14383*pt_)));
-      if(pt < 30)        *btagsfunc = 0.043795019388198853;
-      else if(pt < 50)   *btagsfunc = 0.015845479443669319;
-      else if(pt < 70)   *btagsfunc = 0.014174085110425949;
-      else if(pt < 100)  *btagsfunc = 0.013200919143855572;
-      else if(pt < 140)  *btagsfunc = 0.012912030331790447;
-      else if(pt < 200)  *btagsfunc = 0.019475525245070457;
-      else if(pt < 300)  *btagsfunc = 0.01628459244966507;
-      else if(pt < 600)  *btagsfunc = 0.034840557724237442;
-      else               *btagsfunc = 0.049875054508447647;
+      if(pt < 30)        *btagsfunc0 = 0.043795019388198853;
+      else if(pt < 50)   *btagsfunc0 = 0.015845479443669319;
+      else if(pt < 70)   *btagsfunc0 = 0.014174085110425949;
+      else if(pt < 100)  *btagsfunc0 = 0.013200919143855572;
+      else if(pt < 140)  *btagsfunc0 = 0.012912030331790447;
+      else if(pt < 200)  *btagsfunc0 = 0.019475525245070457;
+      else if(pt < 300)  *btagsfunc0 = 0.01628459244966507;
+      else if(pt < 600)  *btagsfunc0 = 0.034840557724237442;
+      else               *btagsfunc0 = 0.049875054508447647;
     }
-    else if( tagger == "DeepJetMEDIUM") { // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation2016Legacy/DeepJet_2016LegacySF_WP_V1.csv
+    else if(tagger == "DeepCSVMEDIUM" && yearCorr == "YearCorrelation" ){ // https://github.com/scodella/ScaleFactorCombinationTools/blob/master/CSVFiles/DeepCSV_2016LegacySF_V1_YearCorrelation-V1.csv
+      *btagsf = 0.650936*((1.+(0.223172*pt_))/(1.+(0.145165*pt_)));
+      if(pt < 30)        {*btagsfunc0 = 0.0379527383175; *btagsfunc1 = 0.0218516851008;}
+      else if(pt < 50)   {*btagsfunc0 = 0.014721077145; *btagsfunc1 = 0.00586309098023;}
+      else if(pt < 70)   {*btagsfunc0 = 0.0132497805449; *btagsfunc1 = 0.005035485032;}
+      else if(pt < 100)  {*btagsfunc0 = 0.0125826126882; *btagsfunc1 = 0.00399357794701;}
+      else if(pt < 140)  {*btagsfunc0 = 0.0121713736146; *btagsfunc1 = 0.00431079780464;}
+      else if(pt < 200)  {*btagsfunc0 = 0.0177938568842; *btagsfunc1 = 0.00791490495954;}
+      else if(pt < 300)  {*btagsfunc0 = 0.0150628175248; *btagsfunc1 = 0.00618882886654;}
+      else if(pt < 600)  {*btagsfunc0 = 0.0277716071807; *btagsfunc1 = 0.0210380166323;}
+      else               {*btagsfunc0 = 0.026939428576; *btagsfunc1 = 0.041973311688;}
+    }
+    else if(tagger == "DeepJetMEDIUM" && yearCorr == "YearCorrelation" ){ // https://github.com/scodella/ScaleFactorCombinationTools/blob/master/CSVFiles/DeepJet_2016LegacySF_V1_YearCorrelation-V1.csv
       *btagsf = 0.922748*((1.+(0.0241884*pt_))/(1.+(0.0223119*pt_)));
-      if(pt < 30)        *btagsfunc = 0.046558864414691925;
-      else if(pt < 50)   *btagsfunc = 0.016374086961150169;
-      else if(pt < 70)   *btagsfunc = 0.014532930217683315;
-      else if(pt < 100)  *btagsfunc = 0.012927571311593056;
-      else if(pt < 140)  *btagsfunc = 0.012316481210291386;
-      else if(pt < 200)  *btagsfunc = 0.014507872052490711;
-      else if(pt < 300)  *btagsfunc = 0.016649365425109863;
-      else if(pt < 600)  *btagsfunc = 0.030278874561190605;
-      else               *btagsfunc = 0.053674362599849701;
+      if(pt < 30)        {*btagsfunc0 = 0.0418030625975; *btagsfunc1 = 0.0204995564111;}
+      else if(pt < 50)   {*btagsfunc0 = 0.0123837352029; *btagsfunc1 = 0.0107123212347;}
+      else if(pt < 70)   {*btagsfunc0 = 0.0119679031774; *btagsfunc1 = 0.00824471674759;}
+      else if(pt < 100)  {*btagsfunc0 = 0.0119405047523; *btagsfunc1 = 0.00495443702932;}
+      else if(pt < 140)  {*btagsfunc0 = 0.011088789813; *btagsfunc1 = 0.00536045239564;}
+      else if(pt < 200)  {*btagsfunc0 = 0.0118048926919; *btagsfunc1 = 0.00843343702326;}
+      else if(pt < 300)  {*btagsfunc0 = 0.0116197285458; *btagsfunc1 = 0.0119240629645;}
+      else if(pt < 600)  {*btagsfunc0 = 0.021340067089; *btagsfunc1 = 0.0214804976974;}
+      else               {*btagsfunc0 = 0.0349845333312; *btagsfunc1 = 0.0407065059677;}
+    }
+    else if( tagger == "DeepJetMEDIUM" && yearCorr == "None" ){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation2016Legacy/DeepJet_2016LegacySF_WP_V1.csv
+      *btagsf = 0.922748*((1.+(0.0241884*pt_))/(1.+(0.0223119*pt_)));
+      if(pt < 30)        *btagsfunc0 = 0.046558864414691925;
+      else if(pt < 50)   *btagsfunc0 = 0.016374086961150169;
+      else if(pt < 70)   *btagsfunc0 = 0.014532930217683315;
+      else if(pt < 100)  *btagsfunc0 = 0.012927571311593056;
+      else if(pt < 140)  *btagsfunc0 = 0.012316481210291386;
+      else if(pt < 200)  *btagsfunc0 = 0.014507872052490711;
+      else if(pt < 300)  *btagsfunc0 = 0.016649365425109863;
+      else if(pt < 600)  *btagsfunc0 = 0.030278874561190605;
+      else               *btagsfunc0 = 0.053674362599849701;
     }else{ std::cerr << "Tagger " << tagger << " not coded into HardcodedConditions::GetBtaggingSF2016! Aborting ..." << std::endl; std::abort();}
 
-    if(pt > 1000){*btagsfunc *= 2.0;}
+    if(pt > 1000){*btagsfunc0 *= 2.0;}
     
-    if(fabs(eta) > 2.4 or pt < 20.) {*btagsf = 1.0; *btagsfunc = 0.0;}
+    if(fabs(eta) > 2.4 or pt < 20.) {*btagsf = 1.0; *btagsfunc0 = 0.0;}
 }
 
-void HardcodedConditions::GetCtaggingSF2016(double pt, double eta, double *btagsf, double *btagsfunc, std::string tagger)
+void HardcodedConditions::GetCtaggingSF2016(double pt, double eta, double *btagsf, double *btagsfunc0, double *btagsfunc1, std::string tagger, std::string yearCorr)
 {
 	double pt_ = pt;
 	if(pt > 1000.) pt_ = 1000.;
-    if(tagger == "DeepCSVMEDIUM"){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation2016Legacy/DeepCSV_2016LegacySF_WP_V1.csv
+    if( tagger == "DeepCSVMEDIUM" && yearCorr == "None" ){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation2016Legacy/DeepCSV_2016LegacySF_WP_V1.csv
       *btagsf = 0.653526*((1.+(0.220245*pt_))/(1.+(0.14383*pt_)));
-      if(pt < 30)        *btagsfunc = 0.13138505816459656;
-      else if(pt < 50)   *btagsfunc = 0.047536440193653107;
-      else if(pt < 70)   *btagsfunc = 0.042522255331277847;
-      else if(pt < 100)  *btagsfunc = 0.039602756500244141;
-      else if(pt < 140)  *btagsfunc = 0.038736090064048767;
-      else if(pt < 200)  *btagsfunc = 0.058426573872566223;
-      else if(pt < 300)  *btagsfunc = 0.048853777348995209;
-      else if(pt < 600)  *btagsfunc = 0.10452167689800262;
-      else               *btagsfunc = 0.14962516725063324;
+      if(pt < 30)        *btagsfunc0 = 0.13138505816459656;
+      else if(pt < 50)   *btagsfunc0 = 0.047536440193653107;
+      else if(pt < 70)   *btagsfunc0 = 0.042522255331277847;
+      else if(pt < 100)  *btagsfunc0 = 0.039602756500244141;
+      else if(pt < 140)  *btagsfunc0 = 0.038736090064048767;
+      else if(pt < 200)  *btagsfunc0 = 0.058426573872566223;
+      else if(pt < 300)  *btagsfunc0 = 0.048853777348995209;
+      else if(pt < 600)  *btagsfunc0 = 0.10452167689800262;
+      else               *btagsfunc0 = 0.14962516725063324;
     }
-    else if( tagger == "DeepJetMEDIUM") { // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation2016Legacy/DeepJet_2016LegacySF_WP_V1.csv
+    else if(tagger == "DeepCSVMEDIUM" && yearCorr == "YearCorrelation" ){ // https://github.com/scodella/ScaleFactorCombinationTools/blob/master/CSVFiles/DeepCSV_2016LegacySF_V1_YearCorrelation-V1.csv
+      *btagsf = 0.650936*((1.+(0.223172*pt_))/(1.+(0.145165*pt_)));
+      if(pt < 30)        {*btagsfunc0 = 0.113858206702; *btagsfunc1 = 0.0655550547005;}
+      else if(pt < 50)   {*btagsfunc0 = 0.0441632296345; *btagsfunc1 = 0.0175892724275;}
+      else if(pt < 70)   {*btagsfunc0 = 0.0397493406558; *btagsfunc1 = 0.0151064550502;}
+      else if(pt < 100)  {*btagsfunc0 = 0.0377478390559; *btagsfunc1 = 0.011980733796;}
+      else if(pt < 140)  {*btagsfunc0 = 0.036514122818; *btagsfunc1 = 0.0129323934191;}
+      else if(pt < 200)  {*btagsfunc0 = 0.0533815684465; *btagsfunc1 = 0.0237447152549;}
+      else if(pt < 300)  {*btagsfunc0 = 0.0451884501926; *btagsfunc1 = 0.0185664874956;}
+      else if(pt < 600)  {*btagsfunc0 = 0.0833148276062; *btagsfunc1 = 0.0631140480613;}
+      else               {*btagsfunc0 = 0.0808182935568; *btagsfunc1 = 0.125919938892;}
+    }
+    else if(tagger == "DeepJetMEDIUM" && yearCorr == "YearCorrelation" ){ // https://github.com/scodella/ScaleFactorCombinationTools/blob/master/CSVFiles/DeepJet_2016LegacySF_V1_YearCorrelation-V1.csv
       *btagsf = 0.922748*((1.+(0.0241884*pt_))/(1.+(0.0223119*pt_)));
-      if(pt < 30)        *btagsfunc = 0.13967660069465637;
-      else if(pt < 50)   *btagsfunc = 0.049122259020805359;
-      else if(pt < 70)   *btagsfunc = 0.043598789721727371;
-      else if(pt < 100)  *btagsfunc = 0.038782715797424316;
-      else if(pt < 140)  *btagsfunc = 0.036949444562196732;
-      else if(pt < 200)  *btagsfunc = 0.043523617088794708;
-      else if(pt < 300)  *btagsfunc = 0.04994809627532959;
-      else if(pt < 600)  *btagsfunc = 0.090836621820926666;
-      else               *btagsfunc = 0.16102308034896851;
+      if(pt < 30)        {*btagsfunc0 = 0.125409196722; *btagsfunc1 = 0.0614986679461;}
+      else if(pt < 50)   {*btagsfunc0 = 0.0371512030599; *btagsfunc1 = 0.0321369638035;}
+      else if(pt < 70)   {*btagsfunc0 = 0.0359037081906; *btagsfunc1 = 0.0247341505487;}
+      else if(pt < 100)  {*btagsfunc0 = 0.0358215162288; *btagsfunc1 = 0.0148633111955;}
+      else if(pt < 140)  {*btagsfunc0 = 0.0332663706473; *btagsfunc1 = 0.0160813568275;}
+      else if(pt < 200)  {*btagsfunc0 = 0.035414679385; *btagsfunc1 = 0.025300310839;}
+      else if(pt < 300)  {*btagsfunc0 = 0.034859185584; *btagsfunc1 = 0.0357721889455;}
+      else if(pt < 600)  {*btagsfunc0 = 0.064020196726; *btagsfunc1 = 0.0644414949781;}
+      else               {*btagsfunc0 = 0.10495358549; *btagsfunc1 = 0.122119520543;}
+    }
+    else if( tagger == "DeepJetMEDIUM" && yearCorr == "None" ){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation2016Legacy/DeepJet_2016LegacySF_WP_V1.csv
+      *btagsf = 0.922748*((1.+(0.0241884*pt_))/(1.+(0.0223119*pt_)));
+      if(pt < 30)        *btagsfunc0 = 0.13967660069465637;
+      else if(pt < 50)   *btagsfunc0 = 0.049122259020805359;
+      else if(pt < 70)   *btagsfunc0 = 0.043598789721727371;
+      else if(pt < 100)  *btagsfunc0 = 0.038782715797424316;
+      else if(pt < 140)  *btagsfunc0 = 0.036949444562196732;
+      else if(pt < 200)  *btagsfunc0 = 0.043523617088794708;
+      else if(pt < 300)  *btagsfunc0 = 0.04994809627532959;
+      else if(pt < 600)  *btagsfunc0 = 0.090836621820926666;
+      else               *btagsfunc0 = 0.16102308034896851;
     }else{ std::cerr << "Tagger " << tagger << " not coded into HardcodedConditions::GetCtaggingSF2016! Aborting ..." << std::endl; std::abort();}
 
-    if(pt > 1000){*btagsfunc *= 2.0;}
+    if(pt > 1000){*btagsfunc0 *= 2.0;}
     
-    if(fabs(eta) > 2.4 or pt < 20.) {*btagsf = 1.0; *btagsfunc = 0.0;}
+    if(fabs(eta) > 2.4 or pt < 20.) {*btagsf = 1.0; *btagsfunc0 = 0.0;}
 }
 
 void HardcodedConditions::GetLtaggingSF2016(double pt, double eta, double *btagsf, double *btagsfunc, std::string tagger)
@@ -143,72 +192,120 @@ void HardcodedConditions::GetLtaggingSF2016(double pt, double eta, double *btags
     if(fabs(eta) > 2.4 or pt < 20.) {*btagsf = 1.0; *btagsfunc = 0.0;}
 }
 
-void HardcodedConditions::GetBtaggingSF2017(double pt, double eta, double *btagsf, double *btagsfunc, std::string tagger)
+void HardcodedConditions::GetBtaggingSF2017(double pt, double eta, double *btagsf, double *btagsfunc0, double *btagsfunc1, std::string tagger, std::string yearCorr)
 {
 	double pt_ = pt;
 	if(pt > 1000.) pt_ = 1000.;
-    if(tagger == "DeepCSVMEDIUM"){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation94X/DeepCSV_94XSF_WP_V4_B_F.csv
+    if( tagger == "DeepCSVMEDIUM" && yearCorr == "None" ){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation94X/DeepCSV_94XSF_WP_V4_B_F.csv
       *btagsf = 2.22144*((1.+(0.540134*pt_))/(1.+(1.30246*pt_)));
-      if(pt < 30)        *btagsfunc = 0.038731977343559265;
-      else if(pt < 50)   *btagsfunc = 0.015137125737965107;
-      else if(pt < 70)   *btagsfunc = 0.013977443799376488;
-      else if(pt < 100)  *btagsfunc = 0.012607076205313206;
-      else if(pt < 140)  *btagsfunc = 0.013979751616716385;
-      else if(pt < 200)  *btagsfunc = 0.015011214651167393;
-      else if(pt < 300)  *btagsfunc = 0.034551065415143967;
-      else if(pt < 600)  *btagsfunc = 0.040168888866901398;
-      else               *btagsfunc = 0.054684814065694809;
+      if(pt < 30)        *btagsfunc0 = 0.038731977343559265;
+      else if(pt < 50)   *btagsfunc0 = 0.015137125737965107;
+      else if(pt < 70)   *btagsfunc0 = 0.013977443799376488;
+      else if(pt < 100)  *btagsfunc0 = 0.012607076205313206;
+      else if(pt < 140)  *btagsfunc0 = 0.013979751616716385;
+      else if(pt < 200)  *btagsfunc0 = 0.015011214651167393;
+      else if(pt < 300)  *btagsfunc0 = 0.034551065415143967;
+      else if(pt < 600)  *btagsfunc0 = 0.040168888866901398;
+      else               *btagsfunc0 = 0.054684814065694809;
     }
-    else if( tagger == "DeepJetMEDIUM") { // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation94X/DeepFlavour_94XSF_WP_V3_B_F.csv
+    else if( tagger == "DeepCSVMEDIUM" && yearCorr == "YearCorrelation" ){ // https://github.com/scodella/ScaleFactorCombinationTools/blob/master/CSVFiles/DeepCSV_94XSF_V4_B_F_YearCorrelation-V1.csv
+      *btagsf = 2.21802*((1.+(0.539747*pt_))/(1.+(1.29951*pt_)));
+      if(pt < 30)        {*btagsfunc0 = 0.0315575696767; *btagsfunc1 = 0.0224481876218;}
+      else if(pt < 50)   {*btagsfunc0 = 0.0131857853249; *btagsfunc1 = 0.00742831786079;}
+      else if(pt < 70)   {*btagsfunc0 = 0.0130925737882; *btagsfunc1 = 0.00484268045814;}
+      else if(pt < 100)  {*btagsfunc0 = 0.0116906781683; *btagsfunc1 = 0.00471573850944;}
+      else if(pt < 140)  {*btagsfunc0 = 0.0124914929338; *btagsfunc1 = 0.00627597253121;}
+      else if(pt < 200)  {*btagsfunc0 = 0.0129538125316; *btagsfunc1 = 0.00758505750277;}
+      else if(pt < 300)  {*btagsfunc0 = 0.0305000098127; *btagsfunc1 = 0.016204564352;}
+      else if(pt < 600)  {*btagsfunc0 = 0.0319829116325; *btagsfunc1 = 0.0242890056042;}
+      else               {*btagsfunc0 = 0.0410445640742; *btagsfunc1 = 0.0361344446404;}
+    }
+    else if(tagger == "DeepJetMEDIUM" && yearCorr == "YearCorrelation" ){ // https://github.com/scodella/ScaleFactorCombinationTools/blob/master/CSVFiles/DeepFlavour_94XSF_V3_B_F_comb_YearCorrelation-V1.csv
       *btagsf = 0.991757*((1.+(0.0209615*pt_))/(1.+(0.0234962*pt_)));
-      if(pt < 30)        *btagsfunc = 0.076275914907455444;
-      else if(pt < 50)   *btagsfunc = 0.026398291811347008;
-      else if(pt < 70)   *btagsfunc = 0.02534114383161068;
-      else if(pt < 100)  *btagsfunc = 0.02437339723110199;
-      else if(pt < 140)  *btagsfunc = 0.026176376268267632;
-      else if(pt < 200)  *btagsfunc = 0.02870459109544754;
-      else if(pt < 300)  *btagsfunc = 0.037160992622375488;
-      else if(pt < 600)  *btagsfunc = 0.036622315645217896;
-      else               *btagsfunc = 0.04215230792760849;
+      if(pt < 30)        {*btagsfunc0 = 0.0735685159973; *btagsfunc1 = 0.0201417141505;}
+      else if(pt < 50)   {*btagsfunc0 = 0.0220623247652; *btagsfunc1 = 0.0144956419834;}
+      else if(pt < 70)   {*btagsfunc0 = 0.0200545506709; *btagsfunc1 = 0.015491564417;}
+      else if(pt < 100)  {*btagsfunc0 = 0.0209409517659; *btagsfunc1 = 0.0124715288447;}
+      else if(pt < 140)  {*btagsfunc0 = 0.0219258648248; *btagsfunc1 = 0.0142989204566;}
+      else if(pt < 200)  {*btagsfunc0 = 0.0245971358028; *btagsfunc1 = 0.0147964340385;}
+      else if(pt < 300)  {*btagsfunc0 = 0.0301990278974; *btagsfunc1 = 0.0216554401187;}
+      else if(pt < 600)  {*btagsfunc0 = 0.0284075878045; *btagsfunc1 = 0.0231128310327;}
+      else               {*btagsfunc0 = 0.0334150630947; *btagsfunc1 = 0.0256953424184;}
+    }
+    else if( tagger == "DeepJetMEDIUM" && yearCorr == "None"){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation94X/DeepFlavour_94XSF_WP_V3_B_F.csv
+      *btagsf = 0.991757*((1.+(0.0209615*pt_))/(1.+(0.0234962*pt_)));
+      if(pt < 30)        *btagsfunc0 = 0.076275914907455444;
+      else if(pt < 50)   *btagsfunc0 = 0.026398291811347008;
+      else if(pt < 70)   *btagsfunc0 = 0.02534114383161068;
+      else if(pt < 100)  *btagsfunc0 = 0.02437339723110199;
+      else if(pt < 140)  *btagsfunc0 = 0.026176376268267632;
+      else if(pt < 200)  *btagsfunc0 = 0.02870459109544754;
+      else if(pt < 300)  *btagsfunc0 = 0.037160992622375488;
+      else if(pt < 600)  *btagsfunc0 = 0.036622315645217896;
+      else               *btagsfunc0 = 0.04215230792760849;
     }else{ std::cerr << "Tagger " << tagger << " not coded into HardcodedConditions::GetBtaggingSF2017! Aborting ..." << std::endl; std::abort();}
 
-    if(pt > 1000){*btagsfunc *= 2.0;}
+    if(pt > 1000){*btagsfunc0 *= 2.0;}
     
-    if(fabs(eta) > 2.5 or pt < 20.) {*btagsf = 1.0; *btagsfunc = 0.0;}
+    if(fabs(eta) > 2.5 or pt < 20.) {*btagsf = 1.0; *btagsfunc0 = 0.0;}
 }
 
-void HardcodedConditions::GetCtaggingSF2017(double pt, double eta, double *btagsf, double *btagsfunc, std::string tagger)
+void HardcodedConditions::GetCtaggingSF2017(double pt, double eta, double *btagsf, double *btagsfunc0, double *btagsfunc1, std::string tagger, std::string yearCorr)
 {
 	double pt_ = pt;
 	if(pt > 1000.) pt_ = 1000.;
-    if(tagger == "DeepCSVMEDIUM"){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation94X/DeepCSV_94XSF_WP_V4_B_F.csv
+    if( tagger == "DeepCSVMEDIUM" && yearCorr == "None" ){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation94X/DeepCSV_94XSF_WP_V4_B_F.csv
       *btagsf = 2.22144*((1.+(0.540134*pt_))/(1.+(1.30246*pt_)));
-      if(pt < 30)        *btagsfunc = 0.1161959320306778;
-      else if(pt < 50)   *btagsfunc = 0.045411378145217896;
-      else if(pt < 70)   *btagsfunc = 0.041932329535484314;
-      else if(pt < 100)  *btagsfunc = 0.037821229547262192;
-      else if(pt < 140)  *btagsfunc = 0.041939254850149155;
-      else if(pt < 200)  *btagsfunc = 0.045033644884824753;
-      else if(pt < 300)  *btagsfunc = 0.1036531925201416;
-      else if(pt < 600)  *btagsfunc = 0.12050666660070419;
-      else               *btagsfunc = 0.16405443847179413;
+      if(pt < 30)        *btagsfunc0 = 0.1161959320306778;
+      else if(pt < 50)   *btagsfunc0 = 0.045411378145217896;
+      else if(pt < 70)   *btagsfunc0 = 0.041932329535484314;
+      else if(pt < 100)  *btagsfunc0 = 0.037821229547262192;
+      else if(pt < 140)  *btagsfunc0 = 0.041939254850149155;
+      else if(pt < 200)  *btagsfunc0 = 0.045033644884824753;
+      else if(pt < 300)  *btagsfunc0 = 0.1036531925201416;
+      else if(pt < 600)  *btagsfunc0 = 0.12050666660070419;
+      else               *btagsfunc0 = 0.16405443847179413;
     }
-    else if( tagger == "DeepJetMEDIUM") { // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation94X/DeepFlavour_94XSF_WP_V3_B_F.csv
+    else if( tagger == "DeepCSVMEDIUM" && yearCorr == "YearCorrelation" ){ // https://github.com/scodella/ScaleFactorCombinationTools/blob/master/CSVFiles/DeepCSV_94XSF_V4_B_F_YearCorrelation-V1.csv
+      *btagsf = 2.21802*((1.+(0.539747*pt_))/(1.+(1.29951*pt_)));
+      if(pt < 30)        {*btagsfunc0 = 0.0946727092972; *btagsfunc1 = 0.06734456249;}
+      else if(pt < 50)   {*btagsfunc0 = 0.0395573569293; *btagsfunc1 = 0.0222849537853;}
+      else if(pt < 70)   {*btagsfunc0 = 0.0392777213873; *btagsfunc1 = 0.0145280413129;}
+      else if(pt < 100)  {*btagsfunc0 = 0.0350720333435; *btagsfunc1 = 0.0141472159178;}
+      else if(pt < 140)  {*btagsfunc0 = 0.0374744787872; *btagsfunc1 = 0.0188279176218;}
+      else if(pt < 200)  {*btagsfunc0 = 0.0388614393999; *btagsfunc1 = 0.0227551731117;}
+      else if(pt < 300)  {*btagsfunc0 = 0.0915000290181; *btagsfunc1 = 0.0486136938465;}
+      else if(pt < 600)  {*btagsfunc0 = 0.0959487306079; *btagsfunc1 = 0.0728670163018;}
+      else               {*btagsfunc0 = 0.123133692022; *btagsfunc1 = 0.108403334149;}
+    }
+    else if(tagger == "DeepJetMEDIUM" && yearCorr == "YearCorrelation" ){ // https://github.com/scodella/ScaleFactorCombinationTools/blob/master/CSVFiles/DeepFlavour_94XSF_V3_B_F_comb_YearCorrelation-V1.csv
       *btagsf = 0.991757*((1.+(0.0209615*pt_))/(1.+(0.0234962*pt_)));
-      if(pt < 30)        *btagsfunc = 0.22882774472236633;
-      else if(pt < 50)   *btagsfunc = 0.079194873571395874;
-      else if(pt < 70)   *btagsfunc = 0.07602342963218689;
-      else if(pt < 100)  *btagsfunc = 0.073120191693305969;
-      else if(pt < 140)  *btagsfunc = 0.078529126942157745;
-      else if(pt < 200)  *btagsfunc = 0.086113773286342621;
-      else if(pt < 300)  *btagsfunc = 0.11148297786712646;
-      else if(pt < 600)  *btagsfunc = 0.10986694693565369;
-      else               *btagsfunc = 0.12645691633224487;
+      if(pt < 30)        {*btagsfunc0 = 0.220705547872; *btagsfunc1 = 0.0604251428908;}
+      else if(pt < 50)   {*btagsfunc0 = 0.0661869716702; *btagsfunc1 = 0.0434869265541;}
+      else if(pt < 70)   {*btagsfunc0 = 0.060163650945; *btagsfunc1 = 0.0464746915859;}
+      else if(pt < 100)  {*btagsfunc0 = 0.0628228542241; *btagsfunc1 = 0.0374145883367;}
+      else if(pt < 140)  {*btagsfunc0 = 0.0657775918432; *btagsfunc1 = 0.0428967619944;}
+      else if(pt < 200)  {*btagsfunc0 = 0.073791407181; *btagsfunc1 = 0.0443893024935;}
+      else if(pt < 300)  {*btagsfunc0 = 0.0905970835763; *btagsfunc1 = 0.0649663205176;}
+      else if(pt < 600)  {*btagsfunc0 = 0.0852227608496; *btagsfunc1 = 0.0693384962494;}
+      else               {*btagsfunc0 = 0.100245179889; *btagsfunc1 = 0.0770860272509;}
+    }
+    else if( tagger == "DeepJetMEDIUM" && yearCorr == "None" ){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation94X/DeepFlavour_94XSF_WP_V3_B_F.csv
+      *btagsf = 0.991757*((1.+(0.0209615*pt_))/(1.+(0.0234962*pt_)));
+      if(pt < 30)        *btagsfunc0 = 0.22882774472236633;
+      else if(pt < 50)   *btagsfunc0 = 0.079194873571395874;
+      else if(pt < 70)   *btagsfunc0 = 0.07602342963218689;
+      else if(pt < 100)  *btagsfunc0 = 0.073120191693305969;
+      else if(pt < 140)  *btagsfunc0 = 0.078529126942157745;
+      else if(pt < 200)  *btagsfunc0 = 0.086113773286342621;
+      else if(pt < 300)  *btagsfunc0 = 0.11148297786712646;
+      else if(pt < 600)  *btagsfunc0 = 0.10986694693565369;
+      else               *btagsfunc0 = 0.12645691633224487;
     }else{ std::cerr << "Tagger " << tagger << " not coded into HardcodedConditions::GetCtaggingSF2017! Aborting ..." << std::endl; std::abort();}
 
-    if(pt > 1000){*btagsfunc *= 2.0;}
+    if(pt > 1000){*btagsfunc0 *= 2.0;}
     
-    if(fabs(eta) > 2.5 or pt < 20.) {*btagsf = 1.0; *btagsfunc = 0.0;}
+    if(fabs(eta) > 2.5 or pt < 20.) {*btagsf = 1.0; *btagsfunc0 = 0.0;}
 }
 
 void HardcodedConditions::GetLtaggingSF2017(double pt, double eta, double *btagsf, double *btagsfunc, std::string tagger)
@@ -229,72 +326,120 @@ void HardcodedConditions::GetLtaggingSF2017(double pt, double eta, double *btags
     if(fabs(eta) > 2.5 or pt < 20.) {*btagsf = 1.0; *btagsfunc = 0.0;}
 }
 
-void HardcodedConditions::GetBtaggingSF2018(double pt, double eta, double *btagsf, double *btagsfunc, std::string tagger)
+void HardcodedConditions::GetBtaggingSF2018(double pt, double eta, double *btagsf, double *btagsfunc0, double *btagsfunc1, std::string tagger, std::string yearCorr)
 {
 	double pt_ = pt;
 	if(pt > 1000.) pt_ = 1000.;
-    if(tagger == "DeepCSVMEDIUM"){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation102X/DeepCSV_102XSF_WP_V1.csv
+    if(tagger == "DeepCSVMEDIUM" && yearCorr == "None" ){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation102X/DeepCSV_102XSF_WP_V1.csv
       *btagsf = 0.909339+(0.00354*(log(pt_+19)*(log(pt_+18)*(3-(0.471623*log(pt_+18))))));
-      if(pt < 30)        *btagsfunc = 0.065904870629310608;
-      else if(pt < 50)   *btagsfunc = 0.015055687166750431;
-      else if(pt < 70)   *btagsfunc = 0.013506759889423847;
-      else if(pt < 100)  *btagsfunc = 0.015106724575161934;
-      else if(pt < 140)  *btagsfunc = 0.014620178379118443;
-      else if(pt < 200)  *btagsfunc = 0.012161554768681526;
-      else if(pt < 300)  *btagsfunc = 0.016239689663052559;
-      else if(pt < 600)  *btagsfunc = 0.039990410208702087;
-      else               *btagsfunc = 0.068454340100288391;
+      if(pt < 30)        *btagsfunc0 = 0.065904870629310608;
+      else if(pt < 50)   *btagsfunc0 = 0.015055687166750431;
+      else if(pt < 70)   *btagsfunc0 = 0.013506759889423847;
+      else if(pt < 100)  *btagsfunc0 = 0.015106724575161934;
+      else if(pt < 140)  *btagsfunc0 = 0.014620178379118443;
+      else if(pt < 200)  *btagsfunc0 = 0.012161554768681526;
+      else if(pt < 300)  *btagsfunc0 = 0.016239689663052559;
+      else if(pt < 600)  *btagsfunc0 = 0.039990410208702087;
+      else               *btagsfunc0 = 0.068454340100288391;
     }
-    else if( tagger == "DeepJetMEDIUM") { // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation102X/DeepJet_102XSF_WP_V1.csv
+    else if(tagger == "DeepCSVMEDIUM" && yearCorr == "YearCorrelation" ){ // https://github.com/scodella/ScaleFactorCombinationTools/blob/master/CSVFiles/DeepCSV_102XSF_V1_YearCorrelation-V1.csv
+      *btagsf = 0.83074+(0.00680675*(log(pt_+19)*(log(pt_+18)*(3-(0.427044*log(pt_+18))))));
+      if(pt < 30)        {*btagsfunc0 = 0.0509362016534; *btagsfunc1 = 0.0405120496285;}
+      else if(pt < 50)   {*btagsfunc0 = 0.0140728152427; *btagsfunc1 = 0.00552653644282;}
+      else if(pt < 70)   {*btagsfunc0 = 0.0117544679304; *btagsfunc1 = 0.00697777156534;}
+      else if(pt < 100)  {*btagsfunc0 = 0.011860526205; *btagsfunc1 = 0.00591114237214;}
+      else if(pt < 140)  {*btagsfunc0 = 0.0106398407984; *btagsfunc1 = 0.00470964670937;}
+      else if(pt < 200)  {*btagsfunc0 = 0.0120504256608; *btagsfunc1 = 0.00260715318764;}
+      else if(pt < 300)  {*btagsfunc0 = 0.0155742475727; *btagsfunc1 = 0.0055856719609;}
+      else if(pt < 600)  {*btagsfunc0 = 0.0350968361124; *btagsfunc1 = 0.019917872257;}
+      else               {*btagsfunc0 = 0.0339229290311; *btagsfunc1 = 0.0585074471997;}
+    }
+    else if(tagger == "DeepJetMEDIUM" && yearCorr == "YearCorrelation" ){ // https://github.com/scodella/ScaleFactorCombinationTools/blob/master/CSVFiles/DeepJet_102XSF_V1_YearCorrelation-V1.csv
       *btagsf = 1.0097+(-(2.89663e-06*(log(pt_+19)*(log(pt_+18)*(3-(-(110.381*log(pt_+18))))))));
-      if(pt < 30)        *btagsfunc = 0.064865283668041229;
-      else if(pt < 50)   *btagsfunc = 0.015645328909158707;
-      else if(pt < 70)   *btagsfunc = 0.013825654052197933;
-      else if(pt < 100)  *btagsfunc = 0.012404476292431355;
-      else if(pt < 140)  *btagsfunc = 0.011260545812547207;
-      else if(pt < 200)  *btagsfunc = 0.011756212450563908;
-      else if(pt < 300)  *btagsfunc = 0.01450541615486145;
-      else if(pt < 600)  *btagsfunc = 0.034563884139060974;
-      else               *btagsfunc = 0.099752180278301239;
+      if(pt < 30)        {*btagsfunc0 = 0.0582341358724; *btagsfunc1 = 0.0285707970579;}
+      else if(pt < 50)   {*btagsfunc0 = 0.0144898462817; *btagsfunc1 = 0.00590090428743;}
+      else if(pt < 70)   {*btagsfunc0 = 0.0129636139034; *btagsfunc1 = 0.00480556183337;}
+      else if(pt < 100)  {*btagsfunc0 = 0.0117163432214; *btagsfunc1 = 0.00407410525236;}
+      else if(pt < 140)  {*btagsfunc0 = 0.0110254092939; *btagsfunc1 = 0.00228915746465;}
+      else if(pt < 200)  {*btagsfunc0 = 0.0115646122456; *btagsfunc1 = 0.00211382941384;}
+      else if(pt < 300)  {*btagsfunc0 = 0.0135856635556; *btagsfunc1 = 0.00508299553202;}
+      else if(pt < 600)  {*btagsfunc0 = 0.0299997396926; *btagsfunc1 = 0.0171661791076;}
+      else               {*btagsfunc0 = 0.0700336046977; *btagsfunc1 = 0.0710337362337;}
+    }
+    else if( tagger == "DeepJetMEDIUM" && yearCorr == "None" ){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation102X/DeepJet_102XSF_WP_V1.csv
+      *btagsf = 1.0097+(-(2.89663e-06*(log(pt_+19)*(log(pt_+18)*(3-(-(110.381*log(pt_+18))))))));
+      if(pt < 30)        *btagsfunc0 = 0.064865283668041229;
+      else if(pt < 50)   *btagsfunc0 = 0.015645328909158707;
+      else if(pt < 70)   *btagsfunc0 = 0.013825654052197933;
+      else if(pt < 100)  *btagsfunc0 = 0.012404476292431355;
+      else if(pt < 140)  *btagsfunc0 = 0.011260545812547207;
+      else if(pt < 200)  *btagsfunc0 = 0.011756212450563908;
+      else if(pt < 300)  *btagsfunc0 = 0.01450541615486145;
+      else if(pt < 600)  *btagsfunc0 = 0.034563884139060974;
+      else               *btagsfunc0 = 0.099752180278301239;
     }else{ std::cerr << "Tagger " << tagger << " not coded into HardcodedConditions::GetBtaggingSF2018! Aborting ..." << std::endl; std::abort();}
 
-    if(pt > 1000){*btagsfunc *= 2.0;}
+    if(pt > 1000){*btagsfunc0 *= 2.0;}
     
-    if(fabs(eta) > 2.5 or pt < 20.) {*btagsf = 1.0; *btagsfunc = 0.0;}
+    if(fabs(eta) > 2.5 or pt < 20.) {*btagsf = 1.0; *btagsfunc0 = 0.0;}
 }
 
-void HardcodedConditions::GetCtaggingSF2018(double pt, double eta, double *btagsf, double *btagsfunc, std::string tagger)
+void HardcodedConditions::GetCtaggingSF2018(double pt, double eta, double *btagsf, double *btagsfunc0, double *btagsfunc1, std::string tagger, std::string yearCorr)
 {
 	double pt_ = pt;
 	if(pt > 1000.) pt_ = 1000.;
-    if(tagger == "DeepCSVMEDIUM"){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation102X/DeepCSV_102XSF_WP_V1.csv
+    if(tagger == "DeepCSVMEDIUM" && yearCorr == "None" ){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation102X/DeepCSV_102XSF_WP_V1.csv
       *btagsf = 0.909339+(0.00354*(log(pt_+19)*(log(pt_+18)*(3-(0.471623*log(pt_+18))))));
-      if(pt < 30)        *btagsfunc = 0.19771461188793182;
-      else if(pt < 50)   *btagsfunc = 0.045167062431573868;
-      else if(pt < 70)   *btagsfunc = 0.040520280599594116;
-      else if(pt < 100)  *btagsfunc = 0.045320175588130951;
-      else if(pt < 140)  *btagsfunc = 0.043860536068677902;
-      else if(pt < 200)  *btagsfunc = 0.036484666168689728;
-      else if(pt < 300)  *btagsfunc = 0.048719070851802826;
-      else if(pt < 600)  *btagsfunc = 0.11997123062610626;
-      else               *btagsfunc = 0.20536302030086517;
+      if(pt < 30)        *btagsfunc0 = 0.19771461188793182;
+      else if(pt < 50)   *btagsfunc0 = 0.045167062431573868;
+      else if(pt < 70)   *btagsfunc0 = 0.040520280599594116;
+      else if(pt < 100)  *btagsfunc0 = 0.045320175588130951;
+      else if(pt < 140)  *btagsfunc0 = 0.043860536068677902;
+      else if(pt < 200)  *btagsfunc0 = 0.036484666168689728;
+      else if(pt < 300)  *btagsfunc0 = 0.048719070851802826;
+      else if(pt < 600)  *btagsfunc0 = 0.11997123062610626;
+      else               *btagsfunc0 = 0.20536302030086517;
     }
-    else if( tagger == "DeepJetMEDIUM") { // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation102X/DeepJet_102XSF_WP_V1.csv
+    else if(tagger == "DeepCSVMEDIUM" && yearCorr == "YearCorrelation" ){ // https://github.com/scodella/ScaleFactorCombinationTools/blob/master/CSVFiles/DeepCSV_102XSF_V1_YearCorrelation-V1.csv
+      *btagsf = 0.83074+(0.00680675*(log(pt_+19)*(log(pt_+18)*(3-(0.427044*log(pt_+18))))));
+      if(pt < 30)        {*btagsfunc0 = 0.152808601697; *btagsfunc1 = 0.121536152988;}
+      else if(pt < 50)   {*btagsfunc0 = 0.042218447728; *btagsfunc1 = 0.0165796093318;}
+      else if(pt < 70)   {*btagsfunc0 = 0.0352634037775; *btagsfunc1 = 0.0209333147192;}
+      else if(pt < 100)  {*btagsfunc0 = 0.0355815795887; *btagsfunc1 = 0.0177334272508;}
+      else if(pt < 140)  {*btagsfunc0 = 0.0319195235333; *btagsfunc1 = 0.0141289398578;}
+      else if(pt < 200)  {*btagsfunc0 = 0.0361512750769; *btagsfunc1 = 0.00782145956103;}
+      else if(pt < 300)  {*btagsfunc0 = 0.0467227427175; *btagsfunc1 = 0.0167570158842;}
+      else if(pt < 600)  {*btagsfunc0 = 0.105290509381; *btagsfunc1 = 0.0597536149319;}
+      else               {*btagsfunc0 = 0.101768781604; *btagsfunc1 = 0.175522344782;}
+    }
+    else if(tagger == "DeepJetMEDIUM" && yearCorr == "YearCorrelation" ){ // https://twiki.cern.ch/twiki/pub/CMS/BtagRecommendation102X/DeepCSV_102XSF_WP_V1.csv
       *btagsf = 1.0097+(-(2.89663e-06*(log(pt_+19)*(log(pt_+18)*(3-(-(110.381*log(pt_+18))))))));
-      if(pt < 30)        *btagsfunc = 0.19459584355354309;
-      else if(pt < 50)   *btagsfunc = 0.04693598672747612;
-      else if(pt < 70)   *btagsfunc = 0.041476961225271225;
-      else if(pt < 100)  *btagsfunc = 0.037213429808616638;
-      else if(pt < 140)  *btagsfunc = 0.033781636506319046;
-      else if(pt < 200)  *btagsfunc = 0.035268638283014297;
-      else if(pt < 300)  *btagsfunc = 0.043516248464584351;
-      else if(pt < 600)  *btagsfunc = 0.10369165241718292;
-      else               *btagsfunc = 0.29925653338432312;
+      if(pt < 30)        {*btagsfunc0 = 0.174702398134; *btagsfunc1 = 0.0857123935872;}
+      else if(pt < 50)   {*btagsfunc0 = 0.0434695388963; *btagsfunc1 = 0.0177027127362;}
+      else if(pt < 70)   {*btagsfunc0 = 0.0388908405739; *btagsfunc1 = 0.014416685886;}
+      else if(pt < 100)  {*btagsfunc0 = 0.0351490307178; *btagsfunc1 = 0.0122223155629;}
+      else if(pt < 140)  {*btagsfunc0 = 0.0330762269301; *btagsfunc1 = 0.0068674723964;}
+      else if(pt < 200)  {*btagsfunc0 = 0.0346938376838; *btagsfunc1 = 0.00634148824095;}
+      else if(pt < 300)  {*btagsfunc0 = 0.0407569906531; *btagsfunc1 = 0.0152489866331;}
+      else if(pt < 600)  {*btagsfunc0 = 0.0899992190951; *btagsfunc1 = 0.0514985372926;}
+      else               {*btagsfunc0 = 0.210100803481; *btagsfunc1 = 0.213101208701;}
+    }
+    else if( tagger == "DeepJetMEDIUM" && yearCorr == "None" ){ // https://github.com/scodella/ScaleFactorCombinationTools/blob/master/CSVFiles/DeepJet_102XSF_V1_YearCorrelation-V1.csv
+      *btagsf = 1.0097+(-(2.89663e-06*(log(pt_+19)*(log(pt_+18)*(3-(-(110.381*log(pt_+18))))))));
+      if(pt < 30)        *btagsfunc0 = 0.19459584355354309;
+      else if(pt < 50)   *btagsfunc0 = 0.04693598672747612;
+      else if(pt < 70)   *btagsfunc0 = 0.041476961225271225;
+      else if(pt < 100)  *btagsfunc0 = 0.037213429808616638;
+      else if(pt < 140)  *btagsfunc0 = 0.033781636506319046;
+      else if(pt < 200)  *btagsfunc0 = 0.035268638283014297;
+      else if(pt < 300)  *btagsfunc0 = 0.043516248464584351;
+      else if(pt < 600)  *btagsfunc0 = 0.10369165241718292;
+      else               *btagsfunc0 = 0.29925653338432312;
     }else{ std::cerr << "Tagger " << tagger << " not coded into HardcodedConditions::GetCtaggingSF2018! Aborting ..." << std::endl; std::abort();}
 
-    if(pt > 1000){*btagsfunc *= 2.0;}
+    if(pt > 1000){*btagsfunc0 *= 2.0;}
     
-    if(fabs(eta) > 2.5 or pt < 20.) {*btagsf = 1.0; *btagsfunc = 0.0;}
+    if(fabs(eta) > 2.5 or pt < 20.) {*btagsf = 1.0; *btagsfunc0 = 0.0;}
 }
 
 void HardcodedConditions::GetLtaggingSF2018(double pt, double eta, double *btagsf, double *btagsfunc, std::string tagger)
