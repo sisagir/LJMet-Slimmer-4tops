@@ -497,27 +497,28 @@ void HardcodedConditions::GetBtaggingEff(double pt, double *eff, std::string tag
 
 void HardcodedConditions::GetBtaggingEff2016(double pt, double *eff, std::string tagger)
 {
-	// ***** DeepCSVMEDIUM VALUES UPDATED (Oct2020), OTHERS SHOULD BE CHECKED!!!!! ******
+	// ***** DeepCSVMEDIUM VALUES UPDATED (Apr2021), OTHERS SHOULD BE CHECKED!!!!! ******
     if(tagger == "DeepCSVMEDIUM" or tagger == "SJDeepCSVMEDIUM"){
-	  // Efficiencies from TT powheg sample for Moriond17.
-	  // See distribution in /uscms_data/d3/jmanagan/EffsAndNewWeights/TagEffsM17/BEff.png
+	  // Mistag rates from TTToSemiLeptonic powheg sample for Moriond17.
+	  // Derived in /store/user/lpcljm/FWLJMET102X_1lep2016_Mar2021_Beff/TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/singleLep2016updatedPatJets/
 	  // Uses hadronFlavour() rather than partonFlavour() as recommended in BTV physics plenary CMS Week 10/2015
 	
 	  // UPDATED USING DeepCSVMEDIUM Btagging: https://github.com/cms-ljmet/FWLJMET/blob/10_2_X_fullRun2data/LJMet/plugins/BtagHardcodedConditions.cc
-      if(pt < 30)        *eff = 0.447390;
-      else if(pt < 50)   *eff = 0.652679;
-      else if(pt < 70)   *eff = 0.704724;
-      else if(pt < 100)  *eff = 0.727924;
-      else if(pt < 140)  *eff = 0.737712;
-      else if(pt < 200)  *eff = 0.731578;
-      else if(pt < 300)  *eff = 0.689644;
-      else if(pt < 400)  *eff = 0.615546;
-      else if(pt < 500)  *eff = 0.552437;
-      else if(pt < 600)  *eff = 0.501756;
-      else if(pt < 800)  *eff = 0.433998;
-      else if(pt < 1000) *eff = 0.318242;
-      else if(pt < 1200) *eff = 0.220351;
-      else               *eff = 0.140777;
+      if(pt < 30)        *eff = 0.428842837911;
+      else if(pt < 50)   *eff = 0.617893087807;
+      else if(pt < 70)   *eff = 0.668645618941;
+      else if(pt < 100)  *eff = 0.693471433006;
+      else if(pt < 140)  *eff = 0.707399268515;
+      else if(pt < 200)  *eff = 0.708351685975;
+      else if(pt < 300)  *eff = 0.685195934787;
+      else if(pt < 400)  *eff = 0.655744001033;
+      else if(pt < 500)  *eff = 0.635579146179;
+      else if(pt < 600)  *eff = 0.616552585832;
+      else if(pt < 800)  *eff = 0.579379236532;
+      else if(pt < 1000) *eff = 0.535913266074;
+      else if(pt < 1200) *eff = 0.489519112207;
+      else               *eff = 0.472012102874;
+
     }
     else if( tagger == "DeepCSVLOOSE" or tagger == "SJDeepCSVLOOSE") {
       if(pt < 30)        *eff = 0.665838;
@@ -573,23 +574,26 @@ void HardcodedConditions::GetBtaggingEff2016(double pt, double *eff, std::string
 
 void HardcodedConditions::GetCtaggingEff2016(double pt, double *eff, std::string tagger)
 {
-	// ***** DeepCSVMEDIUM VALUES UPDATED (Oct2020), OTHERS SHOULD BE CHECKED!!!!! ******
+	// ***** DeepCSVMEDIUM VALUES UPDATED (Apr2021), OTHERS SHOULD BE CHECKED!!!!! ******
     if(tagger == "DeepCSVMEDIUM" or tagger == "SJDeepCSVMEDIUM"){
+	  // Mistag rates from TTToSemiLeptonic powheg sample for Moriond17.
+	  // Derived in /store/user/lpcljm/FWLJMET102X_1lep2016_Mar2021_Beff/TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/singleLep2016updatedPatJets/
   	  // UPDATED USING DeepCSVMEDIUM Ctagging: https://github.com/cms-ljmet/FWLJMET/blob/10_2_X_fullRun2data/LJMet/plugins/BtagHardcodedConditions.cc
-      if(pt < 30)        *eff = 0.070384; //0.057985;
-      else if(pt < 50)   *eff = 0.107334; //0.111536;
-      else if(pt < 70)   *eff = 0.111125; //0.112216;
-      else if(pt < 100)  *eff = 0.119346; //0.120075;
-      else if(pt < 140)  *eff = 0.128583; //0.128499;
-      else if(pt < 200)  *eff = 0.134354; //0.132918;
-      else if(pt < 300)  *eff = 0.127251; //0.126724;
-      else if(pt < 400)  *eff = 0.107927; //0.126281;
-      else if(pt < 500)  *eff = 0.099135; //0.123026;
-      else if(pt < 600)  *eff = 0.081601; //0.124840;
-      else if(pt < 800)  *eff = 0.056054; //0.130060;
-      else if(pt < 1000) *eff = 0.032320; //0.128022;
-      else if(pt < 1200) *eff = 0.014388; //0.134100;
-      else               *eff = 0.012887; //0.125348;
+      if(pt < 30)        *eff = 0.079054938814;
+      else if(pt < 50)   *eff = 0.115982930263;
+      else if(pt < 70)   *eff = 0.112442417563;
+      else if(pt < 100)  *eff = 0.113425966533;
+      else if(pt < 140)  *eff = 0.120556413345;
+      else if(pt < 200)  *eff = 0.129928843887;
+      else if(pt < 300)  *eff = 0.134145832795;
+      else if(pt < 400)  *eff = 0.143192265565;
+      else if(pt < 500)  *eff = 0.154916670219;
+      else if(pt < 600)  *eff = 0.14403799889;
+      else if(pt < 800)  *eff = 0.149923267619;
+      else if(pt < 1000) *eff = 0.139005392451;
+      else if(pt < 1200) *eff = 0.143958868895;
+      else               *eff = 0.169934640523;
+
     }
     else if( tagger == "DeepCSVLOOSE" or tagger == "SJDeepCSVLOOSE") {
       if(pt < 30)        *eff = 0.288516; //0.206192;
@@ -645,25 +649,25 @@ void HardcodedConditions::GetCtaggingEff2016(double pt, double *eff, std::string
 
 void HardcodedConditions::GetLtaggingEff2016(double pt, double *eff, std::string tagger)
 {
-	// ***** DeepCSVMEDIUM VALUES UPDATED (Oct2020), OTHERS SHOULD BE CHECKED!!!!! ******
+	// ***** DeepCSVMEDIUM VALUES UPDATED (Apr2021), OTHERS SHOULD BE CHECKED!!!!! ******
     if(tagger == "DeepCSVMEDIUM" || tagger == "SJDeepCSVMEDIUM"){
-	  // Mistag rates from TT powheg sample for Moriond17.
-	  // See distribution in /uscms_data/d3/jmanagan/EffsAndNewWeights/TagEffsM17/BEff.png
+	  // Mistag rates from TTToSemiLeptonic powheg sample for Moriond17.
+	  // Derived in /store/user/lpcljm/FWLJMET102X_1lep2016_Mar2021_Beff/TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/singleLep2016updatedPatJets/
 	  // Uses hadronFlavour() rather than partonFlavour() as recommended in BTV physics plenary CMS Week 10/2015
-	  if(pt < 30)    	 *eff = 0.003385;
-	  else if(pt < 50)   *eff = 0.009673;
-	  else if(pt < 70)   *eff = 0.008316;
-	  else if(pt < 100)  *eff = 0.008524;
-	  else if(pt < 140)  *eff = 0.009092;
-	  else if(pt < 200)  *eff = 0.011431;
-	  else if(pt < 300)  *eff = 0.013666;
-	  else if(pt < 400)  *eff = 0.020405;
-	  else if(pt < 500)  *eff = 0.023609;
-	  else if(pt < 600)  *eff = 0.025348;
-	  else if(pt < 800)  *eff = 0.028858;
-	  else if(pt < 1000) *eff = 0.030427;
-	  else if(pt < 1200) *eff = 0.034091;
-	  else 				 *eff = 0.047619;
+      if(pt < 30)        *eff = 0.0078732548698;
+      else if(pt < 50)   *eff = 0.012786229722;
+      else if(pt < 70)   *eff = 0.0107170099255;
+      else if(pt < 100)  *eff = 0.00999732778696;
+      else if(pt < 140)  *eff = 0.0104790963983;
+      else if(pt < 200)  *eff = 0.0122160123406;
+      else if(pt < 300)  *eff = 0.0153082589599;
+      else if(pt < 400)  *eff = 0.0213742507474;
+      else if(pt < 500)  *eff = 0.0279119746302;
+      else if(pt < 600)  *eff = 0.0315029534019;
+      else if(pt < 800)  *eff = 0.03480517498;
+      else if(pt < 1000) *eff = 0.0355244283183;
+      else if(pt < 1200) *eff = 0.0365543547362;
+      else               *eff = 0.030492030492;
     }
     else if( tagger == "DeepCSVLOOSE" || tagger == "SJDeepCSVLOOSE") {
       if(pt < 30)        *eff = 0.076955;
