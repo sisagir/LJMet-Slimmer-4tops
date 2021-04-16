@@ -9,11 +9,11 @@ start_time = time.time()
 
 #IO directories must be full paths
 
-Year = 2016
+Year = 2018
 finalStateYear = 'singleLep'+str(Year)
-inputDir='/isilon/hadoop/store/group/bruxljm/FWLJMET102X_1lep'+str(Year)+'_Jan2021/' # 2016
+#inputDir='/isilon/hadoop/store/group/bruxljm/FWLJMET102X_1lep'+str(Year)+'_Jan2021/' # 2016
 #inputDir='/eos/uscms/store/user/lpcljm/FWLJMET_crab_output/' #Extended signal and filtered hDamp/UE sample location for 2017 and 2018
-#inputDir='/eos/uscms/store/user/lpcljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # 2017 and 2018 on lpc
+inputDir='/eos/uscms/store/user/lpcljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # 2017 and 2018 on lpc
 #inputDir='/isilon/hadoop/store/group/bruxljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # 2018 on brux
 outputDir='/eos/uscms/store/user/ssagir/FWLJMET102X_1lep'+str(Year)+'_Oct2019_4t_032721_step1/nominal/'
 condorDir='/uscms_data/d3/ssagir/FWLJMET102X_1lep'+str(Year)+'_Oct2019_4t_032721_step1/'
@@ -296,6 +296,8 @@ for sample in dirList:
         print "Running",len(runlist),"crab directories"
 
         for run in runlist:
+            if Year==2018 and sample=='EGamma' and run=='191031_131344': continue # Skip old SingleElectronRun2018D
+            if Year==2018 and sample=='SingleMuon' and run=='191031_131820': continue # Skip old SingleMuonRun2018D
             if inputLoc=='lpc':
             	numlist = EOSlistdir(inputDir+'/'+sample+'/'+finalStateYear+'/'+run+'/')
             elif inputLoc=='brux':
