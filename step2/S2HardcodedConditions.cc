@@ -17,6 +17,10 @@ S2HardcodedConditions::S2HardcodedConditions(Int_t Year) {
     sfFileName = "HT_njets_SF_4tops_dcsv_djet_Run2018.root";
     year_ext = "_2018";
   }
+  else if(Year == 2016) {
+    sfFileName = "HT_njets_SF_4tops_dcsv_djet_Run2016.root";
+    year_ext = "_2016";
+  }
 
   cout << "Reading SF file -- " << sfFileName << endl;
   if(!(tfile_HTNJ_SF=TFile::Open(sfFileName))){
