@@ -277,7 +277,8 @@ void step2::Loop()
    if (inputTree == 0) return;
    outputFile->cd();
 //    gROOT->SetBatch(kTRUE);   
-    TTree *outputTree = inputTree->CloneTree(0); //Copy of Input Tree
+   TTree *outputTree = inputTree->CloneTree(); //Copy of Input Tree
+//   TTree *outputTree = inputTree->CloneTree(0); // copy empty tree
 //    TTree *outputTree = new TTree("ljmet","ljmet"); //No Copy of Input Tree   
 
    TBranch *b_btagDeepJet2DWeight_HTnj   = outputTree->Branch("btagDeepJet2DWeight_HTnj", &btagDeepJet2DWeight_HTnj, "btagDeepJet2DWeight_HTnj/F");
@@ -515,30 +516,31 @@ void step2::Loop()
    int nbjetsCut = 2;
      
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
-     //if (jentry==378670) continue; // TTToSemiLepton_HT500Njet9_TuneCP5_PSweights_13TeV-powheg-pythia8_ttcc
-
+    // if (jentry==378670) continue; // TTToSemiLepton_HT500Njet9_TuneCP5_PSweights_13TeV-powheg-pythia8_ttcc
+     //if (jentry==277547) continue; // run 10072020
+     //if (jentry==275502) continue; // run 032721
      Long64_t ientry = LoadTree(jentry);
      if (ientry < 0) break;
      nb = inputTree->GetEntry(jentry);   nbytes += nb;
      if (Cut(ientry) != 1) continue;
 
-     //if (jentry > 5000 ) break;  // debug
-//     cout << "\n start event # " << jentry << endl;
-     if(jentry % 1000 ==0) std::cout<<"Completed "<<jentry<<" out of "<<nentries<<" events"<<std::endl;      
+   //  if (jentry > 5000 ) break;  // debug
+  //   cout << "\n start event # " << jentry << endl;
+     if(jentry % 1000 == 0) std::cout<<"Completed "<<jentry<<" out of "<<nentries<<" events"<<std::endl;      
 
-     if(NJetsCSVwithSF_MultiLepCalc<nbjetsCut && 
-         NJetsCSVwithSF_MultiLepCalc_bSFup<nbjetsCut && 
-         NJetsCSVwithSF_MultiLepCalc_bSFdn<nbjetsCut && 
-         NJetsCSVwithSF_MultiLepCalc_lSFup<nbjetsCut && 
-         NJetsCSVwithSF_MultiLepCalc_lSFdn<nbjetsCut && 
-         NJetsCSVwithSF_JetSubCalc<nbjetsCut && 
-         NJetsCSVwithSF_JetSubCalc_bSFup<nbjetsCut && 
-         NJetsCSVwithSF_JetSubCalc_bSFdn<nbjetsCut && 
-         NJetsCSVwithSF_JetSubCalc_lSFup<nbjetsCut && 
-         NJetsCSVwithSF_JetSubCalc_lSFdn<nbjetsCut) continue;
+   //  if(NJetsCSVwithSF_MultiLepCalc<nbjetsCut && 
+   //      NJetsCSVwithSF_MultiLepCalc_bSFup<nbjetsCut && 
+   //      NJetsCSVwithSF_MultiLepCalc_bSFdn<nbjetsCut && 
+   //      NJetsCSVwithSF_MultiLepCalc_lSFup<nbjetsCut && 
+   //      NJetsCSVwithSF_MultiLepCalc_lSFdn<nbjetsCut && 
+   //      NJetsCSVwithSF_JetSubCalc<nbjetsCut && 
+   //      NJetsCSVwithSF_JetSubCalc_bSFup<nbjetsCut && 
+   //      NJetsCSVwithSF_JetSubCalc_bSFdn<nbjetsCut && 
+   //      NJetsCSVwithSF_JetSubCalc_lSFup<nbjetsCut && 
+   //      NJetsCSVwithSF_JetSubCalc_lSFdn<nbjetsCut) continue;
 
-  //   if (NJetsCSV_MultiLepCalc < nbjetsCut) continue;  // nb cut no SF // tmp
-     outputTree->Fill();
+   //  if (NJetsCSV_MultiLepCalc < nbjetsCut) continue;  // nb cut no SF // tmp
+   //  outputTree->Fill();
 
      std::vector<TLorentzVector> GoodRecoJet1;         
      std::vector<TLorentzVector> GoodRecoJet2;         
