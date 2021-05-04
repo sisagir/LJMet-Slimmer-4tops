@@ -8,14 +8,18 @@ shift = sys.argv[1]
 #IO directories must be full paths
 foldnum = '-1'
 relbase   = '/home/wzhang/work/fwljmet_201905/CMSSW_10_2_16_UL/'
-inputDir  = '/mnt/hadoop/store/group/bruxljm/FWLJMET102X_1lep2018_Oct2019_4t_10072020_step1hadds/'+shift+'/'
-outputDir = '/mnt/hadoop/store/group/bruxljm/FWLJMET102X_1lep2018_Oct2019_4t_03242021_step2/'+shift+'/'
+#inputDir  = '/mnt/hadoop/store/group/bruxljm/FWLJMET102X_1lep2017_Oct2019_4t_032721_step1hadds/'+shift+'/'
+inputDir = '/mnt/hadoop/store/group/bruxljm/FWLJMET102X_1lep2016_Jan2021_4t_032721_step1hadds/'+shift+'/'
+#outputDir = '/mnt/hadoop/store/group/bruxljm/FWLJMET102X_1lep2017_Oct2019_4t_04202021_step2/'+shift+'/'
+outputDir = '/mnt/hadoop/store/group/bruxljm/FWLJMET102X_1lep2016_Jan2021_4t_04202021_step2/'+shift+'/'
 runDir=os.getcwd()
 gROOT.ProcessLine('.x compileStep2.C')
 
 sfFileName = 'HT_njets_SF_4tops_dcsv_djet.root'
 if '1lep2018' in inputDir:
     sfFileName = 'HT_njets_SF_4tops_dcsv_djet_Run2018.root' 
+if '1lep2016' in inputDir:
+    sfFileName = 'HT_njets_SF_4tops_dcsv_djet_Run2016.root'
 
 cTime=datetime.datetime.now()
 date='%i_%i_%i_%i_%i_%i'%(cTime.year,cTime.month,cTime.day,cTime.hour,cTime.minute,cTime.second)
@@ -30,8 +34,6 @@ os.system('mkdir -p '+condorDir)
 
 for file in rootfiles:
     if 'root' not in file: continue
-    #if 'TTTo' in file: continue
-    #if 'DYJetsToLL_M-50_HT-200to400' in file: continue
     rawname = file[:-6]
     count+=1
     dict={'sfFile':sfFileName, 'RUNDIR':runDir, 'CONDORDIR':condorDir, 'INPUTDIR':inputDir, 'FILENAME':rawname, 'CMSSWBASE':relbase, 'OUTPUTDIR':outputDir}
