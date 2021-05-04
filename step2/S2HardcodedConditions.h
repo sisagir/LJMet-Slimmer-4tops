@@ -15,6 +15,7 @@ class S2HardcodedConditions{
 public:
     
     S2HardcodedConditions();
+    S2HardcodedConditions(Int_t Year);
     ~S2HardcodedConditions();
 
     float GetDeepJetRenorm2DSF_HTnj(float HT, int njets, std::string sampleType);
