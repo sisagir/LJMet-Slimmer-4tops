@@ -283,6 +283,28 @@ void step2::Loop()
 
    TBranch *b_btagDeepJet2DWeight_HTnj   = outputTree->Branch("btagDeepJet2DWeight_HTnj", &btagDeepJet2DWeight_HTnj, "btagDeepJet2DWeight_HTnj/F");
    TBranch *b_btagCSV2DWeight_HTnj   = outputTree->Branch("btagCSV2DWeight_HTnj", &btagCSV2DWeight_HTnj, "btagCSV2DWeight_HTnj/F");
+	
+	
+	   TBranch *b_btagCSV2DWeight_HTnj_HFup         = outputTree->Branch("btagCSV2DWeight_HTnj_HFup",         &btagCSV2DWeight_HTnj_HFup,         "btagCSV2DWeight_HTnj_HFup/F");         
+   TBranch *b_btagCSV2DWeight_HTnj_HFdn         = outputTree->Branch("btagCSV2DWeight_HTnj_HFdn",         &btagCSV2DWeight_HTnj_HFdn,         "btagCSV2DWeight_HTnj_HFdn/F");         
+   TBranch *b_btagCSV2DWeight_HTnj_LFup         = outputTree->Branch("btagCSV2DWeight_HTnj_LFup",         &btagCSV2DWeight_HTnj_LFup,         "btagCSV2DWeight_HTnj_LFup/F");         
+   TBranch *b_btagCSV2DWeight_HTnj_LFdn         = outputTree->Branch("btagCSV2DWeight_HTnj_LFdn",         &btagCSV2DWeight_HTnj_LFdn,         "btagCSV2DWeight_HTnj_LFdn/F");         
+   TBranch *b_btagCSV2DWeight_HTnj_jesup        = outputTree->Branch("btagCSV2DWeight_HTnj_jesup",        &btagCSV2DWeight_HTnj_jesup,        "btagCSV2DWeight_HTnj_jesup/F");        
+   TBranch *b_btagCSV2DWeight_HTnj_jesdn        = outputTree->Branch("btagCSV2DWeight_HTnj_jesdn",        &btagCSV2DWeight_HTnj_jesdn,        "btagCSV2DWeight_HTnj_jesdn/F");        
+   TBranch *b_btagCSV2DWeight_HTnj_hfstats1up   = outputTree->Branch("btagCSV2DWeight_HTnj_hfstats1up",   &btagCSV2DWeight_HTnj_hfstats1up,   "btagCSV2DWeight_HTnj_hfstats1up/F");   
+   TBranch *b_btagCSV2DWeight_HTnj_hfstats1dn   = outputTree->Branch("btagCSV2DWeight_HTnj_hfstats1dn",   &btagCSV2DWeight_HTnj_hfstats1dn,   "btagCSV2DWeight_HTnj_hfstats1dn/F");   
+   TBranch *b_btagCSV2DWeight_HTnj_hfstats2up   = outputTree->Branch("btagCSV2DWeight_HTnj_hfstats2up",   &btagCSV2DWeight_HTnj_hfstats2up,   "btagCSV2DWeight_HTnj_hfstats2up/F");   
+   TBranch *b_btagCSV2DWeight_HTnj_hfstats2dn   = outputTree->Branch("btagCSV2DWeight_HTnj_hfstats2dn",   &btagCSV2DWeight_HTnj_hfstats2dn,   "btagCSV2DWeight_HTnj_hfstats2dn/F");   
+   TBranch *b_btagCSV2DWeight_HTnj_cferr1up     = outputTree->Branch("btagCSV2DWeight_HTnj_cferr1up",     &btagCSV2DWeight_HTnj_cferr1up,     "btagCSV2DWeight_HTnj_cferr1up/F");     
+   TBranch *b_btagCSV2DWeight_HTnj_cferr1dn     = outputTree->Branch("btagCSV2DWeight_HTnj_cferr1dn",     &btagCSV2DWeight_HTnj_cferr1dn,     "btagCSV2DWeight_HTnj_cferr1dn/F");     
+   TBranch *b_btagCSV2DWeight_HTnj_cferr2up     = outputTree->Branch("btagCSV2DWeight_HTnj_cferr2up",     &btagCSV2DWeight_HTnj_cferr2up,     "btagCSV2DWeight_HTnj_cferr2up/F");     
+   TBranch *b_btagCSV2DWeight_HTnj_cferr2dn     = outputTree->Branch("btagCSV2DWeight_HTnj_cferr2dn",     &btagCSV2DWeight_HTnj_cferr2dn,     "btagCSV2DWeight_HTnj_cferr2dn/F");     
+   TBranch *b_btagCSV2DWeight_HTnj_lfstats1up   = outputTree->Branch("btagCSV2DWeight_HTnj_lfstats1up",   &btagCSV2DWeight_HTnj_lfstats1up,   "btagCSV2DWeight_HTnj_lfstats1up/F");   
+   TBranch *b_btagCSV2DWeight_HTnj_lfstats1dn   = outputTree->Branch("btagCSV2DWeight_HTnj_lfstats1dn",   &btagCSV2DWeight_HTnj_lfstats1dn,   "btagCSV2DWeight_HTnj_lfstats1dn/F");   
+   TBranch *b_btagCSV2DWeight_HTnj_lfstats2up   = outputTree->Branch("btagCSV2DWeight_HTnj_lfstats2up",   &btagCSV2DWeight_HTnj_lfstats2up,   "btagCSV2DWeight_HTnj_lfstats2up/F");   
+   TBranch *b_btagCSV2DWeight_HTnj_lfstats2dn   = outputTree->Branch("btagCSV2DWeight_HTnj_lfstats2dn",   &btagCSV2DWeight_HTnj_lfstats2dn,   "btagCSV2DWeight_HTnj_lfstats2dn/F");   
+	
+	
    TBranch *b_isTraining            = outputTree->Branch("isTraining",&isTraining,"isTraining/I");
    TBranch *b_xsecEff               = outputTree->Branch("xsecEff",&xsecEff,"xsecEff/F");
    TBranch *b_deltaR_minBB          = outputTree->Branch("deltaR_minBB",&deltaR_minBB,"deltaR_minBB/F");
@@ -610,6 +632,27 @@ void step2::Loop()
 
     // initialize -1 if not calculated 
     btagCSV2DWeight_HTnj = -1.;
+	   
+	b_btagCSV2DWeight_HTnj_HFup = -1.;
+	b_btagCSV2DWeight_HTnj_HFdn = -1.;
+	b_btagCSV2DWeight_HTnj_LFup = -1.;
+	b_btagCSV2DWeight_HTnj_LFdn = -1.;
+	b_btagCSV2DWeight_HTnj_jesup = -1.;
+	b_btagCSV2DWeight_HTnj_jesdn = -1.;
+	b_btagCSV2DWeight_HTnj_hfstats1up = -1.;
+	b_btagCSV2DWeight_HTnj_hfstats1dn = -1.;
+	b_btagCSV2DWeight_HTnj_hfstats2up = -1.;
+	b_btagCSV2DWeight_HTnj_hfstats2dn = -1.;
+	b_btagCSV2DWeight_HTnj_cferr1up = -1.;
+	b_btagCSV2DWeight_HTnj_cferr1dn = -1.;
+	b_btagCSV2DWeight_HTnj_cferr2up = -1.;
+	b_btagCSV2DWeight_HTnj_cferr2dn = -1.;
+	b_btagCSV2DWeight_HTnj_lfstats1up = -1.;
+	b_btagCSV2DWeight_HTnj_lfstats1dn = -1.;
+	b_btagCSV2DWeight_HTnj_lfstats2up = -1.;
+	b_btagCSV2DWeight_HTnj_lfstats2dn = -1.;
+	   
+	   
     btagDeepJet2DWeight_HTnj = -1.;
 //    int nljets = 0; 
 //    int nhjets = 0;
@@ -623,7 +666,26 @@ void step2::Loop()
 //        if(theJetPt_JetSubCalc_PtOrdered->at(ijet)>=120) nhjets_pt120+=1;
 //    } 
     
-    btagCSV2DWeight_HTnj = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType);
+    btagCSV2DWeight_HTnj = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"");
+	
+	b_btagCSV2DWeight_HTnj_HFup = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_HFup");
+	b_btagCSV2DWeight_HTnj_HFdn = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_HFdn");
+	b_btagCSV2DWeight_HTnj_LFup = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_LFup");
+	b_btagCSV2DWeight_HTnj_LFdn = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_LFdn");
+	b_btagCSV2DWeight_HTnj_jesup = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_jesup");
+	b_btagCSV2DWeight_HTnj_jesdn = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_jesdn");
+	b_btagCSV2DWeight_HTnj_hfstats1up = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_hfstats1up");
+	b_btagCSV2DWeight_HTnj_hfstats1dn = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_hfstats1dn");
+	b_btagCSV2DWeight_HTnj_hfstats2up = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_hfstats2up");
+	b_btagCSV2DWeight_HTnj_hfstats2dn = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_hfstats2dn");
+	b_btagCSV2DWeight_HTnj_cferr1up = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_cferr1up");
+	b_btagCSV2DWeight_HTnj_cferr1dn = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_cferr1dn");
+	b_btagCSV2DWeight_HTnj_cferr2up = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_cferr2up");
+	b_btagCSV2DWeight_HTnj_cferr2dn = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_cferr2dn");
+	b_btagCSV2DWeight_HTnj_lfstats1up = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_lfstats1up");
+	b_btagCSV2DWeight_HTnj_lfstats1dn = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_lfstats1dn");
+	b_btagCSV2DWeight_HTnj_lfstats2up = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_lfstats2up");
+	b_btagCSV2DWeight_HTnj_lfstats2dn = hardcodedConditions.GetCSVRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType,"_lfstats2dn");
   //  btagDeepJet2DWeight_HTnj = hardcodedConditions.GetDeepJetRenorm2DSF_HTnj(AK4HT, NJets_JetSubCalc, sampleType); 
 
 

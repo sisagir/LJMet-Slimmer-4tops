@@ -10,6 +10,8 @@
 #include <algorithm>
 
 
+typedef std::map<std::string, TH2F*> SFmap;
+
 class S2HardcodedConditions{
     
 public:
@@ -19,25 +21,25 @@ public:
     ~S2HardcodedConditions();
 
     float GetDeepJetRenorm2DSF_HTnj(float HT, int njets, std::string sampleType);
-    float GetCSVRenorm2DSF_HTnj(float HT, int njets, std::string sampleType);
+    float GetCSVRenorm2DSF_HTnj(float HT, int njets, std::string sampleType, std::string sysType);
 
     TFile *tfile_HTNJ_SF;
 
-    TH2F* hscale_tttt_dcsv;
-    TH2F* hscale_ttjj_dcsv;
-    TH2F* hscale_ttbb_dcsv;
-    TH2F* hscale_ttcc_dcsv;
-    TH2F* hscale_tt2b_dcsv;
-    TH2F* hscale_tt1b_dcsv;
-    TH2F* hscale_HT500Njet9_ttjj_dcsv;
-    TH2F* hscale_HT500Njet9_ttbb_dcsv;
-    TH2F* hscale_HT500Njet9_ttcc_dcsv;
-    TH2F* hscale_HT500Njet9_tt2b_dcsv;
-    TH2F* hscale_HT500Njet9_tt1b_dcsv;
-    TH2F* hscale_STs_dcsv;
-    TH2F* hscale_STt_dcsv;
-    TH2F* hscale_STtw_dcsv;
-    TH2F* hscale_WJets_dcsv;   
+    SFmap hscale_tttt_dcsv;
+    SFmap hscale_ttjj_dcsv;
+    SFmap hscale_ttbb_dcsv;
+    SFmap hscale_ttcc_dcsv;
+    SFmap hscale_tt2b_dcsv;
+    SFmap hscale_tt1b_dcsv;
+    SFmap hscale_HT500Njet9_ttjj_dcsv;
+    SFmap hscale_HT500Njet9_ttbb_dcsv;
+    SFmap hscale_HT500Njet9_ttcc_dcsv;
+    SFmap hscale_HT500Njet9_tt2b_dcsv;
+    SFmap hscale_HT500Njet9_tt1b_dcsv;
+    SFmap hscale_STs_dcsv;
+    SFmap hscale_STt_dcsv;
+    SFmap hscale_STtw_dcsv;
+    SFmap hscale_WJets_dcsv;   
 
     TH2F* hscale_tttt_djet;
     TH2F* hscale_ttjj_djet;
