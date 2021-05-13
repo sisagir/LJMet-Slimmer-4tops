@@ -1212,24 +1212,24 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
 	}
 	else if (abs(ijetHFlv) ==4) {
 	    csvWgt = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
-            csvWgt_hfup = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_hfdn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_lfup = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_lfdn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);    
-            csvWgt_jesUp = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_jesDn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_hfstats1Up = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_hfstats1Dn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_hfstats2Up = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_hfstats2Dn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_cferr1Up = reader.eval_auto_bounds("up_cferr1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_cferr1Dn = reader.eval_auto_bounds("down_cferr1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_cferr2Up = reader.eval_auto_bounds("up_cferr2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_cferr2Dn = reader.eval_auto_bounds("down_cferr2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_lfstats1Up = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_lfstats1Dn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_lfstats2Up = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_lfstats2Dn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
+            csvWgt_hfup = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_hfdn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_lfup = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_lfdn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);    
+            csvWgt_jesUp = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_jesDn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_hfstats1Up = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_hfstats1Dn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_hfstats2Up = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_hfstats2Dn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_cferr1Up = reader.eval_auto_bounds("up_cferr1", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_cferr1Dn = reader.eval_auto_bounds("down_cferr1", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_cferr2Up = reader.eval_auto_bounds("up_cferr2", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_cferr2Dn = reader.eval_auto_bounds("down_cferr2", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_lfstats1Up = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_lfstats1Dn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_lfstats2Up = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
+            csvWgt_lfstats2Dn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_C, jetaForBtag, jptForBtag, csv);
 	}
 	else {
 	    csvWgt = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
@@ -1237,20 +1237,20 @@ void step1::Loop(TString inTreeName, TString outTreeName, const BTagCalibrationF
             csvWgt_hfdn = reader.eval_auto_bounds("down_hf", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
             csvWgt_lfup = reader.eval_auto_bounds("up_lf", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
             csvWgt_lfdn = reader.eval_auto_bounds("down_lf", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
-            csvWgt_jesUp = reader.eval_auto_bounds("up_jes", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_jesDn = reader.eval_auto_bounds("down_jes", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_hfstats1Up = reader.eval_auto_bounds("up_hfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_hfstats1Dn = reader.eval_auto_bounds("down_hfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_hfstats2Up = reader.eval_auto_bounds("up_hfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_hfstats2Dn = reader.eval_auto_bounds("down_hfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_cferr1Up = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_cferr1Dn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_cferr2Up = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_cferr2Dn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_lfstats1Up = reader.eval_auto_bounds("up_lfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_lfstats1Dn = reader.eval_auto_bounds("down_lfstats1", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_lfstats2Up = reader.eval_auto_bounds("up_lfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
-            csvWgt_lfstats2Dn = reader.eval_auto_bounds("down_lfstats2", BTagEntryForLJMet::FLAV_B, jetaForBtag, jptForBtag, csv);
+            csvWgt_jesUp = reader.eval_auto_bounds("up_jes", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
+            csvWgt_jesDn = reader.eval_auto_bounds("down_jes", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
+            csvWgt_hfstats1Up = reader.eval_auto_bounds("up_hfstats1", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
+            csvWgt_hfstats1Dn = reader.eval_auto_bounds("down_hfstats1", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
+            csvWgt_hfstats2Up = reader.eval_auto_bounds("up_hfstats2", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
+            csvWgt_hfstats2Dn = reader.eval_auto_bounds("down_hfstats2", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
+            csvWgt_cferr1Up = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
+            csvWgt_cferr1Dn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
+            csvWgt_cferr2Up = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
+            csvWgt_cferr2Dn = reader.eval_auto_bounds("central", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
+            csvWgt_lfstats1Up = reader.eval_auto_bounds("up_lfstats1", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
+            csvWgt_lfstats1Dn = reader.eval_auto_bounds("down_lfstats1", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
+            csvWgt_lfstats2Up = reader.eval_auto_bounds("up_lfstats2", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
+            csvWgt_lfstats2Dn = reader.eval_auto_bounds("down_lfstats2", BTagEntryForLJMet::FLAV_UDSG, jetaForBtag, jptForBtag, csv);
 	}	 
 
 	if (csvWgt != 0) btagCSVWeight *= csvWgt;
