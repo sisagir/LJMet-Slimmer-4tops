@@ -63,6 +63,21 @@ dirList16 = [
 ]
 
 dirList17 = [
+'X53X53_M-900_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1000_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1100_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1100_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1200_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1200_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1300_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1400_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1400_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1500_RH_TuneCP2_13TeV-madgraph-pythia8',
+'X53X53_M-1600_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1700_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1700_LH_TuneCP5_13TeV-madgraph-pythia8',
+'TT_Mtt-1000toInf_TuneCP5_PSweights_13TeV-powheg-pythia8',
+'TT_Mtt-700to1000_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'DYJetsToLL_M-50_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8',
 'DYJetsToLL_M-50_HT-200to400_TuneCP5_13TeV-madgraphMLM-pythia8',
 'DYJetsToLL_M-50_HT-2500toInf_TuneCP5_13TeV-madgraphMLM-pythia8',
@@ -112,6 +127,22 @@ dirList17 = [
 ]
 
 dirList18 = [
+'X53X53_M-900_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1000_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1100_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1100_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1200_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1200_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1300_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1400_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1400_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1500_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1500_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1600_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1700_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1700_LH_TuneCP5_13TeV-madgraph-pythia8',
+'TT_Mtt-1000toInf_TuneCP5_13TeV-powheg-pythia8', #check
+'TT_Mtt-700to1000_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'DYJetsToLL_M-50_HT-1200to2500_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8',
 'DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8',
 'DYJetsToLL_M-50_HT-2500toInf_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8',
