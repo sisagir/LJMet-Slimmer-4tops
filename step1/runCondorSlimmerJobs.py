@@ -13,8 +13,9 @@ Year = 2018
 finalStateYear = 'singleLep'+str(Year)
 #inputDir='/isilon/hadoop/store/group/bruxljm/FWLJMET102X_1lep'+str(Year)+'_Jan2021/' # 2016
 #inputDir='/eos/uscms/store/user/lpcljm/FWLJMET_crab_output/' #Extended signal and filtered hDamp/UE sample location for 2017 and 2018
-inputDir='/eos/uscms/store/user/lpcljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # 2017 and 2018 on lpc
+#inputDir='/eos/uscms/store/user/lpcljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # 2017 and 2018 on lpc
 #inputDir='/isilon/hadoop/store/group/bruxljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # 2018 on brux
+inputDir='/isilon/hadoop/store/group/bruxljm/FWLJMET_crab_output/' # 2018 on brux
 outputDir='/eos/uscms/store/user/ssagir/FWLJMET102X_1lep'+str(Year)+'_Oct2019_4t_032721_step1/nominal/'
 condorDir='/uscms_data/d3/ssagir/FWLJMET102X_1lep'+str(Year)+'_Oct2019_4t_032721_step1/'
 shifts = [] #['JECup','JECdown','JERup','JERdown']
@@ -278,6 +279,14 @@ dirList18brux = [
 'TTWZ_TuneCP5_13TeV-madgraph-pythia8',
 'TTZH_TuneCP5_13TeV-madgraph-pythia8',
 'TTZZ_TuneCP5_13TeV-madgraph-pythia8',
+]
+if '/isilon/hadoop/store/group/bruxljm/FWLJMET_crab_output/' in inputDir: dirList18brux = [
+#Samples to run in /isilon/hadoop/store/group/bruxljm/FWLJMET_crab_output/
+'ST_s-channel_antitop_leptonDecays_13TeV-PSweights_powheg-pythia',
+'ST_s-channel_top_leptonDecays_13TeV-PSweights_powheg-pythia',
+# 'TTbb_4f_TTTo2l2nu_TuneCP5-Powheg-Openloops-Pythia8',
+# 'TTbb_4f_TTToHadronic_TuneCP5-Powheg-Openloops-Pythia8',
+# 'TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8',
 ]
 
 dirList = dirList17[:]
