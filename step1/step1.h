@@ -18,6 +18,7 @@
 #include "vector"
 #include "TLorentzVector.h"
 #include "HardcodedConditions.h"
+#include "BTagCalibForLJMet.h"
 
 enum shift:char;
 
@@ -113,7 +114,8 @@ public :
    Float_t         TrigEffWeightUncert;
    Float_t         isoSF;
    Float_t         lepIdSF;
-   Float_t         MuTrkSF;
+   Float_t         muTrkSF;
+   Float_t         muPtSF;
    Float_t         EGammaGsfSF;
    Float_t         triggerSF;
    Float_t         triggerHadSF;
@@ -139,6 +141,11 @@ public :
    vector<double>  pdfWeights;
    vector<double>  pdfNewWeights;
    float_t         pdfNewNominalWeight;
+   Float_t         njetsWeight;
+   Float_t         njetsWeightUp;
+   Float_t         njetsWeightDown;
+   Float_t         tthfWeight;
+   Float_t 	   btagCSVRenormWeight;
 
    Float_t         leptonPt_MultiLepCalc;
    Float_t         leptonEta_MultiLepCalc;
@@ -155,12 +162,20 @@ public :
    Int_t           NJets_JetSubCalc;
    Int_t           NJetsCSV_MultiLepCalc;
    Int_t           NJetsCSVwithSF_MultiLepCalc;
+   Int_t           NJetsCSVwithSF_MultiLepCalc_bSFCorrup;
+   Int_t           NJetsCSVwithSF_MultiLepCalc_bSFCorrdn;
+   Int_t           NJetsCSVwithSF_MultiLepCalc_bSFUncorrup;
+   Int_t           NJetsCSVwithSF_MultiLepCalc_bSFUncorrdn;
    Int_t           NJetsCSVwithSF_MultiLepCalc_bSFup;
    Int_t           NJetsCSVwithSF_MultiLepCalc_bSFdn;
    Int_t           NJetsCSVwithSF_MultiLepCalc_lSFup;
    Int_t           NJetsCSVwithSF_MultiLepCalc_lSFdn;
    Int_t           NJetsCSV_JetSubCalc;
    Int_t           NJetsCSVwithSF_JetSubCalc;
+   Int_t           NJetsCSVwithSF_JetSubCalc_bSFCorrup;
+   Int_t           NJetsCSVwithSF_JetSubCalc_bSFCorrdn;
+   Int_t           NJetsCSVwithSF_JetSubCalc_bSFUncorrup;
+   Int_t           NJetsCSVwithSF_JetSubCalc_bSFUncorrdn;
    Int_t           NJetsCSVwithSF_JetSubCalc_bSFup;
    Int_t           NJetsCSVwithSF_JetSubCalc_bSFdn;
    Int_t           NJetsCSVwithSF_JetSubCalc_lSFup;
@@ -187,6 +202,14 @@ public :
    vector<double>  AK4JetDeepCSVc_MultiLepCalc_PtOrdered;
    vector<double>  AK4JetDeepCSVudsg_MultiLepCalc_PtOrdered;
    vector<int>     AK4JetBTag_MultiLepCalc_PtOrdered;
+   vector<int>     AK4JetBTag_bSFCorrup_MultiLepCalc;
+   vector<int>     AK4JetBTag_bSFCorrdn_MultiLepCalc;
+   vector<int>     AK4JetBTag_bSFUncorrup_MultiLepCalc;
+   vector<int>     AK4JetBTag_bSFUncorrdn_MultiLepCalc;
+   vector<int>     AK4JetBTag_bSFCorrup_MultiLepCalc_PtOrdered;
+   vector<int>     AK4JetBTag_bSFCorrdn_MultiLepCalc_PtOrdered;
+   vector<int>     AK4JetBTag_bSFUncorrup_MultiLepCalc_PtOrdered;
+   vector<int>     AK4JetBTag_bSFUncorrdn_MultiLepCalc_PtOrdered;
    vector<int>     AK4JetBTag_bSFup_MultiLepCalc_PtOrdered;
    vector<int>     AK4JetBTag_bSFdn_MultiLepCalc_PtOrdered;
    vector<int>     AK4JetBTag_lSFup_MultiLepCalc_PtOrdered;
@@ -194,6 +217,14 @@ public :
    vector<int>     theJetHFlav_JetSubCalc_PtOrdered;
    vector<int>     theJetPFlav_JetSubCalc_PtOrdered;
    vector<int>     theJetBTag_JetSubCalc_PtOrdered;
+   vector<int>     theJetBTag_bSFCorrup_JetSubCalc;
+   vector<int>     theJetBTag_bSFCorrdn_JetSubCalc;
+   vector<int>     theJetBTag_bSFUncorrup_JetSubCalc;
+   vector<int>     theJetBTag_bSFUncorrdn_JetSubCalc;
+   vector<int>     theJetBTag_bSFCorrup_JetSubCalc_PtOrdered;
+   vector<int>     theJetBTag_bSFCorrdn_JetSubCalc_PtOrdered;
+   vector<int>     theJetBTag_bSFUncorrup_JetSubCalc_PtOrdered;
+   vector<int>     theJetBTag_bSFUncorrdn_JetSubCalc_PtOrdered;
    vector<int>     theJetBTag_bSFup_JetSubCalc_PtOrdered;
    vector<int>     theJetBTag_bSFdn_JetSubCalc_PtOrdered;
    vector<int>     theJetBTag_lSFup_JetSubCalc_PtOrdered;
@@ -201,6 +232,8 @@ public :
 
    Float_t         AK4HTpMETpLepPt;
    Float_t         AK4HT;
+   Float_t         AK4GenHT;
+   Int_t           NAK4GenJets;
 
    Float_t         minMleppJet;
    Float_t         deltaR_lepMinMlj;
@@ -336,6 +369,46 @@ public :
    vector<int>     NresolvedTops2pFake_shifts;
    vector<int>     NresolvedTops5pFake_shifts;
    vector<int>     NresolvedTops10pFake_shifts;
+
+   float	   btagCSVWeight;
+   float 	   btagCSVWeight_HFup;
+   float           btagCSVWeight_HFdn;
+   float           btagCSVWeight_LFup;
+   float           btagCSVWeight_LFdn;
+   float 	   btagCSVWeight_jesUp;
+   float           btagCSVWeight_jesDn;
+   float	   btagCSVWeight_hfstats1Up;
+   float           btagCSVWeight_hfstats1Dn;
+   float 	   btagCSVWeight_hfstats2Up;
+   float           btagCSVWeight_hfstats2Dn;
+   float           btagCSVWeight_cferr1Up;
+   float           btagCSVWeight_cferr1Dn;
+   float           btagCSVWeight_cferr2Up;
+   float           btagCSVWeight_cferr2Dn;
+   float           btagCSVWeight_lfstats1Up;
+   float           btagCSVWeight_lfstats1Dn;
+   float           btagCSVWeight_lfstats2Up;
+   float           btagCSVWeight_lfstats2Dn;
+
+   float           btagDeepJetWeight;
+   float           btagDeepJetWeight_HFup;
+   float           btagDeepJetWeight_HFdn;
+   float           btagDeepJetWeight_LFup;
+   float           btagDeepJetWeight_LFdn;
+   float           btagDeepJetWeight_jesUp;
+   float           btagDeepJetWeight_jesDn;
+   float           btagDeepJetWeight_hfstats1Up;
+   float           btagDeepJetWeight_hfstats1Dn;
+   float           btagDeepJetWeight_hfstats2Up;
+   float           btagDeepJetWeight_hfstats2Dn;
+   float           btagDeepJetWeight_cferr1Up;
+   float           btagDeepJetWeight_cferr1Dn;
+   float           btagDeepJetWeight_cferr2Up;
+   float           btagDeepJetWeight_cferr2Dn;
+   float           btagDeepJetWeight_lfstats1Up;
+   float           btagDeepJetWeight_lfstats1Dn;
+   float           btagDeepJetWeight_lfstats2Up;
+   float           btagDeepJetWeight_lfstats2Dn;
 
    // Declaration of leaf types
    Bool_t          flagBadMu_MultiLepCalc;
@@ -1211,10 +1284,10 @@ public :
    TBranch        *b_theJetPhi_JetSubCalc;   //!
    TBranch        *b_theJetPileupJetId_JetSubCalc;   //!
    TBranch        *b_theJetPt_JetSubCalc;   //!
-   TBranch        *b_topBestGenEnergy_HOTTaggerCalc;   //!
-   TBranch        *b_topBestGenEta_HOTTaggerCalc;   //!
-   TBranch        *b_topBestGenPhi_HOTTaggerCalc;   //!
-   TBranch        *b_topBestGenPt_HOTTaggerCalc;   //!
+   //TBranch        *b_topBestGenEnergy_HOTTaggerCalc;   //!
+   //TBranch        *b_topBestGenEta_HOTTaggerCalc;   //!
+   //TBranch        *b_topBestGenPhi_HOTTaggerCalc;   //!
+   //TBranch        *b_topBestGenPt_HOTTaggerCalc;   //!
    TBranch        *b_topDRmax_HOTTaggerCalc;   //!
    TBranch        *b_topDThetaMax_HOTTaggerCalc;   //!
    TBranch        *b_topDThetaMin_HOTTaggerCalc;   //!
@@ -1251,7 +1324,7 @@ public :
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
-   virtual void     Loop(TString inTreeName, TString outTreeName);
+   virtual void     Loop(TString inTreeName, TString outTreeName, const BTagCalibrationForLJMet* calib, const BTagCalibrationForLJMet* calib_DeepJet);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
    virtual void     saveHistograms();
@@ -2214,10 +2287,10 @@ void step1::Init(TTree *tree)
    inputTree->SetBranchAddress("theJetPhi_JetSubCalc", &theJetPhi_JetSubCalc, &b_theJetPhi_JetSubCalc);
    inputTree->SetBranchAddress("theJetPileupJetId_JetSubCalc", &theJetPileupJetId_JetSubCalc, &b_theJetPileupJetId_JetSubCalc);
    inputTree->SetBranchAddress("theJetPt_JetSubCalc", &theJetPt_JetSubCalc, &b_theJetPt_JetSubCalc);
-   inputTree->SetBranchAddress("topBestGenEnergy_HOTTaggerCalc", &topBestGenEnergy_HOTTaggerCalc, &b_topBestGenEnergy_HOTTaggerCalc);
-   inputTree->SetBranchAddress("topBestGenEta_HOTTaggerCalc", &topBestGenEta_HOTTaggerCalc, &b_topBestGenEta_HOTTaggerCalc);
-   inputTree->SetBranchAddress("topBestGenPhi_HOTTaggerCalc", &topBestGenPhi_HOTTaggerCalc, &b_topBestGenPhi_HOTTaggerCalc);
-   inputTree->SetBranchAddress("topBestGenPt_HOTTaggerCalc", &topBestGenPt_HOTTaggerCalc, &b_topBestGenPt_HOTTaggerCalc);
+   //inputTree->SetBranchAddress("topBestGenEnergy_HOTTaggerCalc", &topBestGenEnergy_HOTTaggerCalc, &b_topBestGenEnergy_HOTTaggerCalc);
+   //inputTree->SetBranchAddress("topBestGenEta_HOTTaggerCalc", &topBestGenEta_HOTTaggerCalc, &b_topBestGenEta_HOTTaggerCalc);
+   //inputTree->SetBranchAddress("topBestGenPhi_HOTTaggerCalc", &topBestGenPhi_HOTTaggerCalc, &b_topBestGenPhi_HOTTaggerCalc);
+   //inputTree->SetBranchAddress("topBestGenPt_HOTTaggerCalc", &topBestGenPt_HOTTaggerCalc, &b_topBestGenPt_HOTTaggerCalc);
    inputTree->SetBranchAddress("topDRmax_HOTTaggerCalc", &topDRmax_HOTTaggerCalc, &b_topDRmax_HOTTaggerCalc);
    inputTree->SetBranchAddress("topDThetaMax_HOTTaggerCalc", &topDThetaMax_HOTTaggerCalc, &b_topDThetaMax_HOTTaggerCalc);
    inputTree->SetBranchAddress("topDThetaMin_HOTTaggerCalc", &topDThetaMin_HOTTaggerCalc, &b_topDThetaMin_HOTTaggerCalc);

@@ -27,6 +27,7 @@ root -l -b -q compileStep1.C
 XRDpath=root://cmseos.fnal.gov/$inputDir
 
 echo "Running step1 over list: ${idlist}"
+rm filelist
 for iFile in $idlist; do
     inFile=${iFile}
     if [[ $iFile == ext* ]] ;
@@ -37,9 +38,12 @@ for iFile in $idlist; do
 	inFile=${iFile:1}
     fi
 
-    echo "creating ${outfilename}_${iFile}.root by reading ${infilename}_${inFile}"
-    root -l -b -q makeStep1.C\(\"$macroDir\",\"$XRDpath/${infilename}_${inFile}.root\",\"${outfilename}_${iFile}.root\",${Year}\)
+    echo "adding ${outfilename}_${iFile}.root to the list by reading ${infilename}_${inFile}"
+    echo  $XRDpath/${infilename}_${inFile}.root,${outfilename}_${iFile}.root>> filelist
+    # root -l -b -q makeStep1.C\(\"$macroDir\",\"$XRDpath/${infilename}_${inFile}.root\",\"${outfilename}_${iFile}.root\",${Year}\)
 done
+
+root -l -b -q makeStep1.C\(\"$macroDir\",\"filelist\",${Year}\)
 
 echo "ROOT Files:"
 ls -l *.root

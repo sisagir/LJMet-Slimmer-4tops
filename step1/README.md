@@ -13,8 +13,16 @@
 *  `submitQsubSlimmerJobs.sh` runs `submitQsubSlimmerJobs.py` for all the different shifts
 *  `runQsubSlimmerJobs.py` creates big .txt files with qsub commands to submit to qsub batch system
 
+*  `BtagCSVReshaping.h(cc)` for Btag discriminator reshaping <br/>
+    Please download `BTagCalibrationStandalone.h(cpp)` from https://github.com/cms-sw/cmssw/tree/CMSSW_10_0_X/CondTools/BTau/test 
 
 ## What to run for :
+  ### Run step1 without CMSSW:
+   ```
+        source /cvmfs/sft.cern.ch/lcg/views/LCG_96/x86_64-centos7-gcc8-opt/setup.csh
+        root -l testStep1.C
+   ```
+
   ### Condor (BRU or lxplus or UoB):
    ``` 
         condor_submit <file> 

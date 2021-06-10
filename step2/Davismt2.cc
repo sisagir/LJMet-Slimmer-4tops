@@ -377,6 +377,7 @@ void Davismt2::mt2_bisect(){
 	if(dis<=0.01)
 	{ 
 		mt2_b  = (double) sqrt(mnsq+Deltasq0);
+	//	cout << " dis <= 0.01 case ! "; // wz
 		return;
 	}
 
@@ -430,7 +431,7 @@ void Davismt2::mt2_bisect(){
 //number of solutions at Deltasq_low should not be larger than zero
 	if( nsols(Deltasq_low) > 0 )
 	{
-//cout << "Davismt2::mt2_bisect() ==> nsolutions(Deltasq_low) > 0"<<endl;
+cout << "Davismt2::mt2_bisect() ==> nsolutions(Deltasq_low) > 0"<<endl;  // wz
 		mt2_b = (double) sqrt(mnsq+Deltasq0);
 		return;
 	}

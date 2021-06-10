@@ -17,6 +17,7 @@
 #include "vector"
 #include "TLorentzVector.h"
 #include "Davismt2.h"
+#include "S2HardcodedConditions.h"
 
 class step2 {
 public :
@@ -25,11 +26,35 @@ public :
    TFile          *inputFile, *outputFile;
    Int_t           fCurrent; //!current Tree number in a TChain
 
-// Fixed size dimensions of array or collections stored in the TTree if any.
+   //Load Scale Factors
+   S2HardcodedConditions hardcodedConditions;
+
+
+   // Fixed size dimensions of array or collections stored in the TTree if any.
    Int_t           isTraining;
    Bool_t          isTTbar;
    Bool_t          isTTTT;   
    Float_t         xsecEff; //this is the weight actually!! so (Lumi * xsec)/nEvents, but keeping the naming the same to be consistent with TMVA setup
+   Int_t	   Year;
+
+   Bool_t          isST = false;
+   Bool_t          isSTs = false;
+   Bool_t          isSTt = false;
+   Bool_t          isSTtw = false; 
+   Bool_t          isTTBB = false;
+   Bool_t          isTT2B = false; 
+   Bool_t          isTT1B = false; 
+   Bool_t          isTTCC = false; 
+   Bool_t          isTTLF = false; 
+   Bool_t          isWJets = false; 
+   Bool_t          isTTBB_HT500Njet9 = false;
+   Bool_t          isTT2B_HT500Njet9 = false;
+   Bool_t          isTT1B_HT500Njet9 = false;
+   Bool_t          isTTCC_HT500Njet9 = false;
+   Bool_t          isTTLF_HT500Njet9 = false;
+
+   Float_t         btagCSV2DWeight_HTnj;
+   Float_t         btagDeepJet2DWeight_HTnj;
 
    Float_t         tmp_minMleppBjet;
    vector<double>  GD_DR_Tridijet;
@@ -55,7 +80,8 @@ public :
    Float_t         FW_momentum_2;
    Float_t         centrality;
    Float_t         aveCSVpt;
-   Float_t         mass_maxJJJpt; 
+   Float_t         mass_maxJJJpt;
+   Float_t         maxJJJpt; 
    Float_t         lepDR_minBBdr;
    Float_t         HT_bjets;
    Float_t         HT_ratio;        
@@ -64,6 +90,14 @@ public :
    Float_t         secondcsvb_bb;        
    Float_t         thirdcsvb_bb;        
    Float_t         fourthcsvb_bb;  
+   Float_t 	   thirdcsvb_bb_BTagBHad;
+   Float_t         thirdcsvb_bb_BTagNBHad;
+   Float_t         thirdcsvb_bb_NBTagBHad;
+   Float_t         thirdcsvb_bb_NBTagNBHad;
+   Float_t         firstdeepjetb;
+   Float_t         seconddeepjetb;
+   Float_t         thirddeepjetb;
+   Float_t         fourthdeepjetb;
    Float_t         PtFifthJet;
    Float_t         deltaR_lepJetInMinMljet;      
    Float_t         deltaPhi_lepJetInMinMljet;         
@@ -84,6 +118,10 @@ public :
    Float_t         csvJet2;
    Float_t         csvJet3;
    Float_t         csvJet4;
+   Float_t         deepjetJet1;
+   Float_t         deepjetJet2;
+   Float_t         deepjetJet3;
+   Float_t         deepjetJet4;
    Float_t         pT_3rdcsvJet;
    Float_t         pT_4thcsvJet;      
    Float_t         MHRE;
@@ -146,12 +184,14 @@ public :
    Float_t         HOTGoodTrijet1_dRtridijet;
    Float_t         HOTGoodTrijet1_dRtrijetJetnotdijet;
    Float_t         HOTGoodTrijet1_csvJetnotdijet;
+   Float_t         HOTGoodTrijet1_deepjet_Jetnotdijet;
    Float_t         HOTGoodTrijet2_mass;
    Float_t         HOTGoodTrijet2_dijetmass;
    Float_t         HOTGoodTrijet2_pTratio;
    Float_t         HOTGoodTrijet2_dRtridijet;
    Float_t         HOTGoodTrijet2_dRtrijetJetnotdijet;
    Float_t         HOTGoodTrijet2_csvJetnotdijet;
+   Float_t         HOTGoodTrijet2_deepjet_Jetnotdijet;
    Float_t         HOTGoodTrijet3_mass;
    Float_t         HOTGoodTrijet3_dijetmass;
    Float_t         HOTGoodTrijet3_pTratio;
@@ -689,44 +729,81 @@ step2::step2(TString inputFileName, TString outputFileName)// : inputTree(0), in
 
    // TT bkg divided into TTToSemiLep, TTToHadronic, TT high mass appear below
 
-   //TTToSemiLep
-   if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt0to700")) xsecEff = 0.137784841012;
-   else if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt1000toInf")) xsecEff = 0.0309363357165;
-   else if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt700to1000")) xsecEff = 0.0514566653858;
+   xsecEff = 1.0;
+   if (inputFileName.Contains("1lep2016")) {
+       Year = 2016;
+       if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8_HT0Njet0")) xsecEff = 0.122420891707;
+       else if (inputFileName.Contains("TTToSemiLepton_HT500Njet9_TuneCP5_PSweights_13TeV-powheg-pythia8")) xsecEff = 0.00842315151539;
+       else if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8_HT500Njet9")) xsecEff = 0.00842315151539;
+       else if (inputFileName.Contains("TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8")) xsecEff = 0.200599781135;
+       else if (inputFileName.Contains("TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8")) xsecEff = 0.0465359763445;
+       else if (inputFileName.Contains("TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn")) xsecEff = 0.000120371447621;
 
-   else if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8_HT0Njet0")) xsecEff = 0.138647459815; 
-   else if (inputFileName.Contains("TTToSemiLepton_HT500Njet9_TuneCP5_PSweights_13TeV-powheg-pythia8")) xsecEff = 0.00930297719566;
-   else if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_HT0Njet0")) xsecEff = 0.217217486269; // 2018
-   else if (inputFileName.Contains("TTToSemiLepton_HT500Njet9_TuneCP5_13TeV-powheg-pythia8")) xsecEff = 0.0138805494029; // 2018
- 
-   //TTToHadronic
-   else if (inputFileName.Contains("TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt0to700")) xsecEff =  0.121490806141;
-   else if (inputFileName.Contains("TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt1000toInf")) xsecEff = 0.030031985381;
-   else if (inputFileName.Contains("TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt700to1000")) xsecEff = 0.0490022856079;
-   else if (inputFileName.Contains("TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8")) xsecEff = 0.122285168091;
-   else if (inputFileName.Contains("TTToHadronic_TuneCP5_13TeV-powheg-pythia8")) xsecEff = 0.172212015144; // 2018 
+   }
 
-   //TTTo2l2nu
-   else if (inputFileName.Contains("TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt0to700")) xsecEff = 0.0525799344238;
-   else if (inputFileName.Contains("TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt1000toInf")) xsecEff = 0.0226832371713;
-   else if (inputFileName.Contains("TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt700to1000")) xsecEff = 0.0320566270444;
-   else if (inputFileName.Contains("TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8")) xsecEff =  0.0529890846128;
-   else if (inputFileName.Contains("TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8")) xsecEff = 0.0821029333006; // 2018
-   //TT high mass 
-   else if (inputFileName.Contains("TT_Mtt-1000toInf_TuneCP5_PSweights_13TeV-powheg-pythia8")) xsecEff = 0.0294081434678;
-   else if (inputFileName.Contains("TT_Mtt-700to1000_TuneCP5_13TeV-powheg-pythia8")) xsecEff = 0.0473629131251;
+   else if (inputFileName.Contains("1lep2017")) {
+       Year = 2017;
+       if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8_HT0Njet0")) xsecEff = 0.138647459815;
+       else if (inputFileName.Contains("TTToSemiLepton_HT500Njet9_TuneCP5_PSweights_13TeV-powheg-pythia8")) xsecEff = 0.0100287871197;
+       else if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8_HT500Njet9")) xsecEff = 0.0100287871197;
+       else if (inputFileName.Contains("TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8")) xsecEff = 0.122285168091;
+       else if (inputFileName.Contains("TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8")) xsecEff =  0.0529890846128;
+       else if (inputFileName.Contains("TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8")) xsecEff = 0.000133269403098;
+   }
    
-   //TTTT signal below
+   else if (inputFileName.Contains("1lep2018")) {
+       Year = 2018;
+       if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_HT0Njet0")) xsecEff = 0.217217486269; 
+       else if (inputFileName.Contains("TTToSemiLepton_HT500Njet9_TuneCP5_13TeV-powheg-pythia8")) xsecEff = 0.0149356921894; 
+       else if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8_HT500Njet9")) xsecEff = 0.000160959368294; 
+       else if (inputFileName.Contains("TTToHadronic_TuneCP5_13TeV-powheg-pythia8")) xsecEff = 0.172212015144; 
+       else if (inputFileName.Contains("TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8")) xsecEff = 0.0821029333006; 
+       else if (inputFileName.Contains("TTTT_TuneCP5_13TeV-amcatnlo-pythia8")) xsecEff = 0.000160959368294; 
+   }
+
+//// Samples no longer in use
+////   //TTToSemiLep
+////   if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt0to700")) xsecEff = 0.137784841012;
+////   else if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt1000toInf")) xsecEff = 0.0309363357165;
+////   else if (inputFileName.Contains("TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt700to1000")) xsecEff = 0.0514566653858;
+////
+////   //TTToHadronic
+////   else if (inputFileName.Contains("TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt0to700")) xsecEff =  0.121490806141;
+////   else if (inputFileName.Contains("TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt1000toInf")) xsecEff = 0.030031985381;
+////   else if (inputFileName.Contains("TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt700to1000")) xsecEff = 0.0490022856079;
+////
+////   //TTTo2l2nu
+////   else if (inputFileName.Contains("TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt0to700")) xsecEff = 0.0525799344238;
+////   else if (inputFileName.Contains("TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt1000toInf")) xsecEff = 0.0226832371713;
+////   else if (inputFileName.Contains("TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8_Mtt700to1000")) xsecEff = 0.0320566270444;
+////   //TT high mass 
+////   else if (inputFileName.Contains("TT_Mtt-1000toInf_TuneCP5_PSweights_13TeV-powheg-pythia8")) xsecEff = 0.0294081434678;
+////   else if (inputFileName.Contains("TT_Mtt-700to1000_TuneCP5_13TeV-powheg-pythia8")) xsecEff = 0.0473629131251;
+
+   hardcodedConditions = S2HardcodedConditions(Year);
    
-   else if (inputFileName.Contains("TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8")) xsecEff = 0.000586330715183; 
-   else if (inputFileName.Contains("TTTT_TuneCP5_13TeV-amcatnlo-pythia8")) xsecEff = 0.000815849917354; // 2018
-   //For everything else, just have this branch be dummy at the moment, 1 will do nothing
-   else xsecEff = 1.0;
+   cout << " xsecEff " << xsecEff << endl;
    isTTbar = false;
    isTTTT = false;
    if (inputFileName.Contains("TT_")) isTTbar = true;      
    else if (inputFileName.Contains("TTTo")) isTTbar = true;      
    else if (inputFileName.Contains("TTTT")) isTTTT = true;         
+
+   isSTs = inputFileName.Contains("ST_s-channel");
+   isSTt = inputFileName.Contains("ST_t-channel");
+   isSTtw = inputFileName.Contains("ST_tW");
+   isTTBB = inputFileName.Contains("_ttbb");
+   isTT2B = inputFileName.Contains("_tt2b");
+   isTT1B = inputFileName.Contains("_tt1b");
+   isTTCC = inputFileName.Contains("_ttcc");
+   isTTLF = inputFileName.Contains("_ttjj");
+   isWJets = inputFileName.Contains("WJetsToLNu_HT-");
+   isTTBB_HT500Njet9 = (inputFileName.Contains("_ttbb") && inputFileName.Contains("TTToSemiLepton_HT500Njet9_")); 
+   isTT2B_HT500Njet9 = (inputFileName.Contains("_tt2b") && inputFileName.Contains("TTToSemiLepton_HT500Njet9_"));
+   isTT1B_HT500Njet9 = (inputFileName.Contains("_tt1b") && inputFileName.Contains("TTToSemiLepton_HT500Njet9_"));
+   isTTCC_HT500Njet9 = (inputFileName.Contains("_ttcc") && inputFileName.Contains("TTToSemiLepton_HT500Njet9_"));
+   isTTLF_HT500Njet9 = (inputFileName.Contains("_ttjj") && inputFileName.Contains("TTToSemiLepton_HT500Njet9_"));
+
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
 //    if (tree == 0) {
