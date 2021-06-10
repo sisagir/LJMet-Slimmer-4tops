@@ -12,7 +12,7 @@ start_time = time.time()
 Year = 2018
 finalStateYear = 'singleLep'+str(Year)
 #inputDir='/isilon/hadoop/store/group/bruxljm/FWLJMET102X_1lep'+str(Year)+'_Jan2021/' # 2016
-#inputDir='/eos/uscms/store/user/lpcljm/FWLJMET_crab_output/' #Extended signal and filtered hDamp/UE sample location for 2017 and 2018
+#inputDir='/eos/uscms/store/user/lpcljm/FWLJMET_crab_output/' #(ONLY FOR 4TOPS)Extended signal and filtered hDamp/UE sample location for 2017 and 2018
 #inputDir='/eos/uscms/store/user/lpcljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # 2017 and 2018 on lpc
 #inputDir='/isilon/hadoop/store/group/bruxljm/FWLJMET102X_1lep'+str(Year)+'_Oct2019/' # 2018 on brux
 inputDir='/isilon/hadoop/store/group/bruxljm/FWLJMET_crab_output/' # 2018 on brux
@@ -157,7 +157,7 @@ dirList17 = [
 'TTToHadronic_TuneCP5up_PSweights_13TeV-powheg-pythia8',
 'TTToHadronic_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'TTToHadronic_hdampUP_TuneCP5_PSweights_13TeV-powheg-pythia8',
-'TTToSemiLepton_HT500Njet9_TuneCP5_PSweights_13TeV-powheg-pythia8',
+# 'TTToSemiLepton_HT500Njet9_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'TTToSemiLeptonic_TuneCP5down_PSweights_13TeV-powheg-pythia8',
 'TTToSemiLeptonic_TuneCP5up_PSweights_13TeV-powheg-pythia8',
@@ -171,6 +171,8 @@ dirList17 = [
 'TTZToLLNuNu_M-10_TuneCP5_PSweights_13TeV-amcatnlo-pythia8',
 'TTZToLL_M-1to10_TuneCP5_13TeV-amcatnlo-pythia8',
 'TTZZ_TuneCP5_13TeV-madgraph-pythia8',
+'TT_Mtt-1000toInf_TuneCP5_PSweights_13TeV-powheg-pythia8',
+'TT_Mtt-700to1000_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8',
 'WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8',
 'WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8',
@@ -235,14 +237,14 @@ dirList18lpc = [
 'TTToHadronic_TuneCP5_13TeV-powheg-pythia8',
 'TTToHadronic_hdampDOWN_TuneCP5_13TeV-powheg-pythia8',
 'TTToHadronic_hdampUP_TuneCP5_13TeV-powheg-pythia8',
-'TTToSemiLepton_HT500Njet9_TuneCP5_13TeV-powheg-pythia8',
+# 'TTToSemiLepton_HT500Njet9_TuneCP5_13TeV-powheg-pythia8',
 'TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8',
 'TTToSemiLeptonic_TuneCP5up_13TeV-powheg-pythia8',
 'TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8',
 'TTZToLLNuNu_M-10_TuneCP5_13TeV-amcatnlo-pythia8',
 'TTZToLL_M-1to10_TuneCP5_13TeV-amcatnlo-pythia8',
-#'TT_Mtt-1000toInf_TuneCP5_13TeV-powheg-pythia8',
-#'TT_Mtt-700to1000_TuneCP5_PSweights_13TeV-powheg-pythia8',
+'TT_Mtt-1000toInf_TuneCP5_13TeV-powheg-pythia8',
+'TT_Mtt-700to1000_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8',
 'WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8',
 'WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8',
@@ -272,7 +274,7 @@ dirList18brux = [
 'TTToSemiLeptonic_hdampDOWN_TuneCP5_13TeV-powheg-pythia8',
 'TTToSemiLeptonic_hdampUP_TuneCP5_13TeV-powheg-pythia8',
 'TTToSemiLeptonic_TuneCP5down_13TeV-powheg-pythia8',
-'TTTT_TuneCP5_13TeV-amcatnlo-pythia8',
+# 'TTTT_TuneCP5_13TeV-amcatnlo-pythia8',
 'TTTW_TuneCP5_13TeV-madgraph-pythia8',
 'TTWH_TuneCP5_13TeV-madgraph-pythia8',
 'TTWW_TuneCP5_13TeV-madgraph-pythia8',
@@ -302,9 +304,9 @@ for sample in dirList:
     if 'TTTT' in sample and '/store/user/lpcljm/FWLJMET_crab_output/' in inputDir and Year==2018: outList = ['ext']
     if 'Tprime' in sample: outList = ['BWBW','TZBW','THBW','TZTH','TZTZ','THTH']
     elif 'Bprime' in sample: outList = ['TWTW','BZTW','BHTW','BZBH','BZBZ','BHBH']
-    elif 'TTToSemiLeptonic' in sample: outList = ['HT0Njet0','HT500Njet9']  # comment out for simple run
-    #elif 'TTTo' in sample: outList = ['Mtt0to700','Mtt700to1000','Mtt1000toInf']
-    #if 'TuneCP5down' in sample or 'TuneCP5up' in sample or 'hdampDOWN' in sample or 'hdampUP' in sample: outList = ['none']
+    #elif 'TTToSemiLeptonic' in sample: outList = ['HT0Njet0','HT500Njet9']  # comment out for simple run
+    elif 'TTTo' in sample: outList = ['Mtt0to700','Mtt700to1000','Mtt1000toInf']
+    if 'TuneCP5down' in sample or 'TuneCP5up' in sample or 'hdampDOWN' in sample or 'hdampUP' in sample: outList = ['none']
     if 'TTTo' in sample or 'TT_Mtt' in sample: 
     	if outList==['none']: outList = ['ttbb','tt2b','tt1b','ttcc','ttjj']
     	else:

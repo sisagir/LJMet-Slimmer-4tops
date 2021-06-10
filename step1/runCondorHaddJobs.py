@@ -65,6 +65,19 @@ dirList16 = [
 ]
 
 dirList17 = [
+'X53X53_M-900_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1000_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1100_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1100_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1200_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1200_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1300_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1400_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1400_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1500_RH_TuneCP2_13TeV-madgraph-pythia8',
+'X53X53_M-1600_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1700_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1700_LH_TuneCP5_13TeV-madgraph-pythia8',
 'DYJetsToLL_M-50_HT-1200to2500_TuneCP5_13TeV-madgraphMLM-pythia8',
 'DYJetsToLL_M-50_HT-200to400_TuneCP5_13TeV-madgraphMLM-pythia8',
 'DYJetsToLL_M-50_HT-2500toInf_TuneCP5_13TeV-madgraphMLM-pythia8',
@@ -86,11 +99,11 @@ dirList17 = [
 'ST_tW_top_5f_inclusiveDecays_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'TTHH_TuneCP5_13TeV-madgraph-pythia8',
 'TTTJ_TuneCP5_13TeV-madgraph-pythia8',
-'TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn',
+# 'TTTT_TuneCP5_PSweights_13TeV-amcatnlo-pythia8_correctnPartonsInBorn',
 'TTTW_TuneCP5_13TeV-madgraph-pythia8',
 'TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'TTToHadronic_TuneCP5_PSweights_13TeV-powheg-pythia8',
-'TTToSemiLepton_HT500Njet9_TuneCP5_PSweights_13TeV-powheg-pythia8',
+# 'TTToSemiLepton_HT500Njet9_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'TTWH_TuneCP5_13TeV-madgraph-pythia8',
 'TTWJetsToLNu_TuneCP5_PSweights_13TeV-amcatnloFXFX-madspin-pythia8',
@@ -100,6 +113,8 @@ dirList17 = [
 'TTZToLLNuNu_M-10_TuneCP5_PSweights_13TeV-amcatnlo-pythia8',
 'TTZToLL_M-1to10_TuneCP5_13TeV-amcatnlo-pythia8',
 'TTZZ_TuneCP5_13TeV-madgraph-pythia8',
+'TT_Mtt-1000toInf_TuneCP5_PSweights_13TeV-powheg-pythia8',
+'TT_Mtt-700to1000_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8',
 'WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8',
 'WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8',
@@ -114,6 +129,20 @@ dirList17 = [
 ]
 
 dirList18 = [
+'X53X53_M-900_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1000_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1100_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1100_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1200_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1200_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1300_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1400_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1400_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1500_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1500_LH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1600_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1700_RH_TuneCP5_13TeV-madgraph-pythia8',
+'X53X53_M-1700_LH_TuneCP5_13TeV-madgraph-pythia8',
 'DYJetsToLL_M-50_HT-1200to2500_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8',
 'DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8',
 'DYJetsToLL_M-50_HT-2500toInf_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8',
@@ -136,12 +165,12 @@ dirList18 = [
 'ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8',
 'TTHH_TuneCP5_13TeV-madgraph-pythia8',
 'TTTJ_TuneCP5_13TeV-madgraph-pythia8',
-'TTTT_TuneCP5_13TeV-amcatnlo-pythia8',
-'TTTT_TuneCP5_13TeV-amcatnlo-pythia8_ext',
+# 'TTTT_TuneCP5_13TeV-amcatnlo-pythia8',
+# 'TTTT_TuneCP5_13TeV-amcatnlo-pythia8_ext',
 'TTTW_TuneCP5_13TeV-madgraph-pythia8',
 'TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8',
 'TTToHadronic_TuneCP5_13TeV-powheg-pythia8',
-'TTToSemiLepton_HT500Njet9_TuneCP5_13TeV-powheg-pythia8',
+# 'TTToSemiLepton_HT500Njet9_TuneCP5_13TeV-powheg-pythia8',
 'TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8',
 'TTWH_TuneCP5_13TeV-madgraph-pythia8', 
 'TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8',
@@ -151,6 +180,8 @@ dirList18 = [
 'TTZToLLNuNu_M-10_TuneCP5_13TeV-amcatnlo-pythia8',
 'TTZToLL_M-1to10_TuneCP5_13TeV-amcatnlo-pythia8',
 'TTZZ_TuneCP5_13TeV-madgraph-pythia8',
+'TT_Mtt-1000toInf_TuneCP5_13TeV-powheg-pythia8',
+'TT_Mtt-700to1000_TuneCP5_PSweights_13TeV-powheg-pythia8',
 'WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8',
 'WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8',
 'WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8',
@@ -179,10 +210,10 @@ if shift=='nominal' and Year==2016:
 	dirList.append('TTToHadronic_TuneCP5up_PSweights_13TeV-powheg-pythia8')
 	dirList.append('TTToHadronic_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8')
 	dirList.append('TTToHadronic_hdampUP_TuneCP5_PSweights_13TeV-powheg-pythia8')
-	dirList.append('TTToSemiLepton_HT500Njet9_TuneCP5down_PSweights_13TeV-powheg-pythia8')
-	dirList.append('TTToSemiLepton_HT500Njet9_TuneCP5up_PSweights_13TeV-powheg-pythia8')
-	dirList.append('TTToSemiLepton_HT500Njet9_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8')
-	dirList.append('TTToSemiLepton_HT500Njet9_hdampUP_TuneCP5_PSweights_13TeV-powheg-pythia8')
+# 	dirList.append('TTToSemiLepton_HT500Njet9_TuneCP5down_PSweights_13TeV-powheg-pythia8')
+# 	dirList.append('TTToSemiLepton_HT500Njet9_TuneCP5up_PSweights_13TeV-powheg-pythia8')
+# 	dirList.append('TTToSemiLepton_HT500Njet9_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8')
+# 	dirList.append('TTToSemiLepton_HT500Njet9_hdampUP_TuneCP5_PSweights_13TeV-powheg-pythia8')
 	dirList.append('TTToSemiLeptonic_TuneCP5down_PSweights_13TeV-powheg-pythia8')
 	dirList.append('TTToSemiLeptonic_TuneCP5up_PSweights_13TeV-powheg-pythia8')
 	dirList.append('TTToSemiLeptonic_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8')
@@ -198,10 +229,10 @@ if shift=='nominal' and Year==2017:
 	dirList.append('TTToHadronic_TuneCP5up_PSweights_13TeV-powheg-pythia8')
 	dirList.append('TTToHadronic_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8')
 	dirList.append('TTToHadronic_hdampUP_TuneCP5_PSweights_13TeV-powheg-pythia8')
-	dirList.append('TTToSemiLepton_HT500Njet9_TuneCP5down_PSweights_13TeV-powheg-pythia8')
-	dirList.append('TTToSemiLepton_HT500Njet9_TuneCP5up_PSweights_13TeV-powheg-pythia8')
-	dirList.append('TTToSemiLepton_HT500Njet9_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8')
-	dirList.append('TTToSemiLepton_HT500Njet9_hdampUP_TuneCP5_PSweights_13TeV-powheg-pythia8')
+# 	dirList.append('TTToSemiLepton_HT500Njet9_TuneCP5down_PSweights_13TeV-powheg-pythia8')
+# 	dirList.append('TTToSemiLepton_HT500Njet9_TuneCP5up_PSweights_13TeV-powheg-pythia8')
+# 	dirList.append('TTToSemiLepton_HT500Njet9_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8')
+# 	dirList.append('TTToSemiLepton_HT500Njet9_hdampUP_TuneCP5_PSweights_13TeV-powheg-pythia8')
 	dirList.append('TTToSemiLeptonic_TuneCP5down_PSweights_13TeV-powheg-pythia8')
 	dirList.append('TTToSemiLeptonic_TuneCP5up_PSweights_13TeV-powheg-pythia8')
 	dirList.append('TTToSemiLeptonic_hdampDOWN_TuneCP5_PSweights_13TeV-powheg-pythia8')
@@ -217,10 +248,10 @@ if shift=='nominal' and Year==2018:
 	dirList.append('TTToHadronic_TuneCP5up_13TeV-powheg-pythia8')
 	dirList.append('TTToHadronic_hdampDOWN_TuneCP5_13TeV-powheg-pythia8')
 	dirList.append('TTToHadronic_hdampUP_TuneCP5_13TeV-powheg-pythia8')
-	dirList.append('TTToSemiLepton_HT500Njet9_TuneCP5down_13TeV-powheg-pythia8')
-	dirList.append('TTToSemiLepton_HT500Njet9_TuneCP5up_13TeV-powheg-pythia8')
-	dirList.append('TTToSemiLepton_HT500Njet9_hdampDOWN_TuneCP5_13TeV-powheg-pythia8')
-	dirList.append('TTToSemiLepton_HT500Njet9_hdampUP_TuneCP5_13TeV-powheg-pythia8')
+# 	dirList.append('TTToSemiLepton_HT500Njet9_TuneCP5down_13TeV-powheg-pythia8')
+# 	dirList.append('TTToSemiLepton_HT500Njet9_TuneCP5up_13TeV-powheg-pythia8')
+# 	dirList.append('TTToSemiLepton_HT500Njet9_hdampDOWN_TuneCP5_13TeV-powheg-pythia8')
+# 	dirList.append('TTToSemiLepton_HT500Njet9_hdampUP_TuneCP5_13TeV-powheg-pythia8')
 	dirList.append('TTToSemiLeptonic_TuneCP5down_13TeV-powheg-pythia8')
 	dirList.append('TTToSemiLeptonic_TuneCP5up_13TeV-powheg-pythia8')
 	dirList.append('TTToSemiLeptonic_hdampDOWN_TuneCP5_13TeV-powheg-pythia8')
@@ -231,9 +262,9 @@ for sample in dirList:
 	outList = ['none']
 	if 'Tprime' in sample: outList = ['BWBW','TZBW','THBW','TZTH','TZTZ','THTH']
 	elif 'Bprime' in sample: outList = ['TWTW','BZTW','BHTW','BZBH','BZBZ','BHBH']
-	elif 'TTToSemiLeptonic' in sample: outList = ['HT0Njet0','HT500Njet9']
-	#elif 'TTTo' in sample: outList = ['Mtt0to700','Mtt700to1000','Mtt1000toInf']
-	#if 'TuneCP5down' in sample or 'TuneCP5up' in sample or 'hdampDOWN' in sample or 'hdampUP' in sample: outList = ['none']
+	#elif 'TTToSemiLeptonic' in sample: outList = ['HT0Njet0','HT500Njet9']
+	elif 'TTTo' in sample: outList = ['Mtt0to700','Mtt700to1000','Mtt1000toInf']
+	if 'TuneCP5down' in sample or 'TuneCP5up' in sample or 'hdampDOWN' in sample or 'hdampUP' in sample: outList = ['none']
 	if 'TTTo' in sample or 'TT_Mtt' in sample: 
 		if outList==['none']: outList = ['ttbb','tt2b','tt1b','ttcc','ttjj']
 		else:
